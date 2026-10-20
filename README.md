@@ -93,3 +93,37 @@ that finds something real will take as long as it takes to read properly.
 
 This list is deliberately small. Scope grows only when a new system
 earns a row, not by default.
+
+## Deployment plan (decided, not yet executed)
+
+This repo is meant to end up publicly hosted on GitHub Pages — a static
+page reading `index.json` directly (not the default Jekyll markdown
+render, which can't do the filterable/interactive view that's the
+actual goal).
+
+A separate project, **misbar-platform** (`../misbar-platform`), will
+reference the deployed site rather than host this content itself:
+
+- misbar-platform is Dockerized and deployed independently, so it
+  cannot read `../dai` as a live relative path at build/runtime —
+  whatever it needs has to be either a public URL or a copy committed
+  into its own repo. A publicly hosted Pages site solves this cleanly:
+  no file-copying, no sync step, no drift.
+- misbar-platform's design system (`src/design-system/`) encodes
+  product-specific meanings — `StatusChip`'s VERIFIED/PENDING/FAILED is
+  a cryptographic check outcome, `EvidenceRecord`'s disclosed/withheld
+  is a commitment-scheme claim, `SeverityBadge`/`FindingsLog` are
+  red-teaming severity. None of these map onto this repo's "grounded vs.
+  inferred" citation-confidence framing without a category error —
+  claiming a research citation is "VERIFIED" would overstate what it
+  means by misbar-platform's own rules. Hosting separately avoids that
+  mismatch entirely rather than forcing a fit.
+- Reference method decided: a **custom subdomain via CNAME**
+  (e.g. `research.misbar.xyz` pointed at the GitHub Pages site) —
+  reads as integrated/on-brand, one DNS record, no code changes needed
+  on the misbar-platform side, and no live coupling between the two
+  repos' deploy pipelines.
+
+**Not yet done:** no GitHub remote exists for this repo yet, nothing is
+pushed, Pages isn't enabled, and the static dashboard page itself isn't
+built. Revisit once the dashboard page is further along.
