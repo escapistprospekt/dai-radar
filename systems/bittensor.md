@@ -1,6 +1,7 @@
 ---
 name: Bittensor
 field: Decentralized incentive / consensus mechanisms for ML networks
+foundation: foundations/decentralized-consensus-ml.md
 last_updated: 2026-10-20
 confidence: grounded
 ---

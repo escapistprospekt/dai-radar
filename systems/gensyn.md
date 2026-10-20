@@ -1,6 +1,7 @@
 ---
 name: Gensyn
 field: Decentralized / distributed training
+foundation: foundations/decentralized-training.md
 last_updated: 2026-10-20
 confidence: grounded
 ---

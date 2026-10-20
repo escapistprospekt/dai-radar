@@ -1,6 +1,7 @@
 ---
 name: EZKL
 field: ZKML / verifiable inference
+foundation: foundations/zkml.md
 last_updated: 2026-10-20
 confidence: grounded (proving-system lineage); inferred (some matrix cells)
 ---

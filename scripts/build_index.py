@@ -125,15 +125,22 @@ def main():
     systems = load_dir("systems")
     foundations = load_dir("foundations")
 
-    foundation_by_field = {f["frontmatter"].get("field"): f["path"] for f in foundations}
+    foundation_paths = {f["path"] for f in foundations}
     fields = []
     for s in systems:
         field = s["frontmatter"].get("field")
+        # The system's own "foundation:" frontmatter is authoritative. Multiple
+        # systems can share a field while citing different lineages (or none),
+        # so this must never be inferred from the field name alone.
+        foundation = s["frontmatter"].get("foundation")
+        if foundation and foundation not in foundation_paths:
+            print(f"WARNING: {s['path']} points to missing foundation '{foundation}'")
+            foundation = None
         fields.append(
             {
                 "field": field,
                 "system": s["path"],
-                "foundation": foundation_by_field.get(field),
+                "foundation": foundation,
             }
         )
 
