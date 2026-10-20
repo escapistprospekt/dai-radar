@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T14:29:53+00:00",
+  "generated_at": "2026-10-20T14:59:56+00:00",
   "systems": [
     {
       "path": "systems/akash-network.md",
@@ -2389,6 +2389,32 @@
   ],
   "watch_log": [
     {
+      "path": "watch/log/2026-10-20-daily.md",
+      "frontmatter": {
+        "date": "2026-10-20",
+        "time": "17:56+03:00",
+        "kind": "daily",
+        "new_items_found": "0",
+        "matrix_impacting": "0",
+        "filed_related_only": "0"
+      },
+      "sections": {
+        "What happened": {
+          "markdown": "First daily run, fired the same afternoon as the baseline. The window\nsince `last_run` (2026-10-20T17:00+03:00) was under an hour. This entry\ngoes in its own file so the baseline entry at `2026-10-20.md` stays as it is.\n\n- **IACR ePrint:** the newest new submission in the feed is 2026/2554,\n  posted 2026-10-19 13:19 UTC, before the window opened. No new listings.\n- **arXiv cs.CR / cs.LG / cs.DC:** the current /new pages are the\n  Tuesday 20 Oct batch, which was announced at 00:00 UTC, also before the\n  window. The next batch comes out after this run. No new listings.\n- **Tracked repos:** 9 of the 10 repos named in systems/*.md were\n  read over anonymous git. The 9 are ezkl, halo2, deep-prove,\n  Modulus-Labs/halo2_ml and /Papers, orion, concrete-ml, uAgents, and\n  confidential-ai. The GitHub API itself stayed blocked from this\n  environment, so release objects and PR metadata were not read.\n  Instead, each default branch was checked for commits after 14:00 UTC,\n  and the newest tags were listed. No default branch has a commit in\n  the window. The most recent is uAgents' 0.4.12 version bump on\n  2026-10-13, which is outside the window anyway. No tag looks new.\n  Caveat: git tags carry no date, so a tag on an old commit would not\n  show up this way.\n- **ritual-net/infernet-node was not readable.** Every ritual-net repo\n  probed (infernet-node, infernet-sdk, infernet-container-starter)\n  asked for credentials instead of serving an anonymous read. This\n  run cannot tell whether the repos went private, were renamed or\n  moved, or are blocked by this environment's proxy. systems/ritual.md\n  cites infernet-node as open source, but that claim is left as is.\n  One unexplained access failure is not grounds to change a matrix\n  cell. Flagged for a manual check.\n- The other 18 system files don't name a GitHub repo.\n\nNothing met the relevance bar, and no matrix was touched.",
+          "list": [
+            "**IACR ePrint:** the newest new submission in the feed is 2026/2554, posted 2026-10-19 13:19 UTC, before the window opened. No new listings.",
+            "**arXiv cs.CR / cs.LG / cs.DC:** the current /new pages are the Tuesday 20 Oct batch, which was announced at 00:00 UTC, also before the window. The next batch comes out after this run. No new listings.",
+            "**Tracked repos:** 9 of the 10 repos named in systems/*.md were read over anonymous git. The 9 are ezkl, halo2, deep-prove, Modulus-Labs/halo2_ml and /Papers, orion, concrete-ml, uAgents, and confidential-ai. The GitHub API itself stayed blocked from this environment, so release objects and PR metadata were not read. Instead, each default branch was checked for commits after 14:00 UTC, and the newest tags were listed. No default branch has a commit in the window. The most recent is uAgents' 0.4.12 version bump on 2026-10-13, which is outside the window anyway. No tag looks new. Caveat: git tags carry no date, so a tag on an old commit would not show up this way.",
+            "**ritual-net/infernet-node was not readable.** Every ritual-net repo probed (infernet-node, infernet-sdk, infernet-container-starter) asked for credentials instead of serving an anonymous read. This run cannot tell whether the repos went private, were renamed or moved, or are blocked by this environment's proxy. systems/ritual.md cites infernet-node as open source, but that claim is left as is. One unexplained access failure is not grounds to change a matrix cell. Flagged for a manual check.",
+            "The other 18 system files don't name a GitHub repo. Nothing met the relevance bar, and no matrix was touched."
+          ]
+        },
+        "Next run": {
+          "markdown": "2026-10-21, 17:00 +03:00 (14:00 UTC)."
+        }
+      }
+    },
+    {
       "path": "watch/log/2026-10-20.md",
       "frontmatter": {
         "date": "2026-10-20",
@@ -2410,8 +2436,8 @@
   ],
   "checkpoint": {
     "schedule": "daily 17:00 +03:00 (14:00 UTC), weekdays and weekends alike",
-    "last_run": "2026-10-20T17:00:00+03:00",
-    "last_run_kind": "baseline",
+    "last_run": "2026-10-20T17:56:22+03:00",
+    "last_run_kind": "daily",
     "next_run": "2026-10-21T17:00:00+03:00",
     "sources": [
       "IACR ePrint (new listings)",
