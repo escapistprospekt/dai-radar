@@ -1,4 +1,4 @@
-# dai: decentralized AI × deep learning × cryptography tracker
+# dai-radar: decentralized AI × deep learning × cryptography tracker
 
 A living reference tracking how new research in decentralized AI, deep
 learning, and cryptography relates to systems that already ship in
