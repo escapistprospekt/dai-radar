@@ -73,6 +73,35 @@ practice.
 | Maturity | Mainnet live, first emission halving Dec 2025 (7200 → 3600 TAO/day) | search aggregation, not independently verified against chain data |
 | Collusion assumption | Honest nodes assumed to hold >50% of stake | bittensor.com/whitepaper |
 
+## Notable subnets
+
+Subnets share Bittensor's core Yuma Consensus/Shapley grounding above —
+they don't get separate top-level system files here, since what differs
+per subnet is the task and validator scoring logic, not the base
+architecture. This is a snapshot of significant subnets as of this
+check, not a directory; the ecosystem reorders fast (market caps below
+are from a March 2026 search, already stale by the time you read this).
+
+| Subnet | Task | Notable technical distinction | Source |
+|---|---|---|---|
+| SN3 — τemplar | Decentralized LLM pretraining | Trained Covenant-72B (72.7B params) across 70+ independently-owned nodes; top subnet by alpha-token market cap as of March 2026 (~$135M) | [KuCoin](https://www.kucoin.com/news/flash/templar-bittensor-sn3-trains-72-7b-parameter-model-in-decentralized-network), [CoinGecko](https://www.coingecko.com/learn/top-bittensor-subnets-dtao) |
+| SN9 — IOTA (Macrocosmos) | Distributed LLM pretraining | Own technical primer, not just a Bittensor doc — "Incentivised Orchestrated Training Architecture" (arXiv:2507.17766); demonstrated distributed pretraining of 700M–14B-param models surpassing baselines (Aug 2024) | [arXiv:2507.17766](https://arxiv.org/html/2507.17766v1), [Macrocosmos whitepaper](https://www.macrocosmos.ai/research/pretraining_whitepaper.pdf) |
+| SN4 — Targon | Confidential-compute AI cloud | TEE-based verifiable inference — uses NVIDIA's nvTrust SDK on H200 GPUs to attest jobs ran honestly/confidentially; same underlying claim category (TEE attestation) as the big-tech confidential-AI entries in this repo, worth cross-referencing later | [search aggregation — unverified against Targon's own docs this pass] |
+| SN13 — Data Universe | Decentralized data collection | Collects/distributes data (e.g. Reddit, X/Twitter) for AI training and real-time insight use cases | [Macrocosmos docs](https://docs.macrocosmos.ai/subnets/subnet-13-data-universe) |
+| SN64 — Chutes | Serverless AI inference compute | Lets developers deploy/scale models without managing infra; public access layer for models produced by other subnets (e.g. SN120) | [tao.bot / X](https://x.com/taodotbot/status/1988931791802040588) |
+| SN120 — Affine | Incentivized RL training arena | Validators reward only the Pareto-frontier model across RL tasks (program synthesis, reasoning, coding); explicitly designed sybil/copy/overfitting-proof, with winning models surfaced publicly via SN64 | [X thread](https://x.com/Gabensor_tt/status/1964748989800067301) |
+| SN51 — Lium | Decentralized GPU rental marketplace | Sells raw GPU-hours as an input other subnets consume; overtook Chutes as top subnet by one ranking in 2026 | [TAO Daily](https://taodaily.io/lium-flips-chutes-as-bittensors-top-subnet-while-scaling-high-speed-gpu-rentals/) |
+| SN62 — Ridges AI | Autonomous coding agents | Agents that find/fix bugs and write/ship code autonomously | [tao.bot / X](https://x.com/taodotbot/status/1988931791802040588) |
+
+**Worth promoting to a dedicated top-level file later:** SN9's IOTA has
+its own arXiv technical primer independent of Bittensor's base
+citations — unlike most subnets, it's arguably a distinct research
+contribution in the decentralized-training field (comparable to
+Gensyn/Prime Intellect/Nous in this repo), not just a configuration of
+Bittensor's incentive layer. SN4 Targon is also worth a closer look
+given the overlap with this repo's confidential-computing-for-AI
+entries — flagging rather than building either out now.
+
 ## Known limitations
 
 - **Weight copying**: validators can copy other validators' submitted
