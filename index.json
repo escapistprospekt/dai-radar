@@ -1,0 +1,504 @@
+{
+  "generated_at": "2026-10-20T13:28:24+00:00",
+  "systems": [
+    {
+      "path": "systems/bittensor.md",
+      "frontmatter": {
+        "name": "Bittensor",
+        "field": "Decentralized incentive / consensus mechanisms for ML networks",
+        "last_updated": "2026-10-20",
+        "confidence": "grounded"
+      },
+      "sections": {
+        "What it does": {
+          "markdown": "Bittensor is a decentralized network in which independent operators (\"miners\")\nrun machine-learning models and are paid in the TAO token based on how\nuseful their outputs are judged to be by other network participants\n(\"validators\"). Instead of a central benchmark deciding what's useful, peers\nrank each other, and rewards flow from that peer-ranking."
+        },
+        "Architecture summary": {
+          "markdown": "- **Subtensor**: the layer-0 blockchain (built on Polkadot Substrate) that\n  records peer identity, stake, and the consensus/incentive state.\n- **Subnets**: independently defined competitions, each specifying its own\n  task (e.g. text generation, image generation) and its own validator\n  scoring logic. As of 2026 the network has scaled to roughly 64-128 active\n  subnets (sources disagree on the exact figure at time of writing; mainnet\n  slot cap is 128, with an expansion to 256 planned). [[FalconX: State of\n  Bittensor]](https://www.falconx.io/newsroom/state-of-bittensor-subnet-adoption-trends-network-mechanics-and-covenants-departure)\n- **Dynamic TAO (dTAO)**: deployed to mainnet ~Feb 13, 2025. Replaced a\n  single global emission pool with per-subnet \"alpha\" tokens and AMM pools,\n  letting TAO holders stake directly into specific subnets rather than the\n  network as a whole. [[CryptoBriefing]](https://cryptobriefing.com/bittensor-dynamic-tao-emission-model/)\n- **Yuma Consensus (YC)**: the mechanism that turns validator rankings into\n  miner payouts (see below).",
+          "list": [
+            "**Subtensor**: the layer-0 blockchain (built on Polkadot Substrate) that records peer identity, stake, and the consensus/incentive state.",
+            "**Subnets**: independently defined competitions, each specifying its own task (e.g. text generation, image generation) and its own validator scoring logic. As of 2026 the network has scaled to roughly 64-128 active subnets (sources disagree on the exact figure at time of writing; mainnet slot cap is 128, with an expansion to 256 planned). [[FalconX: State of Bittensor]](https://www.falconx.io/newsroom/state-of-bittensor-subnet-adoption-trends-network-mechanics-and-covenants-departure)",
+            "**Dynamic TAO (dTAO)**: deployed to mainnet ~Feb 13, 2025. Replaced a single global emission pool with per-subnet \"alpha\" tokens and AMM pools, letting TAO holders stake directly into specific subnets rather than the network as a whole. [[CryptoBriefing]](https://cryptobriefing.com/bittensor-dynamic-tao-emission-model/)",
+            "**Yuma Consensus (YC)**: the mechanism that turns validator rankings into miner payouts (see below)."
+          ]
+        },
+        "Built on (foundational lineage)": {
+          "markdown": "**Shapley (1952), \"A Value for n-Person Games\"** \u2014 explicitly cited in\nBittensor's own academic paper, *\"Incentivizing Intelligence: The Bittensor\nApproach\"* (Steeves, Shaabana, Hu, Luus, Liu, Tasker-Steeves et al.), hosted\nat [bittensor.com/academia](https://www.bittensor.com/academia), as the\ntheoretical basis for the peer-ranking mechanism: Shapley values are used to\nfairly attribute each peer's contribution to the network's informational\noutput across permutations of participants.\n\nThe whitepaper (*\"Bittensor: A Peer-to-Peer Intelligence Market,\"* Yuma Rao,\n[bittensor.com/whitepaper](https://www.bittensor.com/whitepaper)) separately\ncites Fisher Information pruning (LeCun et al. 1989; Yu et al. 2017) as the\ntheoretical ideal behind how peer-significance weights are ranked, and cites\na cluster of standard deep-learning papers (Hinton et al. 2015 on\ndistillation/general intelligence, Devlin et al. 2019, Radford et al. 2019,\nShazeer et al. 2017) as background for why peer-to-peer intelligence markets\nare plausible \u2014 these are context, not the mechanism's core theoretical\ngrounding.\n\n**Note on naming**: the official academic paper describes the\nShapley-value-based ranking and trust-weighted consensus mechanism but does\nnot use the name \"Yuma Consensus\" anywhere in that document. \"Yuma\nConsensus\" as a named, specific algorithm (stake-weighted median + outlier\nclipping) appears in community/ecosystem documentation and later working\npapers rather than in the cited academic source itself \u2014 flagged here as a\nnaming gap between the academic grounding and the term actually used in\npractice."
+        },
+        "Property matrix": {
+          "markdown": "| Property | Current value | Source |\n|---|---|---|\n| Consensus/incentive mechanism | Yuma Consensus \u2014 stake-weighted median of validator rankings with outlier clipping; rewards require >50% stake-trust to avoid exponential penalty | [hoge.gg explainer](https://hoge.gg/yuma-consensus-2026-how-bittensor-decides-who-gets-paid/) (community source, not primary) |\n| Theoretical basis for ranking | Shapley value attribution | [bittensor.com/academia](https://www.bittensor.com/academia) |\n| Base chain | Subtensor (Polkadot Substrate) | docs.bittensor.com |\n| Tokenomics model | Dynamic TAO \u2014 per-subnet alpha tokens + AMM pools, live since Feb 2025 | [CryptoBriefing](https://cryptobriefing.com/bittensor-dynamic-tao-emission-model/) |\n| Subnet count | ~64-128 active, cap 128 (256 planned) | [FalconX](https://www.falconx.io/newsroom/state-of-bittensor-subnet-adoption-trends-network-mechanics-and-covenants-departure) |\n| Maturity | Mainnet live, first emission halving Dec 2025 (7200 \u2192 3600 TAO/day) | search aggregation, not independently verified against chain data |\n| Collusion assumption | Honest nodes assumed to hold >50% of stake | bittensor.com/whitepaper |",
+          "table": [
+            {
+              "Property": "Consensus/incentive mechanism",
+              "Current value": "Yuma Consensus \u2014 stake-weighted median of validator rankings with outlier clipping; rewards require >50% stake-trust to avoid exponential penalty",
+              "Source": "[hoge.gg explainer](https://hoge.gg/yuma-consensus-2026-how-bittensor-decides-who-gets-paid/) (community source, not primary)"
+            },
+            {
+              "Property": "Theoretical basis for ranking",
+              "Current value": "Shapley value attribution",
+              "Source": "[bittensor.com/academia](https://www.bittensor.com/academia)"
+            },
+            {
+              "Property": "Base chain",
+              "Current value": "Subtensor (Polkadot Substrate)",
+              "Source": "docs.bittensor.com"
+            },
+            {
+              "Property": "Tokenomics model",
+              "Current value": "Dynamic TAO \u2014 per-subnet alpha tokens + AMM pools, live since Feb 2025",
+              "Source": "[CryptoBriefing](https://cryptobriefing.com/bittensor-dynamic-tao-emission-model/)"
+            },
+            {
+              "Property": "Subnet count",
+              "Current value": "~64-128 active, cap 128 (256 planned)",
+              "Source": "[FalconX](https://www.falconx.io/newsroom/state-of-bittensor-subnet-adoption-trends-network-mechanics-and-covenants-departure)"
+            },
+            {
+              "Property": "Maturity",
+              "Current value": "Mainnet live, first emission halving Dec 2025 (7200 \u2192 3600 TAO/day)",
+              "Source": "search aggregation, not independently verified against chain data"
+            },
+            {
+              "Property": "Collusion assumption",
+              "Current value": "Honest nodes assumed to hold >50% of stake",
+              "Source": "bittensor.com/whitepaper"
+            }
+          ]
+        },
+        "Known limitations": {
+          "markdown": "- **Weight copying**: validators can copy other validators' submitted\n  weights to earn rewards without doing the underlying evaluation work,\n  free-riding on honest validators. Acknowledged as a known issue \u2014 a\n  working paper titled *\"Weight Copying in Bittensor\"* (Opentensor, May\n  2024) exists specifically addressing it, though the document's full\n  content could not be retrieved directly for this entry (link redirected\n  to a generic docs page: https://docs.learnbittensor.org/papers/BT_Weight_Copier-29May2024.pdf).\n  Flagged as inferred-exists, content-unverified.\n- **Governance centralization tension**: validator/stake concentration has\n  drawn scrutiny over how decentralized the network actually is in\n  practice. [Yellow.com research](https://yellow.com/research/bittensor-decentralized-ai-market-control-2026)\n  raises this; not independently verified here.\n- **Naming/documentation gap**: as noted above, the specific \"Yuma\n  Consensus\" algorithm described in secondary sources isn't the same\n  document as the academic paper citing Shapley values \u2014 the primary\n  academic source and the commonly-cited mechanism name don't fully line up,\n  which makes precise grounding harder than for the other tracked systems.",
+          "list": [
+            "**Weight copying**: validators can copy other validators' submitted weights to earn rewards without doing the underlying evaluation work, free-riding on honest validators. Acknowledged as a known issue \u2014 a working paper titled *\"Weight Copying in Bittensor\"* (Opentensor, May 2024) exists specifically addressing it, though the document's full content could not be retrieved directly for this entry (link redirected to a generic docs page: https://docs.learnbittensor.org/papers/BT_Weight_Copier-29May2024.pdf). Flagged as inferred-exists, content-unverified.",
+            "**Governance centralization tension**: validator/stake concentration has drawn scrutiny over how decentralized the network actually is in practice. [Yellow.com research](https://yellow.com/research/bittensor-decentralized-ai-market-control-2026) raises this; not independently verified here.",
+            "**Naming/documentation gap**: as noted above, the specific \"Yuma Consensus\" algorithm described in secondary sources isn't the same document as the academic paper citing Shapley values \u2014 the primary academic source and the commonly-cited mechanism name don't fully line up, which makes precise grounding harder than for the other tracked systems."
+          ]
+        }
+      }
+    },
+    {
+      "path": "systems/ezkl.md",
+      "frontmatter": {
+        "name": "EZKL",
+        "field": "ZKML / verifiable inference",
+        "last_updated": "2026-10-20",
+        "confidence": "grounded (proving-system lineage); inferred (some matrix cells)"
+      },
+      "sections": {
+        "What it does": {
+          "markdown": "EZKL (zkonduit/ezkl) compiles ONNX-format ML models (exported from\nPyTorch, TensorFlow, sklearn, etc.) into a zero-knowledge circuit, so\nthat a model inference can be proven correct without revealing the\nmodel weights and/or inputs, and verified cheaply \u2014 including on-chain\nin the EVM, in a browser, or on-device."
+        },
+        "Architecture summary": {
+          "markdown": "- Takes an ONNX graph + sample input, compiles a corresponding proving\n  circuit, generates a proof of correct execution, and a matching\n  verifier (including Solidity verifier contracts for EVM chains).\n- Backend proving system: **Halo2**. EZKL's own README states: \"In the\n  backend we use the collaboratively-developed\n  [Halo2](https://github.com/privacy-scaling-explorations/halo2) as a\n  proof system.\" ([github.com/zkonduit/ezkl](https://github.com/zkonduit/ezkl))\n- EZKL uses a modified variant of Halo2 that swaps in **KZG polynomial\n  commitments** (rather than the discrete-log/IPA commitment Halo2\n  originally shipped with) specifically to get smaller proofs and\n  cheaper on-chain verification. This is a deliberate deviation from\n  vanilla Halo2, not an assumption \u2014 flagged as inferred-from-general\n  sourcing rather than a single explicit EZKL doc quote; worth\n  rechecking against current docs.ezkl.xyz if this matters for a\n  specific decision.",
+          "list": [
+            "Takes an ONNX graph + sample input, compiles a corresponding proving circuit, generates a proof of correct execution, and a matching verifier (including Solidity verifier contracts for EVM chains).",
+            "Backend proving system: **Halo2**. EZKL's own README states: \"In the backend we use the collaboratively-developed [Halo2](https://github.com/privacy-scaling-explorations/halo2) as a proof system.\" ([github.com/zkonduit/ezkl](https://github.com/zkonduit/ezkl))",
+            "EZKL uses a modified variant of Halo2 that swaps in **KZG polynomial commitments** (rather than the discrete-log/IPA commitment Halo2 originally shipped with) specifically to get smaller proofs and cheaper on-chain verification. This is a deliberate deviation from vanilla Halo2, not an assumption \u2014 flagged as inferred-from-general sourcing rather than a single explicit EZKL doc quote; worth rechecking against current docs.ezkl.xyz if this matters for a specific decision."
+          ]
+        },
+        "Built on (foundational lineage)": {
+          "markdown": "**Two-hop grounding, not a direct citation** \u2014 EZKL's own docs don't\ncite an academic paper directly. The chain is:\n\n1. EZKL's README/docs explicitly name **Halo2**\n   ([privacy-scaling-explorations/halo2](https://github.com/privacy-scaling-explorations/halo2))\n   as the proof system it uses.\n2. Halo2's own design book explicitly states: *\"The arithmetization\n   used by Halo 2 comes from [PLONK](https://eprint.iacr.org/2019/953),\n   or more precisely its extension UltraPLONK that supports custom\n   gates and lookup arguments.\"*\n   ([zcash.github.io/halo2/concepts/arithmetization.html](https://zcash.github.io/halo2/concepts/arithmetization.html))\n\nSo: EZKL \u2192 (names) Halo2 \u2192 (cites) PLONK paper. See\n`/foundations/zkml.md` for the paper itself. Halo2 does **not**, per\nits own arithmetization page, discuss the original \"Halo\" recursive-\nproof-composition paper (Bowe/Grigg/Hopwood 2019) \u2014 that lineage looked\nplausible going in but didn't hold up under direct source-checking, so\nit's dropped rather than asserted."
+        },
+        "Property matrix": {
+          "markdown": "| Property | Value | Source |\n|---|---|---|\n| Proving system | Halo2 (modified) | EZKL README, grounded |\n| Arithmetization | PLONKish (UltraPLONK: custom gates + lookup arguments) | Halo2 design book, grounded |\n| Commitment scheme | KZG (EZKL's fork), not vanilla Halo2's IPA | General sourcing, **inferred** \u2014 recheck before relying on this |\n| Trust model | Requires a KZG structured reference string (SRS/ptau); EZKL can auto-download or generate one | docs.ezkl.xyz/getting-started/setup, grounded |\n| SRS size | Hundreds of MB to several GB depending on circuit size | General sourcing, inferred |\n| On-chain verification | Yes \u2014 generates Solidity verifier contracts, EVM-compatible | EZKL project description, grounded |\n| Maturity | Active, widely used reference implementation in the ZKML space; not formally audited to my knowledge as of this check | Inferred \u2014 not independently verified this pass |",
+          "table": [
+            {
+              "Property": "Proving system",
+              "Value": "Halo2 (modified)",
+              "Source": "EZKL README, grounded"
+            },
+            {
+              "Property": "Arithmetization",
+              "Value": "PLONKish (UltraPLONK: custom gates + lookup arguments)",
+              "Source": "Halo2 design book, grounded"
+            },
+            {
+              "Property": "Commitment scheme",
+              "Value": "KZG (EZKL's fork), not vanilla Halo2's IPA",
+              "Source": "General sourcing, **inferred** \u2014 recheck before relying on this"
+            },
+            {
+              "Property": "Trust model",
+              "Value": "Requires a KZG structured reference string (SRS/ptau); EZKL can auto-download or generate one",
+              "Source": "docs.ezkl.xyz/getting-started/setup, grounded"
+            },
+            {
+              "Property": "SRS size",
+              "Value": "Hundreds of MB to several GB depending on circuit size",
+              "Source": "General sourcing, inferred"
+            },
+            {
+              "Property": "On-chain verification",
+              "Value": "Yes \u2014 generates Solidity verifier contracts, EVM-compatible",
+              "Source": "EZKL project description, grounded"
+            },
+            {
+              "Property": "Maturity",
+              "Value": "Active, widely used reference implementation in the ZKML space; not formally audited to my knowledge as of this check",
+              "Source": "Inferred \u2014 not independently verified this pass"
+            }
+          ]
+        },
+        "Known limitations": {
+          "markdown": "- SRS/setup size scales with circuit complexity and can become a real\n  deployment cost for larger models.\n- Relies on a trusted-setup ceremony for KZG (weaker trust assumption\n  than a fully transparent setup) \u2014 this is a direct consequence of\n  choosing KZG over Halo2's original commitment scheme.\n- This entry did not independently verify audit status, current proof\n  latency numbers, or maximum practical model size \u2014 flag these as\n  open follow-ups rather than treating the matrix as complete.",
+          "list": [
+            "SRS/setup size scales with circuit complexity and can become a real deployment cost for larger models.",
+            "Relies on a trusted-setup ceremony for KZG (weaker trust assumption than a fully transparent setup) \u2014 this is a direct consequence of choosing KZG over Halo2's original commitment scheme.",
+            "This entry did not independently verify audit status, current proof latency numbers, or maximum practical model size \u2014 flag these as open follow-ups rather than treating the matrix as complete."
+          ]
+        }
+      }
+    },
+    {
+      "path": "systems/gensyn.md",
+      "frontmatter": {
+        "name": "Gensyn",
+        "field": "Decentralized / distributed training",
+        "last_updated": "2026-10-20",
+        "confidence": "grounded"
+      },
+      "sections": {
+        "What it does": {
+          "markdown": "Gensyn is a protocol for decentralized ML compute: clients submit training\njobs, untrusted third-party providers execute them, and a verification layer\nlets the client trust the result without controlling or re-running all of the\nprovider's hardware."
+        },
+        "Architecture summary": {
+          "markdown": "Current production system is **Verde** (per Gensyn's own research blog,\nOct 2026 check), which replaced the older litepaper-era design built around\nfour roles (Submitters, Solvers, Verifiers, Whistleblowers) and a Truebit-style\nchallenge game. Verde combines two pieces:\n\n- **RepOps (Reproducible Operators)**: forces a fixed operation ordering for\n  ML operators so that execution is bitwise-reproducible across different\n  hardware, closing the floating-point non-associativity gap that previously\n  made exact-match verification unreliable across GPUs/vendors.\n- **Two-level bisection game**: providers commit to each training iteration\n  via Merkle trees; disputes are resolved by bisecting first at the iteration\n  level, then the operation level, so a referee only has to re-check a small,\n  pinpointed slice of the computation instead of re-running the whole job.\n\nSource: [Verde: Verification System In Production](https://www.gensyn.ai/research/verde-verification-system-in-production)\n(Gensyn's own research blog).\n\nNote: the older litepaper (docs.gensyn.ai/litepaper) describes a different,\nearlier design \u2014 a Truebit-style incentive game with Submitter/Solver/\nVerifier/Whistleblower roles and a graph-based \"pinpoint protocol.\" That\nlitepaper is confirmed by Gensyn's own ecosystem write-ups to be **outdated**\nrelative to Verde. Documented here for lineage, not as current architecture.",
+          "list": [
+            "**RepOps (Reproducible Operators)**: forces a fixed operation ordering for ML operators so that execution is bitwise-reproducible across different hardware, closing the floating-point non-associativity gap that previously made exact-match verification unreliable across GPUs/vendors.",
+            "**Two-level bisection game**: providers commit to each training iteration via Merkle trees; disputes are resolved by bisecting first at the iteration level, then the operation level, so a referee only has to re-check a small, pinpointed slice of the computation instead of re-running the whole job. Source: [Verde: Verification System In Production](https://www.gensyn.ai/research/verde-verification-system-in-production) (Gensyn's own research blog). Note: the older litepaper (docs.gensyn.ai/litepaper) describes a different, earlier design \u2014 a Truebit-style incentive game with Submitter/Solver/ Verifier/Whistleblower roles and a graph-based \"pinpoint protocol.\" That litepaper is confirmed by Gensyn's own ecosystem write-ups to be **outdated** relative to Verde. Documented here for lineage, not as current architecture."
+          ]
+        },
+        "Built on (foundational lineage)": {
+          "markdown": "See [foundations/decentralized-training.md](../foundations/decentralized-training.md)\nfor the primary seed paper (Proof-of-Learning). Verde's own research post\nadditionally cites, as directly relevant prior work:\n\n- **Refereed Delegation of Computation** \u2014 [dl.acm.org/doi/abs/10.1145/2046707.2046759](https://dl.acm.org/doi/abs/10.1145/2046707.2046759)\n  \u2014 the referee/dispute-arbitration pattern Verde's bisection game descends from.\n- **Agatha** \u2014 [arxiv.org/abs/2105.04919](https://arxiv.org/abs/2105.04919) \u2014 prior\n  execution-verification approach Verde explicitly improves on.\n- **Toploc** \u2014 [arxiv.org/abs/2501.16007](https://arxiv.org/abs/2501.16007) \u2014 another\n  prior approach Verde positions itself against (couldn't extend to training,\n  per Gensyn's own description).\n- **Proof-of-Training-Data** \u2014 [arxiv.org/abs/2307.00682](https://arxiv.org/abs/2307.00682)\n- Verde's own full research paper: [arxiv.org/abs/2502.19405](https://arxiv.org/abs/2502.19405)\n\nConfidence: grounded \u2014 all five citations above came directly from Gensyn's\nown research blog post, not inferred.",
+          "list": [
+            "**Refereed Delegation of Computation** \u2014 [dl.acm.org/doi/abs/10.1145/2046707.2046759](https://dl.acm.org/doi/abs/10.1145/2046707.2046759) \u2014 the referee/dispute-arbitration pattern Verde's bisection game descends from.",
+            "**Agatha** \u2014 [arxiv.org/abs/2105.04919](https://arxiv.org/abs/2105.04919) \u2014 prior execution-verification approach Verde explicitly improves on.",
+            "**Toploc** \u2014 [arxiv.org/abs/2501.16007](https://arxiv.org/abs/2501.16007) \u2014 another prior approach Verde positions itself against (couldn't extend to training, per Gensyn's own description).",
+            "**Proof-of-Training-Data** \u2014 [arxiv.org/abs/2307.00682](https://arxiv.org/abs/2307.00682)",
+            "Verde's own full research paper: [arxiv.org/abs/2502.19405](https://arxiv.org/abs/2502.19405) Confidence: grounded \u2014 all five citations above came directly from Gensyn's own research blog post, not inferred."
+          ]
+        },
+        "Property matrix": {
+          "markdown": "| Property | Current value | Source |\n|---|---|---|\n| Verification mechanism | RepOps (bitwise-reproducible ops) + two-level bisection/dispute game | Verde research post |\n| Trust model | Optimistic \u2014 provider's result accepted unless a referee is triggered to arbitrate a disputed step | Verde research post |\n| Re-execution cost on dispute | Only the pinpointed iteration/operation, not the full job | Verde research post |\n| Legacy design (superseded) | Truebit-style 4-role game (Submitter/Solver/Verifier/Whistleblower) | docs.gensyn.ai/litepaper (confirmed outdated) |\n| Maturity | Verde described as \"in production\" by Gensyn as of this research post | Verde research post title |",
+          "table": [
+            {
+              "Property": "Verification mechanism",
+              "Current value": "RepOps (bitwise-reproducible ops) + two-level bisection/dispute game",
+              "Source": "Verde research post"
+            },
+            {
+              "Property": "Trust model",
+              "Current value": "Optimistic \u2014 provider's result accepted unless a referee is triggered to arbitrate a disputed step",
+              "Source": "Verde research post"
+            },
+            {
+              "Property": "Re-execution cost on dispute",
+              "Current value": "Only the pinpointed iteration/operation, not the full job",
+              "Source": "Verde research post"
+            },
+            {
+              "Property": "Legacy design (superseded)",
+              "Current value": "Truebit-style 4-role game (Submitter/Solver/Verifier/Whistleblower)",
+              "Source": "docs.gensyn.ai/litepaper (confirmed outdated)"
+            },
+            {
+              "Property": "Maturity",
+              "Current value": "Verde described as \"in production\" by Gensyn as of this research post",
+              "Source": "Verde research post title"
+            }
+          ]
+        },
+        "Known limitations": {
+          "markdown": "- The litepaper's incentive-game numbers (staking, slashing, jackpot rewards)\n  are from the superseded design; current economic parameters for Verde were\n  not found in this pass and should be checked directly against Gensyn's\n  current docs before citing specifics.\n- RepOps's bitwise-reproducibility claim depends on providers running the\n  mandated fixed operation ordering; no independent third-party audit of this\n  claim was located in this pass \u2014 flagged as a candidate for a future watch\n  run if an independent analysis is published.",
+          "list": [
+            "The litepaper's incentive-game numbers (staking, slashing, jackpot rewards) are from the superseded design; current economic parameters for Verde were not found in this pass and should be checked directly against Gensyn's current docs before citing specifics.",
+            "RepOps's bitwise-reproducibility claim depends on providers running the mandated fixed operation ordering; no independent third-party audit of this claim was located in this pass \u2014 flagged as a candidate for a future watch run if an independent analysis is published."
+          ]
+        }
+      }
+    },
+    {
+      "path": "systems/nillion.md",
+      "frontmatter": {
+        "name": "Nillion",
+        "field": "Secure MPC for ML",
+        "last_updated": "2026-10-20",
+        "confidence": "grounded"
+      },
+      "sections": {
+        "What it does": {
+          "markdown": "Nillion is a decentralized network for storing and computing on encrypted\n(\"blind\") data without ever reconstructing the plaintext on any single\nnode. Data is split and distributed across independent nodes; computation\nhappens directly on the shares via secure multi-party computation (MPC),\nand only the final result is reassembled."
+        },
+        "Architecture summary": {
+          "markdown": "- **Nil Message Compute (NMC)** is Nillion's branding for its MPC layer.\n  It combines **One-Time Masking (OTM)** with **Linear Secret Sharing\n  (LSS)** so that a network of nodes can jointly store and process\n  confidential data with information-theoretic security (unconditionally\n  secure, not just computationally hard to break).\n- The production MPC protocol built on top of this is internally called\n  **Curl**, extended from LSSS to efficiently support non-linear\n  operations (division, square roots, trig, logs) that plain linear\n  secret sharing can't do without extra machinery.\n- In 2026 Nillion migrated its base chain from Cosmos to Ethereum,\n  launching a new L1 called **Blacklight** (mainnet live 2026-10-05).\n  Node operators stake NIL (minimum 70,000 NIL) to run nodes and verify\n  computations. The original Cosmos-based L2 is being wound down, with\n  users told to bridge assets to the new L1.",
+          "list": [
+            "**Nil Message Compute (NMC)** is Nillion's branding for its MPC layer. It combines **One-Time Masking (OTM)** with **Linear Secret Sharing (LSS)** so that a network of nodes can jointly store and process confidential data with information-theoretic security (unconditionally secure, not just computationally hard to break).",
+            "The production MPC protocol built on top of this is internally called **Curl**, extended from LSSS to efficiently support non-linear operations (division, square roots, trig, logs) that plain linear secret sharing can't do without extra machinery.",
+            "In 2026 Nillion migrated its base chain from Cosmos to Ethereum, launching a new L1 called **Blacklight** (mainnet live 2026-10-05). Node operators stake NIL (minimum 70,000 NIL) to run nodes and verify computations. The original Cosmos-based L2 is being wound down, with users told to bridge assets to the new L1."
+          ]
+        },
+        "Built on (foundational lineage)": {
+          "markdown": "**Paper:** \"Evaluation of Arithmetic Sum-of-Products Expressions in\nLinear Secret Sharing Schemes with a Non-Interactive Computation Phase\"\n\u2014 Miguel de Vega (Nillion), Andrei Lapets (Reity), Stanis\u0142aw Jarecki\n(UC Irvine), Wicher Malten (Nillion), Mehmet Ugurbil (Nillion), Wyatt\nHowe (UCLA).\nPDF: https://nillion.pub/sum-of-products-lsss-non-interactive.pdf\n(originally posted to IACR ePrint as 2023/1740, later withdrawn from\nePrint but mirrored on Nillion's own site).\n\n**Grounding source:** Nillion's own team announced this paper directly\nas the basis for their non-interactive MPC protocol for non-linear\ncomputation \u2014 see \"Introducing the Nillion Non-Interactive MPC Protocol\nfor Non-Linear Computations\"\n(https://medium.com/@Nillion_Network/introducing-the-nillion-non-interactive-mpc-protocol-for-non-linear-computations-67e9310ef479)\nand the MPC Alliance's coverage of the same announcement\n(https://www.mpcalliance.org/blog/nillion-introduces-a-non-interactive-mpc-protocol-for-non-linear-computations).\nFour of the six authors are Nillion staff, so this is effectively\nNillion publishing its own core protocol paper \u2014 about as direct a\ngrounding as this kind of claim can get.\n\n**How it's used:** the paper's contribution \u2014 evaluating arithmetic\nsum-of-products expressions (which covers the multiplications needed\nfor non-linear ops) within LSSS using a preprocessing phase instead of\ninteractive communication during computation \u2014 is the specific technique\nthat lets Curl/NMC do non-linear math without the usual back-and-forth\ncommunication overhead of classic MPC protocols."
+        },
+        "Property matrix": {
+          "markdown": "| Property | Current value | Source |\n|---|---|---|\n| Underlying primitive | One-Time Masking + Linear Secret Sharing (LSS) | Nillion docs/marketing materials, cross-confirmed across multiple sources |\n| Security model | Information-theoretic (unconditional) for the core LSS layer | Nillion technical articles |\n| Core protocol name | Curl (non-interactive MPC extension over LSSS) | Nillion Medium post, MPC Alliance coverage |\n| Base chain | Ethereum L1 (\"Blacklight\", launched 2026-10-05); migrated from Cosmos | TradingView/CoinMarketCal news, chain migration coverage |\n| Node staking requirement | Minimum 70,000 NIL per node | Blacklight L1 launch coverage |\n| Maturity | Mainnet live; L2 (prior Cosmos-based network) being sunset in 2026 | TokenPost, Bitget coverage of L2 shutdown |\n| Reported uptime | 100% over trailing 90 days (as reported, not independently verified) | status.nillion.com |",
+          "table": [
+            {
+              "Property": "Underlying primitive",
+              "Current value": "One-Time Masking + Linear Secret Sharing (LSS)",
+              "Source": "Nillion docs/marketing materials, cross-confirmed across multiple sources"
+            },
+            {
+              "Property": "Security model",
+              "Current value": "Information-theoretic (unconditional) for the core LSS layer",
+              "Source": "Nillion technical articles"
+            },
+            {
+              "Property": "Core protocol name",
+              "Current value": "Curl (non-interactive MPC extension over LSSS)",
+              "Source": "Nillion Medium post, MPC Alliance coverage"
+            },
+            {
+              "Property": "Base chain",
+              "Current value": "Ethereum L1 (\"Blacklight\", launched 2026-10-05); migrated from Cosmos",
+              "Source": "TradingView/CoinMarketCal news, chain migration coverage"
+            },
+            {
+              "Property": "Node staking requirement",
+              "Current value": "Minimum 70,000 NIL per node",
+              "Source": "Blacklight L1 launch coverage"
+            },
+            {
+              "Property": "Maturity",
+              "Current value": "Mainnet live; L2 (prior Cosmos-based network) being sunset in 2026",
+              "Source": "TokenPost, Bitget coverage of L2 shutdown"
+            },
+            {
+              "Property": "Reported uptime",
+              "Current value": "100% over trailing 90 days (as reported, not independently verified)",
+              "Source": "status.nillion.com"
+            }
+          ]
+        },
+        "Known limitations": {
+          "markdown": "- The specific foundational paper above was **withdrawn from IACR ePrint**\n  (official listing shows 2023/1740 withdrawn 2024-06-28); the only\n  available copy is now self-hosted by Nillion at nillion.pub. Worth\n  tracking why it was withdrawn \u2014 could be a correction, a priority\n  dispute, or something more substantive. Flagged here as an open\n  question rather than resolved.\n- Nillion markets both MPC and homomorphic-encryption-style techniques\n  under the \"blind computation\" umbrella; some public-facing material\n  blurs which specific guarantee (information-theoretic MPC vs.\n  computationally-secure HE) applies to which product surface. Treat\n  marketing claims about \"which crypto is doing the work\" with caution\n  until cross-checked against the underlying protocol docs.\n- Mid-2026 chain migration (Cosmos \u2192 Ethereum L1) and L2 shutdown is\n  recent and operationally disruptive \u2014 a useful thing to watch for\n  whether it introduces new trust assumptions (e.g. bridge security)\n  not present in the original MPC design.",
+          "list": [
+            "The specific foundational paper above was **withdrawn from IACR ePrint** (official listing shows 2023/1740 withdrawn 2024-06-28); the only available copy is now self-hosted by Nillion at nillion.pub. Worth tracking why it was withdrawn \u2014 could be a correction, a priority dispute, or something more substantive. Flagged here as an open question rather than resolved.",
+            "Nillion markets both MPC and homomorphic-encryption-style techniques under the \"blind computation\" umbrella; some public-facing material blurs which specific guarantee (information-theoretic MPC vs. computationally-secure HE) applies to which product surface. Treat marketing claims about \"which crypto is doing the work\" with caution until cross-checked against the underlying protocol docs.",
+            "Mid-2026 chain migration (Cosmos \u2192 Ethereum L1) and L2 shutdown is recent and operationally disruptive \u2014 a useful thing to watch for whether it introduces new trust assumptions (e.g. bridge security) not present in the original MPC design."
+          ]
+        }
+      }
+    },
+    {
+      "path": "systems/zama-concrete-ml.md",
+      "frontmatter": {
+        "name": "Zama Concrete-ML",
+        "field": "FHE for ML",
+        "last_updated": "2026-10-20",
+        "confidence": "grounded"
+      },
+      "sections": {
+        "What it does": {
+          "markdown": "Concrete-ML is an open-source Python framework from Zama that lets you train\na model normally (scikit-learn-compatible APIs, or PyTorch/TensorFlow via\nONNX) and then run inference on **encrypted** inputs, so the service running\nthe model never sees the plaintext data. Output of `encrypt()` \u2192 `run()` \u2192\n`decrypt()` never exposes intermediate values to the server."
+        },
+        "Architecture summary": {
+          "markdown": "- Built directly on top of **Concrete** (Zama's TFHE compiler, which turns\n  Python/numerical programs into their FHE equivalent), which itself is\n  built on **TFHE-rs**, Zama's Rust implementation of the TFHE scheme.\n- Models are **quantized** (quantization-aware training or post-training\n  quantization) to convert floating-point weights/activations into\n  integers, since FHE arithmetic operates over integers, not floats.\n- Non-linear activation functions (ReLU, sigmoid, etc.) are evaluated via\n  **programmable bootstrapping** \u2014 TFHE's bootstrap step is repurposed to\n  simultaneously refresh noise *and* apply an arbitrary lookup-table\n  function, which is what makes homomorphic neural-net inference\n  practical rather than prohibitively expensive.",
+          "list": [
+            "Built directly on top of **Concrete** (Zama's TFHE compiler, which turns Python/numerical programs into their FHE equivalent), which itself is built on **TFHE-rs**, Zama's Rust implementation of the TFHE scheme.",
+            "Models are **quantized** (quantization-aware training or post-training quantization) to convert floating-point weights/activations into integers, since FHE arithmetic operates over integers, not floats.",
+            "Non-linear activation functions (ReLU, sigmoid, etc.) are evaluated via **programmable bootstrapping** \u2014 TFHE's bootstrap step is repurposed to simultaneously refresh noise *and* apply an arbitrary lookup-table function, which is what makes homomorphic neural-net inference practical rather than prohibitively expensive."
+          ]
+        },
+        "Built on (foundational lineage)": {
+          "markdown": "- **TFHE: Fast Fully Homomorphic Encryption over the Torus** \u2014 I. Chillotti,\n  N. Gama, M. Georgieva, M. Izabach\u00e8ne, *Journal of Cryptology* 33, 2020\n  (https://eprint.iacr.org/2018/421). Base encryption scheme. Grounding:\n  this is the standard citation for TFHE across Zama's own repos\n  (zama-ai/concrete, zama-ai/tfhe-rs) and third-party papers that build on\n  Concrete \u2014 confirmed via multiple independent academic citations, though\n  the Concrete-ML GitHub README itself does not carry an explicit\n  bibliography (see confidence note below).\n- **Programmable Bootstrapping Enables Efficient Homomorphic Inference of\n  Deep Neural Networks** \u2014 I. Chillotti, M. Joye, P. Paillier, Zama\n  (https://eprint.iacr.org/2021/091). The specific mechanism Concrete-ML\n  relies on to evaluate non-linear layers cheaply.\n- **Deep Neural Networks for Encrypted Inference with TFHE** \u2014 A. Stoian,\n  J. Frery, R. Bredehoft, L. Montero, C. Kherfallah, B. Chevallier-Mames\n  (arXiv:2302.10906, Feb 2023). Authored by the Zama/Concrete-ML team\n  itself; uses Concrete directly for benchmarks. This is the most directly\n  \"FHE-for-ML\"-specific paper in the lineage \u2014 it's the applied bridge\n  between the TFHE primitives above and Concrete-ML's DNN support.\n\n**Confidence note:** the Concrete-ML GitHub README links out to\ndocs.zama.ai/docs.zama.org for technical detail rather than citing papers\ninline. The TFHE/programmable-bootstrapping lineage above is grounded via\nZama's own sister repos (tfhe-rs, concrete) and the Stoian et al. paper's\ndirect authorship/use of Concrete, not via a single README citation list.\nTreat as grounded-by-convergence rather than grounded-by-single-citation.",
+          "list": [
+            "**TFHE: Fast Fully Homomorphic Encryption over the Torus** \u2014 I. Chillotti, N. Gama, M. Georgieva, M. Izabach\u00e8ne, *Journal of Cryptology* 33, 2020 (https://eprint.iacr.org/2018/421). Base encryption scheme. Grounding: this is the standard citation for TFHE across Zama's own repos (zama-ai/concrete, zama-ai/tfhe-rs) and third-party papers that build on Concrete \u2014 confirmed via multiple independent academic citations, though the Concrete-ML GitHub README itself does not carry an explicit bibliography (see confidence note below).",
+            "**Programmable Bootstrapping Enables Efficient Homomorphic Inference of Deep Neural Networks** \u2014 I. Chillotti, M. Joye, P. Paillier, Zama (https://eprint.iacr.org/2021/091). The specific mechanism Concrete-ML relies on to evaluate non-linear layers cheaply.",
+            "**Deep Neural Networks for Encrypted Inference with TFHE** \u2014 A. Stoian, J. Frery, R. Bredehoft, L. Montero, C. Kherfallah, B. Chevallier-Mames (arXiv:2302.10906, Feb 2023). Authored by the Zama/Concrete-ML team itself; uses Concrete directly for benchmarks. This is the most directly \"FHE-for-ML\"-specific paper in the lineage \u2014 it's the applied bridge between the TFHE primitives above and Concrete-ML's DNN support. **Confidence note:** the Concrete-ML GitHub README links out to docs.zama.ai/docs.zama.org for technical detail rather than citing papers inline. The TFHE/programmable-bootstrapping lineage above is grounded via Zama's own sister repos (tfhe-rs, concrete) and the Stoian et al. paper's direct authorship/use of Concrete, not via a single README citation list. Treat as grounded-by-convergence rather than grounded-by-single-citation."
+          ]
+        },
+        "Property matrix": {
+          "markdown": "| Property | Current value | Source |\n|---|---|---|\n| FHE scheme | TFHE (LWE/Ring-LWE based) | zama-ai/concrete, zama-ai/tfhe-rs repos |\n| Non-linear evaluation | Programmable bootstrapping (lookup-table via bootstrap) | Chillotti/Joye/Paillier 2021 |\n| Precision | Low-bit integer quantization required (model-dependent, typically \u22648-bit activations in practice) | Concrete-ML docs (docs.zama.ai/concrete-ml) |\n| Trust model | No trusted setup; client holds secret key, server computes blind | TFHE scheme properties (symmetric/public-key FHE, no CRS) |\n| Maturity | Production-maintained OSS library, active releases | github.com/zama-ai/concrete-ml |",
+          "table": [
+            {
+              "Property": "FHE scheme",
+              "Current value": "TFHE (LWE/Ring-LWE based)",
+              "Source": "zama-ai/concrete, zama-ai/tfhe-rs repos"
+            },
+            {
+              "Property": "Non-linear evaluation",
+              "Current value": "Programmable bootstrapping (lookup-table via bootstrap)",
+              "Source": "Chillotti/Joye/Paillier 2021"
+            },
+            {
+              "Property": "Precision",
+              "Current value": "Low-bit integer quantization required (model-dependent, typically \u22648-bit activations in practice)",
+              "Source": "Concrete-ML docs (docs.zama.ai/concrete-ml)"
+            },
+            {
+              "Property": "Trust model",
+              "Current value": "No trusted setup; client holds secret key, server computes blind",
+              "Source": "TFHE scheme properties (symmetric/public-key FHE, no CRS)"
+            },
+            {
+              "Property": "Maturity",
+              "Current value": "Production-maintained OSS library, active releases",
+              "Source": "github.com/zama-ai/concrete-ml"
+            }
+          ]
+        },
+        "Known limitations": {
+          "markdown": "- Bootstrapping is the dominant cost; deeper/wider networks with more\n  non-linearities scale poorly in latency compared to plaintext inference.\n- Quantization-aware training adds workflow overhead and can cost accuracy\n  versus the unquantized model.\n- Encrypted inference latency (seconds\u2013minutes per call depending on model\n  size) remains far from plaintext inference speed \u2014 not yet suited to\n  low-latency, high-throughput serving.",
+          "list": [
+            "Bootstrapping is the dominant cost; deeper/wider networks with more non-linearities scale poorly in latency compared to plaintext inference.",
+            "Quantization-aware training adds workflow overhead and can cost accuracy versus the unquantized model.",
+            "Encrypted inference latency (seconds\u2013minutes per call depending on model size) remains far from plaintext inference speed \u2014 not yet suited to low-latency, high-throughput serving."
+          ]
+        }
+      }
+    }
+  ],
+  "foundations": [
+    {
+      "path": "foundations/decentralized-consensus-ml.md",
+      "frontmatter": {
+        "field": "Decentralized incentive / consensus mechanisms for ML networks",
+        "paper": "A Value for n-Person Games",
+        "authors": "Lloyd S. Shapley",
+        "year": "1952",
+        "venue": "Contributions to the Theory of Games, Vol. II (Annals of Mathematics Studies 28), Princeton University Press"
+      },
+      "sections": {
+        "Why this is the seed for this field": {
+          "markdown": "Bittensor's own academic paper, *\"Incentivizing Intelligence: The Bittensor\nApproach\"* (Steeves et al., hosted at\n[bittensor.com/academia](https://www.bittensor.com/academia)), explicitly\ncites Shapley's 1952 value concept as the theoretical basis for how the\nnetwork attributes credit to peers: each participant's reward is meant to\nreflect their marginal contribution to the network's informational output,\nevaluated across permutations of coalitions of peers \u2014 which is exactly what\nthe Shapley value formalizes. This is the one piece of the Bittensor stack\nwith a clean, explicit academic citation; the rest of the mechanism (the\nspecific stake-weighted-median \"Yuma Consensus\" algorithm used in\nproduction) is documented in community/ecosystem sources rather than in a\npeer-reviewed citation trail \u2014 see the naming-gap note in\n[[systems/bittensor]]."
+        },
+        "Core contribution": {
+          "markdown": "Shapley's paper answers a fairness question: if a group of people (or\nagents) jointly produce some value by cooperating, how should that value be\nsplit among them in a way that fairly reflects each one's contribution,\neven when contributions aren't independent (i.e. what one agent adds\ndepends on who else is already in the group)? The Shapley value is defined\nby averaging each agent's marginal contribution across every possible order\nin which agents could join the coalition. It's the unique allocation rule\nsatisfying a small set of fairness axioms (efficiency, symmetry, additivity,\nnull-player). It's a cooperative-game-theory result, not a machine-learning\nor cryptography result \u2014 its relevance here is purely as the attribution\nprinciple a decentralized ML incentive system borrows."
+        },
+        "Link to tracked system": {
+          "markdown": "Bittensor needs to answer: \"how much is this peer's model output actually\nworth to the network, given that other peers are also contributing similar\nor overlapping information?\" Naively rewarding every peer independently\ninvites redundant, low-effort submissions; the Shapley framing is invoked to\njustify rewarding marginal/novel contribution instead. In practice,\nproduction Bittensor does not compute literal Shapley values (that's\ncomputationally intractable at network scale \u2014 exact Shapley values require\nsumming over all coalition permutations); it uses Yuma Consensus's\nstake-weighted-median-with-clipping as a tractable proxy mechanism inspired\nby the same fairness goal. This is worth flagging explicitly: the citation\ngrounds the *motivation*, not the *literal algorithm* actually running in\nproduction."
+        }
+      }
+    },
+    {
+      "path": "foundations/decentralized-training.md",
+      "frontmatter": {
+        "field": "Decentralized / distributed training",
+        "paper": "Proof-of-Learning: Definitions and Practice",
+        "authors": "Hengrui Jia, Mohammad Yaghini, Christopher A. Choquette-Choo, Natalie Dullerud, Anvith Thudi, Varun Chandrasekaran, Nicolas Papernot",
+        "year": "2021",
+        "venue": "IEEE Symposium on Security and Privacy (S&P) 2021",
+        "arxiv": "https://arxiv.org/abs/2103.05633"
+      },
+      "sections": {
+        "Why this is the seed for this field": {
+          "markdown": "Cited directly by Gensyn's own Verde research post as foundational prior work\n(\"Proof-of-Learning\" \u2014 [arxiv.org/abs/2103.05633](https://arxiv.org/abs/2103.05633)),\nalongside Refereed Delegation, Agatha, Toploc, and Proof-of-Training-Data. See\n[systems/gensyn.md](../systems/gensyn.md) for the full citation list and source\nlink. Of that list, this paper is the one that directly frames the core problem\nGensyn's verification layer exists to solve: how do you let a party that didn't\ndo the training convince a verifier that specific gradient-descent work was\nactually performed, without full re-execution."
+        },
+        "Core contribution": {
+          "markdown": "Introduces \"proof-of-learning\" (PoL): a party that trained a model produces a\nproof \u2014 built from checkpoints and the gradient-descent trajectory metadata\nrecorded during training \u2014 that lets a verifier check, cheaply, that training\nactually happened as claimed, rather than requiring the verifier to redo the\nentire training run. It formalizes what such a proof needs to guarantee and\nshows practical constructions and attacks against naive versions of the idea."
+        },
+        "Link to tracked system": {
+          "markdown": "Gensyn's verification problem is exactly this: a client needs to trust that a\nthird-party provider trained a model correctly without re-running the full\njob. Gensyn's current production system (Verde) does not implement PoL's\ncheckpoint-trajectory scheme directly \u2014 it instead uses RepOps\n(bitwise-reproducible operators) plus a Merkle-tree-based bisection/dispute\ngame \u2014 but PoL is the paper that established the problem framing and the\nfirst concrete proposal in this space, which is why Gensyn cites it as prior\nwork. See [systems/gensyn.md](../systems/gensyn.md) for how the current\narchitecture actually differs from PoL's approach."
+        }
+      }
+    },
+    {
+      "path": "foundations/fhe-ml.md",
+      "frontmatter": {
+        "field": "FHE for ML",
+        "paper": "Deep Neural Networks for Encrypted Inference with TFHE",
+        "authors": "Andrei Stoian, Jordan Frery, Roman Bredehoft, Luis Montero, Celia Kherfallah, Benoit Chevallier-Mames",
+        "year": "2023",
+        "venue": "arXiv preprint (2302.10906)"
+      },
+      "sections": {
+        "Why this is the seed for this field": {
+          "markdown": "Authored by the team behind Zama's Concrete-ML, and uses Concrete directly\nfor its benchmarks \u2014 this is the paper that connects the general TFHE\ncryptosystem to the specific problem of running deep neural network\ninference on encrypted data, which is exactly what Concrete-ML ships as a\nproduct. It sits one layer above the raw cryptography (TFHE itself, and\nChillotti/Joye/Paillier's programmable bootstrapping) and one layer below\nthe shipped library \u2014 the applied bridge."
+        },
+        "Core contribution": {
+          "markdown": "The paper shows how to design and quantize DNN architectures (targeted at\ncomputer-vision tasks) so that they can run entirely under TFHE's\nprogrammable bootstrapping, and benchmarks the resulting latency/accuracy\ntradeoffs on Concrete. The core insight it operationalizes: FHE arithmetic\nonly works cleanly over integers, so every layer of the network has to be\nre-expressed in quantized integer form *before* bootstrapping is used to\nevaluate non-linearities \u2014 the paper is effectively the recipe for doing\nthat re-expression without destroying accuracy or blowing up latency."
+        },
+        "Link to tracked system": {
+          "markdown": "Concrete-ML's quantization-aware training pipeline and its approach to\nevaluating activation functions via programmable bootstrapping are the\nproductionized version of what this paper demonstrates. See\n`/systems/zama-concrete-ml.md` for the property matrix this paper's\ntechniques feed into \u2014 specifically the \"Precision\" and \"Non-linear\nevaluation\" rows."
+        }
+      }
+    },
+    {
+      "path": "foundations/mpc-ml.md",
+      "frontmatter": {
+        "field": "Secure MPC for ML",
+        "paper": "Evaluation of Arithmetic Sum-of-Products Expressions in Linear Secret Sharing Schemes with a Non-Interactive Computation Phase",
+        "authors": "Miguel de Vega, Andrei Lapets, Stanis\u0142aw Jarecki, Wicher Malten, Mehmet Ugurbil, Wyatt Howe",
+        "year": "2023",
+        "venue": "self-published / IACR ePrint 2023/1740 (withdrawn 2024-06-28; mirrored at nillion.pub)"
+      },
+      "sections": {
+        "Why this is the seed for this field": {
+          "markdown": "Nillion's own team announced this paper as the direct basis for their\nnon-interactive MPC protocol for non-linear computation \u2014 see\n\"Introducing the Nillion Non-Interactive MPC Protocol for Non-Linear\nComputations\"\n(https://medium.com/@Nillion_Network/introducing-the-nillion-non-interactive-mpc-protocol-for-non-linear-computations-67e9310ef479),\ncorroborated by the MPC Alliance's write-up of the same announcement\n(https://www.mpcalliance.org/blog/nillion-introduces-a-non-interactive-mpc-protocol-for-non-linear-computations).\nFour of the six listed authors (de Vega, Malten, Ugurbil, and one more)\nare Nillion staff \u2014 this is effectively the project publishing its own\ncore protocol paper, which is about the strongest grounding available\nfor a \"foundational paper\" claim in this exercise."
+        },
+        "Core contribution": {
+          "markdown": "Classic linear secret sharing schemes (LSSS) handle addition of shared\nsecrets for free but need rounds of communication between parties to\nhandle multiplication \u2014 the operation needed for anything non-linear.\nThis paper describes a way to evaluate arithmetic sum-of-products\nexpressions (sums of products of shared values \u2014 covers the multiply\nstep) using a **preprocessing phase that doesn't depend on the private\ninputs**, so the actual computation-on-private-data step becomes\nnon-interactive. In plain terms: move the expensive \"parties have to\ntalk to each other\" part of secure multiplication to a setup phase that\ncan happen before anyone's real data is involved, so the live computation\nis faster and doesn't require synchronous coordination between nodes."
+        },
+        "Link to tracked system": {
+          "markdown": "This is the specific technique underneath Nillion's **Curl** protocol,\nwhich extends LSSS to support the non-linear math (division, square\nroots, trig, logarithms) that ML workloads need but plain secret sharing\ncan't do cheaply. It's the piece that lets Nillion's MPC layer process\nmore than just linear operations on encrypted data, which is the gap\nbetween \"toy secret sharing demo\" and \"can actually run ML inference\non shared data.\""
+        },
+        "Open question for future monitoring": {
+          "markdown": "The paper was withdrawn from IACR ePrint (2023/1740, withdrawn\n2024-06-28) and now only exists as a Nillion-hosted PDF. No public\nexplanation found for the withdrawal. If a future paper-watch run\nsurfaces commentary on *why* it was withdrawn (correction vs. priority\ndispute vs. something substantive), that's worth a dedicated note since\nit bears directly on how much to trust this as the field's seed paper."
+        }
+      }
+    },
+    {
+      "path": "foundations/zkml.md",
+      "frontmatter": {
+        "field": "ZKML / verifiable inference",
+        "paper": "PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge",
+        "authors": "Ariel Gabizon, Zachary J. Williamson, Oana Ciobotaru",
+        "year": "2019",
+        "venue": "IACR Cryptology ePrint Archive, 2019/953",
+        "link": "https://eprint.iacr.org/2019/953"
+      },
+      "sections": {
+        "Why this is the seed for this field": {
+          "markdown": "Grounded via a two-hop citation chain, not a direct EZKL citation:\n\n- EZKL's own README names **Halo2** as its backend proof system.\n- Halo2's own design documentation states explicitly: *\"The\n  arithmetization used by Halo 2 comes from\n  [PLONK](https://eprint.iacr.org/2019/953), or more precisely its\n  extension UltraPLONK that supports custom gates and lookup\n  arguments.\"*\n  ([zcash.github.io/halo2/concepts/arithmetization.html](https://zcash.github.io/halo2/concepts/arithmetization.html))\n\nSo the tracked system (EZKL) is built on Halo2, which is explicitly\nbuilt on this paper's arithmetization. This is as close to \"grounded\"\nas the chain gets without EZKL citing PLONK by name itself.",
+          "list": [
+            "EZKL's own README names **Halo2** as its backend proof system.",
+            "Halo2's own design documentation states explicitly: *\"The arithmetization used by Halo 2 comes from [PLONK](https://eprint.iacr.org/2019/953), or more precisely its extension UltraPLONK that supports custom gates and lookup arguments.\"* ([zcash.github.io/halo2/concepts/arithmetization.html](https://zcash.github.io/halo2/concepts/arithmetization.html)) So the tracked system (EZKL) is built on Halo2, which is explicitly built on this paper's arithmetization. This is as close to \"grounded\" as the chain gets without EZKL citing PLONK by name itself."
+          ]
+        },
+        "Core contribution": {
+          "markdown": "PLONK introduced a practical, universal (not circuit-specific) SNARK\nconstruction: a single structured reference string works for *any*\ncircuit up to a size bound, instead of needing a fresh trusted setup\nper circuit (as earlier SNARKs like the original Groth16/Pinocchio\npipeline required). It does this via a permutation argument over\nLagrange-basis polynomials to enforce wiring constraints between gates,\ncombined with a polynomial commitment scheme (originally KZG) to make\nthe whole thing non-interactive and succinct. Follow-on work extended\nthis base arithmetization with custom gates and lookup arguments\n(\"UltraPLONK\" / \"PLONKish\"), which is the specific extension Halo2\nactually implements."
+        },
+        "Link to tracked system": {
+          "markdown": "EZKL inherits PLONKish arithmetization transitively through Halo2, then\nadditionally swaps Halo2's native commitment scheme for KZG commitments\nspecifically to shrink proof size and verification cost for on-chain\nuse (see `/systems/ezkl.md` \u2014 this specific claim is flagged inferred,\nnot directly quoted from an EZKL source, so re-verify before treating\nit as settled). The universality property of PLONK (one SRS per size\nbound, not per circuit) is part of why a general-purpose tool like\nEZKL \u2014 which has to support arbitrary ONNX graphs rather than one fixed\ncircuit \u2014 is practical at all."
+        }
+      }
+    }
+  ],
+  "fields": [
+    {
+      "field": "Decentralized incentive / consensus mechanisms for ML networks",
+      "system": "systems/bittensor.md",
+      "foundation": "foundations/decentralized-consensus-ml.md"
+    },
+    {
+      "field": "ZKML / verifiable inference",
+      "system": "systems/ezkl.md",
+      "foundation": "foundations/zkml.md"
+    },
+    {
+      "field": "Decentralized / distributed training",
+      "system": "systems/gensyn.md",
+      "foundation": "foundations/decentralized-training.md"
+    },
+    {
+      "field": "Secure MPC for ML",
+      "system": "systems/nillion.md",
+      "foundation": "foundations/mpc-ml.md"
+    },
+    {
+      "field": "FHE for ML",
+      "system": "systems/zama-concrete-ml.md",
+      "foundation": "foundations/fhe-ml.md"
+    }
+  ]
+}

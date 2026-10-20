@@ -29,7 +29,35 @@ verification, not a citable source. See each entry's `confidence` field.
 /watch/        checkpoint.json tracks the last-checked timestamp per
                source so a manual trigger only reports deltas.
                log/ holds one dated entry per trigger run.
+
+index.json     Generated, not hand-edited. Structured mirror of every
+               systems/ and foundations/ file (frontmatter, prose
+               sections, and property matrices parsed into tables) for
+               anything — a dashboard, a script — that wants to consume
+               this content without parsing markdown. Source of truth is
+               always the .md files; index.json just reflects them.
+
+scripts/build_index.py  Regenerates index.json from the current state of
+               systems/ and foundations/. Stdlib only, no dependencies.
 ```
+
+## Update process
+
+The markdown files are the source of truth. Any time one of them changes
+— a manual edit, or a watch-trigger run writing a new finding — the
+process is:
+
+1. Edit/add the relevant `systems/*.md` or `foundations/*.md` file,
+   including bumping its `last_updated` frontmatter field.
+2. Run `python3 scripts/build_index.py` to regenerate `index.json`.
+3. Commit the markdown change and the regenerated `index.json` together
+   in the same commit — they should never drift apart. If a watch run
+   produced the change, its `watch/log/` entry documents why.
+
+`index.json` is never hand-edited. If its shape needs to change (a new
+field, a new section type), that happens by changing
+`scripts/build_index.py` and regenerating, not by patching the JSON
+directly.
 
 ## How the watch loop works
 
