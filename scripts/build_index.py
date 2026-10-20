@@ -124,6 +124,11 @@ def load_dir(dirname: str):
 def main():
     systems = load_dir("systems")
     foundations = load_dir("foundations")
+    watch_log = load_dir("watch/log")
+    watch_log.sort(key=lambda w: w["frontmatter"].get("date", ""), reverse=True)
+
+    checkpoint_path = ROOT / "watch" / "checkpoint.json"
+    checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else None
 
     foundation_paths = {f["path"] for f in foundations}
     fields = []
@@ -149,6 +154,8 @@ def main():
         "systems": systems,
         "foundations": foundations,
         "fields": fields,
+        "watch_log": watch_log,
+        "checkpoint": checkpoint,
     }
 
     out_path = ROOT / "index.json"

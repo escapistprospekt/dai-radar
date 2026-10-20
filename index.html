@@ -322,6 +322,19 @@
   .logpanel .readout div span{color:var(--ink-faint);}
   .empty-log{display:flex; gap:14px; align-items:flex-start; margin-top:18px; padding:16px; background:var(--surface-2); border:1px dashed var(--line);}
   .empty-log .glyph{color:var(--inferred); font-size:18px;}
+
+  .since-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:18px 0; padding:12px 14px; background:var(--surface-2); border:1px solid var(--line);}
+  .since-row label{font-size:10.5px; letter-spacing:.08em; color:var(--ink-faint);}
+  .since-row select{font-family:var(--mono); font-size:12px; color:var(--ink); background:var(--surface); border:1px solid var(--line); padding:6px 9px; border-radius:var(--radius);}
+  .since-hint{font-size:11px; color:var(--ink-faint); margin-left:auto;}
+
+  .log-timeline{display:flex; flex-direction:column; gap:14px; margin-top:4px;}
+  .log-entry{background:var(--surface); border:1px solid var(--line); padding:16px 18px;}
+  .log-entry.kind-baseline{border-color:var(--grounded);}
+  .log-entry .lh{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline;}
+  .log-entry .ldate{font-size:13px; color:var(--ink); font-weight:700;}
+  .log-entry .lstats{display:flex; gap:10px; font-size:10.5px; color:var(--ink-faint); flex-wrap:wrap;}
+  .log-entry .lstats b{color:var(--ink-dim); font-weight:700;}
   .steps{display:flex; flex-direction:column; gap:10px; margin-top:16px; counter-reset:step;}
   .steps li{list-style:none; counter-increment:step; display:flex; gap:12px; font-size:12px; color:var(--ink-dim);}
   .steps li::before{content:counter(step,decimal-leading-zero); color:var(--grounded); font-weight:700; flex-shrink:0;}
@@ -424,29 +437,26 @@
   <section class="view" id="view-log">
     <div class="eyebrow">WATCH LOOP</div>
     <h1>Signal log</h1>
-    <p class="lede">A pull-based check against a fixed, narrow set of sources (IACR ePrint + relevant arXiv categories). Run on demand: no scheduler, no push.</p>
+    <p class="lede">A daily check against a fixed, narrow set of sources (IACR ePrint, relevant arXiv categories, and tracked systems' own repos) — not the entire literature.</p>
 
     <div class="logpanel">
-      <div class="readout">
+      <div class="readout" id="log-readout">
         <div><span>checkpoint —</span> watch/checkpoint.json</div>
-        <div><span>sources —</span> IACR ePrint · arXiv (cs.CR, cs.LG, cs.DC)</div>
-        <div><span>filter —</span> relevance against tracked fields</div>
-        <div><span>last run —</span> none recorded yet</div>
       </div>
 
-      <div class="empty-log">
-        <div class="glyph">◌</div>
-        <div>
-          <strong>No sweep has been triggered yet.</strong>
-          <p style="margin:6px 0 0;">The log is empty by design, not by omission. This view will fill with one dated entry per run once a check is triggered. Nothing here is backfilled or simulated.</p>
-        </div>
+      <div class="since-row" id="since-row" style="display:none;">
+        <label for="since-picker">SHOW CHANGES SINCE</label>
+        <select id="since-picker"></select>
+        <span class="since-hint" id="since-hint"></span>
       </div>
+
+      <div id="log-timeline"><div class="loading">loading index.json…</div></div>
 
       <h3 style="margin-top:26px; color:var(--ink);">What a run does</h3>
       <ol class="steps">
-        <li>Pull new items since the last checkpoint from the fixed source list, not the entire literature.</li>
+        <li>Pull new items since the last checkpoint from the fixed source list — IACR ePrint, arXiv (cs.CR, cs.LG, cs.DC), and tracked systems' own repos — not the entire literature.</li>
         <li>Filter for relevance against the tracked systems/fields.</li>
-        <li>For anything touching a tracked system: read it fully, check it against that system's property matrix. A note is written only if the matrix actually changes.</li>
+        <li>For anything touching a tracked system — a paper, a release, a merged PR that looks significant: read it fully, check it against that system's property matrix. A note is written only if the matrix actually changes.</li>
         <li>For anything field‑relevant but untied to a tracked system: filed as "related, unverified relevance" (a visibly lower tier, no full write‑up).</li>
         <li>Checkpoint updates. Short report: N new, M matrix‑impacting, rest filed.</li>
       </ol>
@@ -740,6 +750,7 @@
     renderRadar(systems);
     renderSystemsView(systems);
     renderFoundationsView(foundations, systems);
+    renderLogView(index.watch_log || [], index.checkpoint || null);
   }
 
   function renderStats(systems, foundations, generatedAt){
@@ -947,6 +958,85 @@
       });
       list.appendChild(item);
     });
+  }
+
+  /* Timeline of watch/log/ entries, plus a "show changes since" picker.
+     No accounts, no cookies, no server-side tracking of who visited —
+     the picker works identically with zero stored state (pick a date,
+     see what's after it). localStorage only pre-fills a default value
+     as a convenience for returning visitors; if it's unavailable or
+     cleared, the picker just falls back to showing everything. */
+  function renderLogView(watchLog, checkpoint){
+    var readout = document.getElementById("log-readout");
+    if(checkpoint){
+      readout.innerHTML =
+        '<div><span>checkpoint —</span> watch/checkpoint.json</div>'+
+        '<div><span>sources —</span> '+escapeHtml((checkpoint.sources||[]).join(" · "))+'</div>'+
+        '<div><span>schedule —</span> '+escapeHtml(checkpoint.schedule||"—")+'</div>'+
+        '<div><span>last run —</span> '+escapeHtml(checkpoint.last_run||"—")+(checkpoint.last_run_kind ? ' ('+escapeHtml(checkpoint.last_run_kind)+')' : '')+'</div>'+
+        '<div><span>next run —</span> '+escapeHtml(checkpoint.next_run||"—")+'</div>';
+    }
+
+    var sinceRow = document.getElementById("since-row");
+    var picker = document.getElementById("since-picker");
+    var hint = document.getElementById("since-hint");
+    var timeline = document.getElementById("log-timeline");
+
+    if(!watchLog.length){
+      timeline.innerHTML =
+        '<div class="empty-log"><div class="glyph">&#9676;</div><div>'+
+        '<strong>No sweep has run yet.</strong>'+
+        '<p style="margin:6px 0 0;">This view fills with one dated entry per run. Nothing here is backfilled or simulated.</p>'+
+        '</div></div>';
+      return;
+    }
+
+    sinceRow.style.display = "flex";
+    var dates = watchLog.map(function(w){ return w.frontmatter.date; });
+    picker.innerHTML = '<option value="__all__">the beginning</option>' +
+      dates.map(function(d){ return '<option value="'+escapeHtml(d)+'">'+escapeHtml(d)+'</option>'; }).join("");
+
+    var lastSeen = null;
+    try{ lastSeen = localStorage.getItem("dai-log-last-seen"); }catch(e){}
+    picker.value = (lastSeen && dates.indexOf(lastSeen) !== -1) ? lastSeen : "__all__";
+
+    function renderTimeline(){
+      var since = picker.value;
+      var shown = since === "__all__" ? watchLog : watchLog.filter(function(w){ return w.frontmatter.date > since; });
+      if(!shown.length){
+        timeline.innerHTML =
+          '<div class="empty-log"><div class="glyph">&#9676;</div><div>'+
+          '<strong>Nothing new since '+escapeHtml(since === "__all__" ? "the beginning" : since)+'.</strong>'+
+          '<p style="margin:6px 0 0;">No run since that date found anything worth a dated entry.</p>'+
+          '</div></div>';
+        hint.textContent = "";
+        return;
+      }
+      hint.textContent = shown.length + (shown.length === 1 ? " entry" : " entries");
+      timeline.innerHTML = shown.map(function(w){
+        var fm = w.frontmatter;
+        var kindCls = fm.kind === "baseline" ? " kind-baseline" : "";
+        var stats = [];
+        if(fm.new_items_found !== undefined) stats.push('<span><b>'+escapeHtml(fm.new_items_found)+'</b> new</span>');
+        if(fm.matrix_impacting !== undefined) stats.push('<span><b>'+escapeHtml(fm.matrix_impacting)+'</b> matrix-impacting</span>');
+        if(fm.filed_related_only !== undefined) stats.push('<span><b>'+escapeHtml(fm.filed_related_only)+'</b> filed</span>');
+        return '<div class="log-entry'+kindCls+'">'+
+          '<div class="lh"><span class="ldate">'+escapeHtml(fm.date)+(fm.time ? ' · '+escapeHtml(fm.time) : '')+
+          (fm.kind === "baseline" ? ' <span class="stamp grounded" style="margin-left:6px;">BASELINE</span>' : '')+
+          '</span><div class="lstats">'+stats.join("")+'</div></div>'+
+          '<div class="md" style="margin-top:10px;">'+sectionMD(w, "What happened")+'</div>'+
+          '<div class="meta" style="margin-top:10px;"><span>'+escapeHtml(w.path)+'</span></div>'+
+          '</div>';
+      }).join("");
+    }
+
+    picker.addEventListener("change", renderTimeline);
+    renderTimeline();
+
+    // Mark the most recent entry as seen for next visit. Only ever moves
+    // forward — manually browsing older history via the picker above must
+    // not un-mark what's already been seen.
+    try{ localStorage.setItem("dai-log-last-seen", dates[0]); }catch(e){}
   }
 
 })();
