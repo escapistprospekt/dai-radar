@@ -7,53 +7,55 @@
 <meta name="description" content="A probe aimed at decentralized AI: tracked production systems, their sourced foundational-paper lineage, and evaluation matrices." />
 <style>
   :root{
-    --bg:#0b0f0d;
-    --bg-raise:#0e1310;
-    --surface:#121613;
-    --surface-2:#171c19;
-    --ink:#e7ece7;
-    --ink-dim:#9fada4;
-    --ink-faint:#5c6960;
-    --line:#232b26;
-    --line-soft:#1a211d;
-    --grounded:#5cf2a0;
-    --grounded-dim:rgba(92,242,160,.14);
-    --inferred:#f2b35c;
-    --inferred-dim:rgba(242,179,92,.14);
-    --critical:#f2615c;
-    --critical-dim:rgba(242,97,92,.14);
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+    /* Misbar design-system tokens (src/design-system/tokens.css) — same
+       palette as the parent platform, dark values as the default ground. */
+    --bg:#0a0812;
+    --bg-raise:#1c1828;
+    --surface:#16131f;
+    --surface-2:#221d30;
+    --ink:#f5f3ff;
+    --ink-dim:#a9a6c4;
+    --ink-faint:#716d94;
+    --line:#2a2440;
+    --line-soft:#201b33;
+    --grounded:#9b7dff;
+    --grounded-dim:rgba(122,83,239,.18);
+    --inferred:#ffb700;
+    --inferred-dim:rgba(255,183,0,.14);
+    --critical:#ca3c7b;
+    --critical-dim:rgba(202,60,123,.16);
+    --mono: "Inconsolata", ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
     --serif: "Iowan Old Style","Palatino Linotype","Book Antiqua", Georgia, serif;
     --radius:2px;
     color-scheme: dark;
   }
   @media (prefers-color-scheme: light){
     :root{
-      --bg:#eef1ee; --bg-raise:#e7ebe7; --surface:#ffffff; --surface-2:#f4f6f3;
-      --ink:#10140f; --ink-dim:#4d5850; --ink-faint:#8b958c;
-      --line:#d6dcd3; --line-soft:#e1e6de;
-      --grounded:#167a4f; --grounded-dim:rgba(22,122,79,.10);
-      --inferred:#8a5c0c; --inferred-dim:rgba(138,92,12,.10);
-      --critical:#a3362d; --critical-dim:rgba(163,54,45,.10);
+      --bg:#ede9fd; --bg-raise:#fcfaff; --surface:#ffffff; --surface-2:#f3efff;
+      --ink:#000000; --ink-dim:#62628c; --ink-faint:#8f8cab;
+      --line:#ede9fd; --line-soft:#e4ddfb;
+      --grounded:#5635c4; --grounded-dim:rgba(122,83,239,.12);
+      --inferred:#8a6a00; --inferred-dim:rgba(255,183,0,.14);
+      --critical:#a3265c; --critical-dim:rgba(202,60,123,.12);
       color-scheme: light;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0b0f0d; --bg-raise:#0e1310; --surface:#121613; --surface-2:#171c19;
-    --ink:#e7ece7; --ink-dim:#9fada4; --ink-faint:#5c6960;
-    --line:#232b26; --line-soft:#1a211d;
-    --grounded:#5cf2a0; --grounded-dim:rgba(92,242,160,.14);
-    --inferred:#f2b35c; --inferred-dim:rgba(242,179,92,.14);
-    --critical:#f2615c; --critical-dim:rgba(242,97,92,.14);
+    --bg:#0a0812; --bg-raise:#1c1828; --surface:#16131f; --surface-2:#221d30;
+    --ink:#f5f3ff; --ink-dim:#a9a6c4; --ink-faint:#716d94;
+    --line:#2a2440; --line-soft:#201b33;
+    --grounded:#9b7dff; --grounded-dim:rgba(122,83,239,.18);
+    --inferred:#ffb700; --inferred-dim:rgba(255,183,0,.14);
+    --critical:#ca3c7b; --critical-dim:rgba(202,60,123,.16);
     color-scheme: dark;
   }
   :root[data-theme="light"]{
-    --bg:#eef1ee; --bg-raise:#e7ebe7; --surface:#ffffff; --surface-2:#f4f6f3;
-    --ink:#10140f; --ink-dim:#4d5850; --ink-faint:#8b958c;
-    --line:#d6dcd3; --line-soft:#e1e6de;
-    --grounded:#167a4f; --grounded-dim:rgba(22,122,79,.10);
-    --inferred:#8a5c0c; --inferred-dim:rgba(138,92,12,.10);
-    --critical:#a3362d; --critical-dim:rgba(163,54,45,.10);
+    --bg:#ede9fd; --bg-raise:#fcfaff; --surface:#ffffff; --surface-2:#f3efff;
+    --ink:#000000; --ink-dim:#62628c; --ink-faint:#8f8cab;
+    --line:#ede9fd; --line-soft:#e4ddfb;
+    --grounded:#5635c4; --grounded-dim:rgba(122,83,239,.12);
+    --inferred:#8a6a00; --inferred-dim:rgba(255,183,0,.14);
+    --critical:#a3265c; --critical-dim:rgba(202,60,123,.12);
     color-scheme: light;
   }
 
@@ -94,12 +96,21 @@
     max-width:1120px; margin:0 auto;
   }
   .brand{
-    display:flex; align-items:baseline; gap:8px;
+    display:flex; align-items:center; gap:10px;
     font-weight:700; letter-spacing:.02em; white-space:nowrap;
     cursor:pointer; user-select:none; background:none; border:none;
   }
-  .brand .mark{color:var(--grounded); font-size:16px;}
-  .brand .b1{font-size:13px; color:var(--ink-faint); letter-spacing:.18em;}
+  .brand .logomark{width:22px; height:22px; border-radius:4px; flex-shrink:0;}
+  .brand .logomark.on-dark{display:block;}
+  .brand .logomark.on-light{display:none;}
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]) .brand .logomark.on-dark{display:none;}
+    :root:not([data-theme="dark"]) .brand .logomark.on-light{display:block;}
+  }
+  :root[data-theme="dark"] .brand .logomark.on-dark{display:block;}
+  :root[data-theme="dark"] .brand .logomark.on-light{display:none;}
+  :root[data-theme="light"] .brand .logomark.on-dark{display:none;}
+  :root[data-theme="light"] .brand .logomark.on-light{display:block;}
   .brand .b2{font-size:15px; color:var(--ink);}
   .brand .b2 em{color:var(--grounded); font-style:normal;}
 
@@ -186,8 +197,13 @@
   @keyframes pulse{0%,100%{opacity:.85; transform:scale(1);} 50%{opacity:1; transform:scale(1.35);}}
   .blip .tag{
     position:absolute; top:-7px; left:14px; font-size:10px; letter-spacing:.05em;
-    color:var(--ink-dim); white-space:nowrap; pointer-events:none;
+    color:var(--ink); white-space:nowrap; pointer-events:none;
+    background:var(--surface); border:1px solid var(--line); padding:1px 6px;
+    border-radius:var(--radius); opacity:0; transition:opacity .1s;
+    z-index:5;
   }
+  .blip:hover,.blip:focus-visible{z-index:6;}
+  .blip:hover .tag,.blip:focus-visible .tag{opacity:1;}
   .radar-center{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     font-size:9px; color:var(--ink-faint); letter-spacing:.1em; text-align:center; pointer-events:none;
@@ -331,9 +347,9 @@
 <header class="console">
   <div class="bar">
     <button class="brand" data-nav="scope">
-      <span class="mark">◉</span>
-      <span class="b1">MISBAR</span>
-      <span class="b2">// <em>dai</em></span>
+      <svg class="logomark on-dark" viewBox="-100.0 -594.0 709.0 709.0" role="img" aria-label="Misbar"><rect x="-100.0" y="-594.0" width="709.0" height="709.0" fill="#16131F"/><g transform="matrix(1 0 0 -1 0 0)"><path fill="#F5F3FF" d="M28 0V468H132V438Q144 453 156.5 462.0Q169 471 182.5 475.0Q196 479 209 479Q225 479 239.5 474.0Q254 469 267.0 458.0Q280 447 288 426Q299 445 312.5 456.5Q326 468 344.0 473.5Q362 479 384 479Q410 479 428.5 469.5Q447 460 458.5 442.5Q470 425 475.5 399.5Q481 374 481 341V0H373V317Q373 344 370.5 359.0Q368 374 363.0 381.0Q358 388 350 388Q339 388 328.5 377.5Q318 367 311.5 347.0Q305 327 305 297V0H204V315Q204 361 198.0 376.0Q192 391 177 391Q169 391 161.5 385.5Q154 380 148.0 368.5Q142 357 139.0 341.0Q136 325 136 303V0Z"/></g><rect x="28.0" y="-155.4" width="453.0" height="155.4" fill="#7A53EF"/></svg>
+      <svg class="logomark on-light" viewBox="-100.0 -594.0 709.0 709.0" role="img" aria-label="Misbar"><rect x="-100.0" y="-594.0" width="709.0" height="709.0" fill="#FFFFFF"/><g transform="matrix(1 0 0 -1 0 0)"><path fill="#000000" d="M28 0V468H132V438Q144 453 156.5 462.0Q169 471 182.5 475.0Q196 479 209 479Q225 479 239.5 474.0Q254 469 267.0 458.0Q280 447 288 426Q299 445 312.5 456.5Q326 468 344.0 473.5Q362 479 384 479Q410 479 428.5 469.5Q447 460 458.5 442.5Q470 425 475.5 399.5Q481 374 481 341V0H373V317Q373 344 370.5 359.0Q368 374 363.0 381.0Q358 388 350 388Q339 388 328.5 377.5Q318 367 311.5 347.0Q305 327 305 297V0H204V315Q204 361 198.0 376.0Q192 391 177 391Q169 391 161.5 385.5Q154 380 148.0 368.5Q142 357 139.0 341.0Q136 325 136 303V0Z"/></g><rect x="28.0" y="-155.4" width="453.0" height="155.4" fill="#7A53EF"/></svg>
+      <span class="b2"><em>DAI</em> RADAR</span>
     </button>
     <nav class="tabs">
       <button data-nav="scope" class="active">SCOPE</button>
@@ -368,7 +384,7 @@
       <div>
         <div class="eyebrow">DECENTRALIZED AI — LIVE RECKONING</div>
         <h1>A probe aimed at decentralized&nbsp;AI.</h1>
-        <p class="lede">Tracked production systems across ZK proving, distributed training, FHE, secure MPC, and ML‑network consensus — each traced back to the paper it's actually built on, with every claim marked by how directly it's sourced. Not a news feed. A chain of custody.</p>
+        <p class="lede">Tracked production systems across ZK proving, distributed training, FHE, secure MPC, and ML‑network consensus, each traced back to the paper it's actually built on, with every claim marked by how directly it's sourced. Not a news feed. A chain of custody.</p>
         <div class="ticker">
           <div class="cell"><div class="num" id="stat-systems">–</div><div class="lbl">SYSTEMS TRACKED</div></div>
           <div class="cell"><div class="num" id="stat-foundations">–</div><div class="lbl">SEED PAPERS</div></div>
@@ -380,8 +396,8 @@
 
     <div class="brief section-gap">
       <div class="eyebrow">WHY THIS EXISTS</div>
-      <h2>What's changed since I last checked — and does it actually touch anything real?</h2>
-      <p class="lede" style="margin-top:12px;">This reservoir tracks a deliberately small list of systems that already ship in production, and the foundational research each one is demonstrably built on — not everything "important," only what a tracked system's own docs or whitepaper actually cites. When new research lands, it gets checked against each system's property matrix; a note only gets written if something in that matrix actually moves.</p>
+      <h2>What's changed since I last checked, and does it actually touch anything real?</h2>
+      <p class="lede" style="margin-top:12px;">This tracker follows a deliberately small list of systems that already ship in production, and the foundational research each one is demonstrably built on: not everything "important," only what a tracked system's own docs or whitepaper actually cites. When new research lands, it gets checked against each system's property matrix; a note only gets written if something in that matrix actually moves.</p>
       <p style="margin-top:14px;" class="annot">— pull, not push. No cron. You trigger a sweep when you want one.</p>
     </div>
   </section>
@@ -401,14 +417,14 @@
   <section class="view" id="view-foundations">
     <div class="eyebrow">SEED PAPERS</div>
     <h1>Foundations</h1>
-    <p class="lede">One paper per field — chosen because a tracked system's own docs demonstrably cite it, not because it's subjectively "important."</p>
+    <p class="lede">One paper per field, chosen because a tracked system's own docs demonstrably cite it, not because it's subjectively "important."</p>
     <div class="found-list" id="found-list"><div class="loading">loading index.json…</div></div>
   </section>
 
   <section class="view" id="view-log">
     <div class="eyebrow">WATCH LOOP</div>
     <h1>Signal log</h1>
-    <p class="lede">A pull-based check against a fixed, narrow set of sources (IACR ePrint + relevant arXiv categories). Run on demand — no scheduler, no push.</p>
+    <p class="lede">A pull-based check against a fixed, narrow set of sources (IACR ePrint + relevant arXiv categories). Run on demand: no scheduler, no push.</p>
 
     <div class="logpanel">
       <div class="readout">
@@ -422,16 +438,16 @@
         <div class="glyph">◌</div>
         <div>
           <strong>No sweep has been triggered yet.</strong>
-          <p style="margin:6px 0 0;">The log is empty by design, not by omission — this view will fill with one dated entry per run once a check is triggered. Nothing here is backfilled or simulated.</p>
+          <p style="margin:6px 0 0;">The log is empty by design, not by omission. This view will fill with one dated entry per run once a check is triggered. Nothing here is backfilled or simulated.</p>
         </div>
       </div>
 
       <h3 style="margin-top:26px; color:var(--ink);">What a run does</h3>
       <ol class="steps">
-        <li>Pull new items since the last checkpoint from the fixed source list — not the entire literature.</li>
+        <li>Pull new items since the last checkpoint from the fixed source list, not the entire literature.</li>
         <li>Filter for relevance against the tracked systems/fields.</li>
         <li>For anything touching a tracked system: read it fully, check it against that system's property matrix. A note is written only if the matrix actually changes.</li>
-        <li>For anything field‑relevant but untied to a tracked system: filed as "related, unverified relevance" — a visibly lower tier, no full write‑up.</li>
+        <li>For anything field‑relevant but untied to a tracked system: filed as "related, unverified relevance" (a visibly lower tier, no full write‑up).</li>
         <li>Checkpoint updates. Short report: N new, M matrix‑impacting, rest filed.</li>
       </ol>
     </div>
@@ -443,41 +459,41 @@
     <p class="lede">How to read every stamp on this instrument before you trust what it's showing you.</p>
 
     <div class="notice">
-      <b>AI‑generated content notice —</b> the research, analysis, and "does this affect system X" judgments here are produced primarily by an AI (Claude), with a human maintainer directing scope and spot‑checking output. This is <b>not</b> peer‑reviewed material and carries no claim of novel authorship over the analysis. Treat every claim as a starting point for your own verification — see each entry's confidence tier.
+      <b>AI‑generated content notice:</b> the research, analysis, and "does this affect system X" judgments here are produced primarily by an AI (Claude), with a human maintainer directing scope and spot‑checking output. This is <b>not</b> peer‑reviewed material and carries no claim of novel authorship over the analysis. Treat every claim as a starting point for your own verification; see each entry's confidence tier.
     </div>
 
     <h2 style="margin-top:28px;">Signal‑integrity tiers</h2>
     <div class="tiers">
       <div class="t">
         <span class="stamp grounded">GROUNDED</span>
-        <p>Directly sourced — a project's own README, docs, or paper states the claim explicitly. The strongest return this instrument gives.</p>
+        <p>Directly sourced: a project's own README, docs, or paper states the claim explicitly. The strongest return this instrument gives.</p>
       </div>
       <div class="t">
         <span class="stamp mixed">INFERRED</span>
-        <p>Reasoned from general sourcing, cross‑referenced secondary coverage, or convergence across sister sources — plausible, not a direct quote. Recheck before relying on it.</p>
+        <p>Reasoned from general sourcing, cross‑referenced secondary coverage, or convergence across sister sources: plausible, not a direct quote. Recheck before relying on it.</p>
       </div>
       <div class="t">
         <span class="stamp" style="color:var(--critical); background:var(--critical-dim); border-color:var(--critical);">OPEN QUESTION</span>
-        <p>Flagged explicitly as unresolved — a withdrawn paper, a naming gap, an unverifiable claim — carried forward rather than quietly dropped.</p>
+        <p>Flagged explicitly as unresolved: a withdrawn paper, a naming gap, an unverifiable claim, carried forward rather than quietly dropped.</p>
       </div>
     </div>
 
     <h2 style="margin-top:30px;">Structure</h2>
     <ul style="padding-left:18px; display:flex; flex-direction:column; gap:7px;">
-      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/systems</strong> — one file per tracked production system: what it does, what it's built on, known limitations, and a property matrix checked against incoming research.</li>
-      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/foundations</strong> — one foundational paper per field.</li>
-      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/watch</strong> — checkpoint + dated log, one entry per triggered run.</li>
-      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">index.json</strong> — generated mirror of the above, regenerated by <code style="font-family:var(--mono); background:var(--surface-2); padding:1px 5px; border-radius:2px;">scripts/build_index.py</code>. This page reads from it directly — edit a markdown file, regenerate, push, and the live page reflects it.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/systems</strong>: one file per tracked production system: what it does, what it's built on, known limitations, and a property matrix checked against incoming research.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/foundations</strong>: one foundational paper per field.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/watch</strong>: checkpoint + dated log, one entry per triggered run.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">index.json</strong>: generated mirror of the above, regenerated by <code style="font-family:var(--mono); background:var(--surface-2); padding:1px 5px; border-radius:2px;">scripts/build_index.py</code>. This page reads from it directly: edit a markdown file, regenerate, push, and the live page reflects it.</li>
     </ul>
 
-    <p style="margin-top:26px;">Part of <a href="https://misbar.tech" target="_blank" rel="noopener">misbar.tech</a> — prove what AI can do.</p>
+    <p style="margin-top:26px;">Part of <a href="https://misbar.tech" target="_blank" rel="noopener">misbar.tech</a>: prove what AI can do.</p>
   </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <span>dai.misbar.tech — a probe, not a feed.</span>
+    <span>dai.misbar.tech: a probe, not a feed.</span>
     <span>scope grows only when a system earns a row.</span>
   </div>
 </footer>
@@ -660,7 +676,7 @@
   }).then(function(index){
     render(index);
   }).catch(function(err){
-    document.getElementById("sys-grid").innerHTML = '<div class="fetch-error">Could not load index.json (' + escapeHtml(err.message) + '). If you are viewing this file directly from disk, serve it over http:// instead (e.g. <code>python3 -m http.server</code>) — fetch() cannot read local files over file://.</div>';
+    document.getElementById("sys-grid").innerHTML = '<div class="fetch-error">Could not load index.json (' + escapeHtml(err.message) + '). If you are viewing this file directly from disk, serve it over http:// instead (e.g. <code>python3 -m http.server</code>); fetch() cannot read local files over file://.</div>';
     document.getElementById("found-list").innerHTML = "";
   });
 
@@ -668,12 +684,27 @@
     var systems = index.systems.map(function(s){
       var rows = matrixRows(s);
       var cfg = VIEW_CONFIG[s.path] || {};
+      // The authoritative system→foundation link lives in index.json (built
+      // from each system's own `foundation:` frontmatter pointer). VIEW_CONFIG
+      // only adds a richer, hand-written multi-hop trace for a few systems —
+      // it must never be the ONLY source, or every system without a curated
+      // entry here would silently show no foundation at all, even ones that
+      // index.json says are actually grounded.
+      var fieldEntry = index.fields.filter(function(fl){ return fl.system === s.path; })[0];
+      var foundationPath = fieldEntry ? fieldEntry.foundation : null;
+      var foundation = foundationPath
+        ? index.foundations.filter(function(f){ return f.path === foundationPath; })[0]
+        : null;
       return {
         path: s.path,
         name: s.frontmatter.name,
         field: s.frontmatter.field,
         updated: s.frontmatter.last_updated,
-        fieldTag: cfg.fieldTag || (s.frontmatter.field || "").toUpperCase().slice(0,10),
+        // Full field name, not a truncated prefix — slicing to a fixed
+        // length collapsed several distinct fields that happen to share a
+        // prefix (e.g. every "Decentralized ..." field) into one garbled,
+        // ambiguous filter chip once there were more than a handful of fields.
+        fieldTag: cfg.fieldTag || (s.frontmatter.field || "").toUpperCase(),
         summary: sectionMD(s, "What it does"),
         architecture: sectionMD(s, "Architecture summary"),
         limitations: sectionMD(s, "Known limitations"),
@@ -682,7 +713,8 @@
         confidenceNote: s.frontmatter.confidence || "",
         trace: cfg.trace || [],
         alsoCited: cfg.alsoCited || null,
-        repoUrl: cfg.trace && cfg.trace[0] ? cfg.trace[0].url : "#"
+        foundation: foundation,
+        repoUrl: (cfg.trace && cfg.trace[0]) ? cfg.trace[0].url : "#"
       };
     });
     var foundations = index.foundations.map(function(f){
@@ -843,6 +875,33 @@
         '</div>';
     }
 
+    /* Foundation section: always render something, never silently omit it.
+       Three cases — curated multi-hop trace (the handful of systems with a
+       hand-written VIEW_CONFIG entry), a generic system→paper link built
+       straight from index.json (every other grounded system), or an
+       explicit "no foundation found" state for systems where that's a
+       documented finding, not a gap in this page's rendering. */
+    var foundationHtml;
+    if(s.trace.length){
+      foundationHtml = '<div class="section"><h3>Lineage trace</h3><div class="trace-wrap"><div class="trace">'+traceHtml+'</div></div>'+alsoCitedHtml+'</div>';
+    } else if(s.foundation){
+      var fm = s.foundation.frontmatter || {};
+      var fLink = fm.link || fm.arxiv || "#";
+      foundationHtml = '<div class="section"><h3>Foundation</h3><div class="trace-wrap"><div class="trace">'+
+        '<div class="tnode"><span class="k">SYSTEM</span>'+escapeHtml(s.name)+'</div>'+
+        '<span class="tarrow">&#8594;</span>'+
+        '<div class="tnode paper"><span class="k">SEED PAPER</span><a href="'+escapeHtml(fLink)+'" target="_blank" rel="noopener">'+escapeHtml(fm.paper||s.foundation.path)+'</a></div>'+
+        '</div></div>'+
+        (fm.authors || fm.year ? '<p class="annot" style="margin-top:8px;">'+escapeHtml([fm.authors,fm.year].filter(Boolean).join(' · '))+'</p>' : '')+
+        '</div>';
+    } else {
+      foundationHtml = '<div class="section"><h3>Foundation</h3>'+
+        '<div class="empty-log" style="margin-top:0;"><div class="glyph">&#9676;</div><div>'+
+        '<strong>No foundation found.</strong>'+
+        '<p style="margin:6px 0 0;">This system\'s own docs, whitepaper, or team were checked for a citable lineage and none survived source-checking; see Known limitations below for what was actually found instead. Not a gap in this page, a documented result.</p>'+
+        '</div></div></div>';
+    }
+
     el.innerHTML =
       '<div class="dhead">'+
         '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+' &middot; <a href="'+s.repoUrl+'" target="_blank" rel="noopener">'+escapeHtml(s.path)+'</a></div></div>'+
@@ -852,7 +911,7 @@
 
       '<div class="section"><h3>What it does</h3><div class="md">'+s.summary+'</div></div>'+
       '<div class="section"><h3>Architecture</h3><div class="md">'+s.architecture+'</div></div>'+
-      (s.trace.length ? '<div class="section"><h3>Lineage trace</h3><div class="trace-wrap"><div class="trace">'+traceHtml+'</div></div>'+alsoCitedHtml+'</div>' : '')+
+      foundationHtml+
       '<div class="section"><h3>Property matrix</h3><div class="overflow"><table class="matrix"><thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead><tbody>'+matrixRowsHtml+'</tbody></table></div></div>'+
       '<div class="section"><h3>Known limitations</h3><div class="md limits">'+s.limitations+'</div></div>';
 
@@ -875,9 +934,9 @@
       item.innerHTML =
         '<div class="fh"><div><h3>'+escapeHtml(f.paper)+'</h3><div class="byline">'+escapeHtml(f.authors)+' · '+escapeHtml(f.year)+'</div><div class="venue">'+escapeHtml(f.venue)+'</div></div>'+
         '<span class="stamp grounded" style="align-self:flex-start;">'+escapeHtml((f.field||"").toUpperCase())+'</span></div>'+
-        '<div class="md" style="margin-top:12px;"><strong style="color:var(--ink);">Why this is the seed — </strong>'+f.why+'</div>'+
-        '<div class="md"><strong style="color:var(--ink);">Core contribution — </strong>'+f.contribution+'</div>'+
-        (f.openQuestion ? '<div class="md" style="color:var(--inferred);"><strong>Open question — </strong>'+f.openQuestion+'</div>' : '')+
+        '<div class="md" style="margin-top:12px;"><strong style="color:var(--ink);">Why this is the seed: </strong>'+f.why+'</div>'+
+        '<div class="md"><strong style="color:var(--ink);">Core contribution: </strong>'+f.contribution+'</div>'+
+        (f.openQuestion ? '<div class="md" style="color:var(--inferred);"><strong>Open question: </strong>'+f.openQuestion+'</div>' : '')+
         '<p><a href="'+f.link+'" target="_blank" rel="noopener">view source ↗</a></p>'+
         '<div class="used-by">'+usedByHtml+'</div>';
       item.querySelectorAll(".tagbtn").forEach(function(btn){
