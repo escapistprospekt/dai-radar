@@ -362,7 +362,7 @@
     <button class="brand" data-nav="scope">
       <svg class="logomark on-dark" viewBox="-100.0 -594.0 709.0 709.0" role="img" aria-label="Misbar"><rect x="-100.0" y="-594.0" width="709.0" height="709.0" fill="#16131F"/><g transform="matrix(1 0 0 -1 0 0)"><path fill="#F5F3FF" d="M28 0V468H132V438Q144 453 156.5 462.0Q169 471 182.5 475.0Q196 479 209 479Q225 479 239.5 474.0Q254 469 267.0 458.0Q280 447 288 426Q299 445 312.5 456.5Q326 468 344.0 473.5Q362 479 384 479Q410 479 428.5 469.5Q447 460 458.5 442.5Q470 425 475.5 399.5Q481 374 481 341V0H373V317Q373 344 370.5 359.0Q368 374 363.0 381.0Q358 388 350 388Q339 388 328.5 377.5Q318 367 311.5 347.0Q305 327 305 297V0H204V315Q204 361 198.0 376.0Q192 391 177 391Q169 391 161.5 385.5Q154 380 148.0 368.5Q142 357 139.0 341.0Q136 325 136 303V0Z"/></g><rect x="28.0" y="-155.4" width="453.0" height="155.4" fill="#7A53EF"/></svg>
       <svg class="logomark on-light" viewBox="-100.0 -594.0 709.0 709.0" role="img" aria-label="Misbar"><rect x="-100.0" y="-594.0" width="709.0" height="709.0" fill="#FFFFFF"/><g transform="matrix(1 0 0 -1 0 0)"><path fill="#000000" d="M28 0V468H132V438Q144 453 156.5 462.0Q169 471 182.5 475.0Q196 479 209 479Q225 479 239.5 474.0Q254 469 267.0 458.0Q280 447 288 426Q299 445 312.5 456.5Q326 468 344.0 473.5Q362 479 384 479Q410 479 428.5 469.5Q447 460 458.5 442.5Q470 425 475.5 399.5Q481 374 481 341V0H373V317Q373 344 370.5 359.0Q368 374 363.0 381.0Q358 388 350 388Q339 388 328.5 377.5Q318 367 311.5 347.0Q305 327 305 297V0H204V315Q204 361 198.0 376.0Q192 391 177 391Q169 391 161.5 385.5Q154 380 148.0 368.5Q142 357 139.0 341.0Q136 325 136 303V0Z"/></g><rect x="28.0" y="-155.4" width="453.0" height="155.4" fill="#7A53EF"/></svg>
-      <span class="b2"><em>DAI</em> RADAR</span>
+      <span class="b2">d<em>AI</em> RADAR</span>
     </button>
     <nav class="tabs">
       <button data-nav="scope" class="active">SCOPE</button>
@@ -915,7 +915,9 @@
 
     el.innerHTML =
       '<div class="dhead">'+
-        '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+' &middot; <a href="'+s.repoUrl+'" target="_blank" rel="noopener">'+escapeHtml(s.path)+'</a></div></div>'+
+        '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+' &middot; '+
+          (s.repoUrl ? '<a href="'+s.repoUrl+'" target="_blank" rel="noopener">'+escapeHtml(s.path)+'</a>' : escapeHtml(s.path))+
+          '</div></div>'+
         '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="closebtn">CLOSE ✕</button></div>'+
       '</div>'+
       (s.confidenceNote ? '<p class="annot" style="margin-top:10px;">'+escapeHtml(s.confidenceNote)+'</p>' : '')+
@@ -992,7 +994,8 @@
     }
 
     sinceRow.style.display = "flex";
-    var dates = watchLog.map(function(w){ return w.frontmatter.date; });
+    var dates = watchLog.map(function(w){ return w.frontmatter.date; })
+      .filter(function(d, i, arr){ return arr.indexOf(d) === i; });
     picker.innerHTML = '<option value="__all__">the beginning</option>' +
       dates.map(function(d){ return '<option value="'+escapeHtml(d)+'">'+escapeHtml(d)+'</option>'; }).join("");
 
@@ -1013,19 +1016,42 @@
         return;
       }
       hint.textContent = shown.length + (shown.length === 1 ? " entry" : " entries");
-      timeline.innerHTML = shown.map(function(w){
-        var fm = w.frontmatter;
-        var kindCls = fm.kind === "baseline" ? " kind-baseline" : "";
+      var groups = [], byDate = {};
+      shown.forEach(function(w){
+        var d = w.frontmatter.date;
+        if(!byDate[d]){ byDate[d] = { date: d, entries: [] }; groups.push(byDate[d]); }
+        byDate[d].entries.push(w);
+      });
+
+      timeline.innerHTML = groups.map(function(g){
+        var entries = g.entries;
+        var sums = { new_items_found: 0, matrix_impacting: 0, filed_related_only: 0 };
+        var haveStat = { new_items_found: false, matrix_impacting: false, filed_related_only: false };
+        var anyBaseline = false;
+        entries.forEach(function(w){
+          var fm = w.frontmatter;
+          if(fm.kind === "baseline") anyBaseline = true;
+          ["new_items_found","matrix_impacting","filed_related_only"].forEach(function(k){
+            if(fm[k] !== undefined){ sums[k] += fm[k]; haveStat[k] = true; }
+          });
+        });
         var stats = [];
-        if(fm.new_items_found !== undefined) stats.push('<span><b>'+escapeHtml(fm.new_items_found)+'</b> new</span>');
-        if(fm.matrix_impacting !== undefined) stats.push('<span><b>'+escapeHtml(fm.matrix_impacting)+'</b> matrix-impacting</span>');
-        if(fm.filed_related_only !== undefined) stats.push('<span><b>'+escapeHtml(fm.filed_related_only)+'</b> filed</span>');
-        return '<div class="log-entry'+kindCls+'">'+
-          '<div class="lh"><span class="ldate">'+escapeHtml(fm.date)+(fm.time ? ' · '+escapeHtml(fm.time) : '')+
-          (fm.kind === "baseline" ? ' <span class="stamp grounded" style="margin-left:6px;">BASELINE</span>' : '')+
+        if(haveStat.new_items_found) stats.push('<span><b>'+escapeHtml(sums.new_items_found)+'</b> new</span>');
+        if(haveStat.matrix_impacting) stats.push('<span><b>'+escapeHtml(sums.matrix_impacting)+'</b> matrix-impacting</span>');
+        if(haveStat.filed_related_only) stats.push('<span><b>'+escapeHtml(sums.filed_related_only)+'</b> filed</span>');
+
+        var body = entries.map(function(w){
+          var fm = w.frontmatter;
+          var runLabel = (entries.length > 1 && fm.time) ? '<div class="meta" style="margin-top:'+(entries.indexOf(w) ? '14px' : '0')+';"><span>'+escapeHtml(fm.time)+(fm.kind === "baseline" ? ' · BASELINE' : '')+'</span></div>' : "";
+          return runLabel + '<div class="md" style="margin-top:6px;">'+sectionMD(w, "What happened")+'</div>';
+        }).join("");
+
+        return '<div class="log-entry'+(anyBaseline ? " kind-baseline" : "")+'">'+
+          '<div class="lh"><span class="ldate">'+escapeHtml(g.date)+(entries.length === 1 && entries[0].frontmatter.time ? ' · '+escapeHtml(entries[0].frontmatter.time) : '')+
+          (anyBaseline ? ' <span class="stamp grounded" style="margin-left:6px;">BASELINE</span>' : '')+
           '</span><div class="lstats">'+stats.join("")+'</div></div>'+
-          '<div class="md" style="margin-top:10px;">'+sectionMD(w, "What happened")+'</div>'+
-          '<div class="meta" style="margin-top:10px;"><span>'+escapeHtml(w.path)+'</span></div>'+
+          body+
+          '<div class="meta" style="margin-top:10px;"><span>'+entries.map(function(w){ return escapeHtml(w.path); }).join(" · ")+'</span></div>'+
           '</div>';
       }).join("");
     }
