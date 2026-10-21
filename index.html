@@ -175,35 +175,49 @@
   }
   .radar .crosshair::before{left:0; right:0; top:50%; height:1px;}
   .radar .crosshair::after{top:0; bottom:0; left:50%; width:1px;}
-  .sweep{
-    position:absolute; inset:0; border-radius:50%; overflow:hidden;
-    animation: spin 7s linear infinite;
-  }
+  /* rotate the clipped child, not .sweep itself: a rotating 320px box sweeps
+     out ~450px of scrollable overflow and widened the page on phones */
+  .sweep{position:absolute; inset:0; border-radius:50%; overflow:hidden;}
   .sweep::before{
     content:""; position:absolute; inset:0;
     background: conic-gradient(from 0deg, var(--grounded) 0deg, transparent 40deg, transparent 360deg);
-    opacity:.22;
+    opacity:.22; animation: spin 7s linear infinite;
   }
   @keyframes spin{to{transform:rotate(360deg);}}
-  @media (prefers-reduced-motion: reduce){ .sweep{animation:none;} .blip{animation:none !important;} }
+  @media (prefers-reduced-motion: reduce){ .sweep::before{animation:none;} }
+  .radar .ring,.radar .crosshair,.sweep{pointer-events:none;}
+
+  /* one invisible wedge per field: hover names the field in the readout,
+     click jumps to Systems filtered to it */
+  .radar svg.sectors{position:absolute; inset:0; width:100%; height:100%;}
+  .radar .sector{fill:transparent; cursor:pointer; transition:fill .12s;}
+  .radar .sector.hot{fill:var(--grounded-dim);}
 
   .blip{
     position:absolute; width:9px; height:9px; margin:-4.5px;
     border-radius:50%; background:var(--grounded);
     box-shadow:0 0 0 3px var(--grounded-dim);
-    cursor:pointer; animation: pulse 2.6s ease-in-out infinite; border:none; padding:0;
+    cursor:pointer; border:none; padding:0; transition:box-shadow .12s;
   }
+  /* 9px dot, ~19px hit target */
+  .blip::before{content:""; position:absolute; inset:-5px; border-radius:50%;}
   .blip.tier-mixed{background:var(--inferred); box-shadow:0 0 0 3px var(--inferred-dim);}
-  @keyframes pulse{0%,100%{opacity:.85; transform:scale(1);} 50%{opacity:1; transform:scale(1.35);}}
+  .blip:hover,.blip:focus-visible{box-shadow:0 0 0 6px var(--grounded-dim), 0 0 0 7px var(--grounded);}
+  .blip.tier-mixed:hover,.blip.tier-mixed:focus-visible{box-shadow:0 0 0 6px var(--inferred-dim), 0 0 0 7px var(--inferred);}
+  .blip:focus-visible{outline:none;}
   .blip .tag{
     position:absolute; top:-7px; left:14px; font-size:10px; letter-spacing:.05em;
     color:var(--ink); white-space:nowrap; pointer-events:none;
     background:var(--surface); border:1px solid var(--line); padding:1px 6px;
-    border-radius:var(--radius); opacity:0; transition:opacity .1s;
+    border-radius:var(--radius); display:none;
+    max-width:200px; overflow:hidden; text-overflow:ellipsis;
     z-index:5;
   }
   .blip:hover,.blip:focus-visible{z-index:6;}
-  .blip:hover .tag,.blip:focus-visible .tag{opacity:1;}
+  /* display, not opacity: hidden tags must not widen the page on phones */
+  .blip:hover .tag,.blip:focus-visible .tag{display:block;}
+  /* right-half blips label toward the centre so tags never run off the edge */
+  .blip.flip .tag{left:auto; right:14px;}
   .radar-center{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     font-size:9px; color:var(--ink-faint); letter-spacing:.1em; text-align:center; pointer-events:none;
@@ -213,6 +227,11 @@
   .scope-legend span{display:flex; align-items:center; gap:6px;}
   .dot{width:7px; height:7px; border-radius:50%; display:inline-block;}
   .dot.g{background:var(--grounded);} .dot.m{background:var(--inferred);}
+  .radar-readout{
+    font-size:11px; color:var(--ink-dim); text-align:center; letter-spacing:.03em;
+    margin:12px auto 0; max-width:320px; min-height:3.2em; line-height:1.55;
+  }
+  .radar-readout b{color:var(--ink); font-weight:700;}
 
   .ticker{
     display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
@@ -261,15 +280,36 @@
   .card p{font-size:12.5px; margin:10px 0 0;}
   .card .meta{display:flex; justify-content:space-between; margin-top:14px; font-size:10.5px; color:var(--ink-faint);}
 
-  .dossier{
-    grid-column:1/-1;
-    border:1px solid var(--grounded);
-    background:var(--surface);
-    padding:26px 26px 30px;
-    margin:4px 0 6px;
-    animation:fade .2s ease;
+  /* The dossier is one drawer shared by every entry point (radar, Systems
+     grid, Foundations "used by"); it opens on top of whichever view you're
+     in, so closing it leaves that view exactly as it was. */
+  html{scrollbar-gutter:stable;}
+  html.drawer-open{overflow:hidden;}
+  .drawer-backdrop{
+    position:fixed; inset:0; z-index:60;
+    background:color-mix(in srgb, var(--bg) 65%, transparent);
+    opacity:0; pointer-events:none; transition:opacity .2s ease;
   }
-  .dossier .dhead{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:6px;}
+  .drawer{
+    position:fixed; top:0; right:0; bottom:0; z-index:61;
+    width:min(780px, 92vw); overflow-y:auto; overscroll-behavior:contain;
+    background:var(--surface); border-left:1px solid var(--grounded);
+    transform:translateX(100%); visibility:hidden;
+    transition:transform .25s ease, visibility 0s linear .25s;
+  }
+  .drawer:focus{outline:none;}
+  html.drawer-open .drawer-backdrop{opacity:1; pointer-events:auto;}
+  html.drawer-open .drawer{transform:none; visibility:visible; transition:transform .25s ease, visibility 0s;}
+  @media (max-width:640px){ .drawer{width:100vw; border-left:none;} }
+  @media (prefers-reduced-motion: reduce){ .drawer,.drawer-backdrop{transition:none !important;} }
+
+  .dossier{padding:0 26px 30px;}
+  @media (max-width:640px){ .dossier{padding:0 16px 24px;} }
+  .dossier .dhead{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:6px;
+    position:sticky; top:0; z-index:1; background:var(--surface);
+    padding:22px 0 14px; border-bottom:1px solid var(--line);
+  }
   .dossier .dhead .repo{font-size:11px; color:var(--ink-faint);}
   .closebtn{background:none; border:1px solid var(--line); color:var(--ink-dim); font-family:var(--mono); font-size:11px; padding:5px 9px; cursor:pointer; border-radius:var(--radius);}
   .closebtn:hover{border-color:var(--critical); color:var(--critical);}
@@ -393,6 +433,7 @@
           <span><i class="dot g"></i> grounded contact</span>
           <span><i class="dot m"></i> mixed / provisional</span>
         </div>
+        <p class="radar-readout" id="radar-readout"></p>
       </div>
       <div>
         <div class="eyebrow">DECENTRALIZED AI — LIVE RECKONING</div>
@@ -507,6 +548,9 @@
     <span>scope grows only when a system earns a row.</span>
   </div>
 </footer>
+
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dossier-title" tabindex="-1"></aside>
 
 <script>
 (function(){
@@ -646,17 +690,87 @@
     return /inferred/i.test(frontmatter.confidence || "") ? "mixed" : "grounded";
   }
 
-  /* ===================== NAV ===================== */
-  function goTo(name){
-    document.querySelectorAll(".view").forEach(function(v){ v.classList.toggle("active", v.id === "view-"+name); });
-    document.querySelectorAll("nav.tabs button").forEach(function(b){
-      b.classList.toggle("active", b.getAttribute("data-nav") === name);
-    });
-    window.scrollTo({top:0, behavior:"instant"});
+  /* ===================== NAV / ROUTING =====================
+     The URL hash is the only source of truth for where you are:
+     #/<view>, or #/<view>/<system-slug> for a dossier opened on top of
+     <view>. So Back closes a dossier and returns to wherever it was
+     opened from, refresh keeps you in place, and any dossier is linkable. */
+  var VIEWS = ["scope","systems","foundations","log","about"];
+  var currentView = null, openPath = null, systemsBySlug = null;
+  // the element that opened the dossier (focus returns to it on close), and
+  // whether opening it pushed a history entry that closing should pop
+  var drawerTrigger = null, drawerPushed = false;
+
+  function slugOf(path){ return path.replace(/^systems\//, "").replace(/\.md$/, ""); }
+
+  function parseHash(){
+    var parts = location.hash.replace(/^#\/?/, "").split("/");
+    return { view: VIEWS.indexOf(parts[0]) !== -1 ? parts[0] : "scope", slug: parts[1] || null };
   }
+
+  function goTo(name){
+    if(location.hash === "#/"+name) window.scrollTo({top:0, behavior:"instant"});
+    else location.hash = "#/"+name;
+  }
+
+  function openDossier(path, trigger){
+    drawerTrigger = trigger || null;
+    drawerPushed = true;
+    location.hash = "#/"+currentView+"/"+slugOf(path);
+  }
+
+  function closeDossier(){
+    if(drawerPushed) history.back();
+    else location.replace("#/"+currentView);
+  }
+
+  function route(){
+    var r = parseHash();
+    if(r.view !== currentView){
+      currentView = r.view;
+      document.querySelectorAll(".view").forEach(function(v){ v.classList.toggle("active", v.id === "view-"+r.view); });
+      document.querySelectorAll("nav.tabs button").forEach(function(b){
+        b.classList.toggle("active", b.getAttribute("data-nav") === r.view);
+      });
+      window.scrollTo({top:0, behavior:"instant"});
+    }
+    if(!r.slug) drawerPushed = false;
+    if(!systemsBySlug) return; // dossier resolves once index.json has loaded
+    var s = r.slug ? systemsBySlug[r.slug] : null;
+    if(r.slug && !s){ location.replace("#/"+r.view); return; }
+    setDrawer(s);
+  }
+
+  var drawer = document.getElementById("drawer");
+  function setDrawer(s){
+    var path = s ? s.path : null;
+    if(path === openPath) return;
+    openPath = path;
+    document.querySelectorAll("#sys-grid .card").forEach(function(c){
+      c.classList.toggle("open", c.getAttribute("data-path") === openPath);
+    });
+    document.documentElement.classList.toggle("drawer-open", !!s);
+    document.querySelectorAll("header.console, main, footer").forEach(function(el){ el.inert = !!s; });
+    if(s){
+      drawer.innerHTML = "";
+      drawer.appendChild(renderDossier(s));
+      drawer.scrollTop = 0;
+      requestAnimationFrame(function(){ drawer.focus({preventScroll:true}); });
+    } else {
+      if(drawerTrigger && document.contains(drawerTrigger)) drawerTrigger.focus({preventScroll:true});
+      drawerTrigger = null;
+    }
+  }
+
   document.querySelectorAll("[data-nav]").forEach(function(b){
     b.addEventListener("click", function(){ goTo(b.getAttribute("data-nav")); });
   });
+  document.getElementById("drawer-backdrop").addEventListener("click", closeDossier);
+  document.addEventListener("keydown", function(ev){
+    if(ev.key === "Escape" && openPath) closeDossier();
+  });
+  window.addEventListener("hashchange", route);
+  route();
 
   /* ===================== CLOCK ===================== */
   function tick(){
@@ -727,6 +841,12 @@
         website: s.frontmatter.website || null
       };
     });
+    // A curated fieldTag names the whole field, not just the one system that
+    // carries it in VIEW_CONFIG — otherwise systems sharing a field split
+    // across two filter chips (e.g. "ZK·ML" vs "ZKML / VERIFIABLE INFERENCE").
+    var tagByField = {};
+    systems.forEach(function(s){ var cfg = VIEW_CONFIG[s.path]; if(cfg && cfg.fieldTag) tagByField[s.field] = cfg.fieldTag; });
+    systems.forEach(function(s){ if(tagByField[s.field]) s.fieldTag = tagByField[s.field]; });
     var foundations = index.foundations.map(function(f){
       var linkedSystems = index.fields
         .filter(function(fl){ return fl.foundation === f.path; })
@@ -751,6 +871,10 @@
     renderSystemsView(systems);
     renderFoundationsView(foundations, systems);
     renderLogView(index.watch_log || [], index.checkpoint || null);
+
+    systemsBySlug = {};
+    systems.forEach(function(s){ systemsBySlug[slugOf(s.path)] = s; });
+    route();
   }
 
   function renderStats(systems, foundations, generatedAt){
@@ -763,34 +887,86 @@
 
   function renderRadar(systems){
     var radar = document.getElementById("radar");
+    var readout = document.getElementById("radar-readout");
     var fieldOrder = [];
     systems.forEach(function(s){ if(fieldOrder.indexOf(s.field) === -1) fieldOrder.push(s.field); });
-    systems.forEach(function(s, i){
+    var sectorDeg = 360 / fieldOrder.length;
+    function fieldAngle(fi){ return fi * sectorDeg - 90; }
+
+    var idleText = '<b>'+systems.length+' contacts</b> · centre grounded, edge mixed<br/>select a contact to open its case file';
+    // no hover on touch: a first tap on a wedge (often a near-miss on a blip)
+    // only names the field; tapping it again filters
+    var touch = window.matchMedia("(hover: none)").matches;
+    readout.innerHTML = idleText;
+    var hot = null;
+    function point(fi, text){
+      if(hot) hot.classList.remove("hot");
+      hot = fi === null ? null : sectors[fi];
+      if(hot) hot.classList.add("hot");
+      readout.innerHTML = fi === null ? idleText : text;
+    }
+
+    // invisible wedge per field, under the blips
+    var NS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("class", "sectors"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("aria-hidden", "true");
+    var sectors = fieldOrder.map(function(field, fi){
+      var members = systems.filter(function(s){ return s.field === field; });
+      var a0 = (fieldAngle(fi) - sectorDeg/2) * Math.PI / 180, a1 = (fieldAngle(fi) + sectorDeg/2) * Math.PI / 180;
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("class", "sector");
+      p.setAttribute("d", "M50 50 L"+(50+50*Math.cos(a0))+" "+(50+50*Math.sin(a0))+" A50 50 0 0 1 "+(50+50*Math.cos(a1))+" "+(50+50*Math.sin(a1))+" Z");
+      var text = '<b>'+escapeHtml(field)+'</b><br/>'+members.length+(members.length === 1 ? ' system' : ' systems')+' · '+(touch ? 'tap again' : 'click')+' to list them';
+      p.addEventListener("mouseenter", function(){ point(fi, text); });
+      p.addEventListener("mouseleave", function(){ point(null); });
+      p.addEventListener("click", function(){
+        if(touch && hot !== p){ point(fi, text); return; }
+        setSystemsField(members[0].fieldTag); goTo("systems");
+      });
+      svg.appendChild(p);
+      return p;
+    });
+    radar.appendChild(svg);
+
+    // Systems sharing a field and tier would land on the exact same spot
+    // (several did, making some unclickable), so fan each such group out
+    // across its field's wedge, keeping the radius — the confidence encoding — intact.
+    var groups = {};
+    systems.forEach(function(s){ var k = s.field+"|"+s.tier; (groups[k] = groups[k] || []).push(s); });
+
+    systems.forEach(function(s){
       var inferredCount = s.matrix.filter(function(r){ return r.tier === "inferred"; }).length;
       var frac = s.matrix.length ? inferredCount / s.matrix.length : 0;
       // radius band keyed to the same confidence tier as the blip's color (center = grounded,
       // edge = mixed signal), with the row-level inferred fraction as fine positioning within the band
       var radius = s.tier === "grounded" ? (0.3 + 0.1 * frac) : (0.58 + 0.22 * frac);
-      var angle = (fieldOrder.indexOf(s.field) * (360 / fieldOrder.length)) - 90;
-      var rad = angle * Math.PI / 180;
       var r = radius * 50;
+      var group = groups[s.field+"|"+s.tier], k = group.length;
+      // ~5.5% of the radar's width between neighbours, never wider than 80% of the wedge
+      var step = k > 1 ? Math.min(5.5 / r * 180 / Math.PI, 0.8 * sectorDeg / (k - 1)) : 0;
+      var fi = fieldOrder.indexOf(s.field);
+      var rad = (fieldAngle(fi) + (group.indexOf(s) - (k - 1) / 2) * step) * Math.PI / 180;
       var x = 50 + r * Math.cos(rad);
       var y = 50 + r * Math.sin(rad);
+      var tierText = s.tier === "grounded" ? "grounded" : "mixed signal";
       var b = document.createElement("button");
-      b.className = "blip" + (s.tier !== "grounded" ? " tier-mixed" : "");
+      b.className = "blip" + (s.tier !== "grounded" ? " tier-mixed" : "") + (x > 50 ? " flip" : "");
       b.style.left = x + "%"; b.style.top = y + "%";
-      b.style.animationDelay = (i * 0.3) + "s";
-      b.title = s.name + " — " + s.field;
-      b.innerHTML = '<span class="tag">' + escapeHtml(s.name) + '</span>';
-      b.addEventListener("click", function(){ goTo("systems"); setTimeout(function(){ openCard(s.path); }, 50); });
+      b.setAttribute("aria-label", s.name + ", " + s.field + ", " + tierText + ": open case file");
+      b.innerHTML = '<span class="tag" aria-hidden="true">' + escapeHtml(s.name) + '</span>';
+      var text = '<b>'+escapeHtml(s.name)+'</b> · '+tierText+'<br/>'+escapeHtml(s.field);
+      b.addEventListener("mouseenter", function(){ point(fi, text); });
+      b.addEventListener("focus", function(){ point(fi, text); });
+      b.addEventListener("mouseleave", function(){ point(null); });
+      b.addEventListener("blur", function(){ point(null); });
+      b.addEventListener("click", function(){ openDossier(s.path, b); });
       radar.appendChild(b);
     });
   }
 
-  var openPath = null, systemsCache = [];
+  var setSystemsField = function(){};
 
   function renderSystemsView(systems){
-    systemsCache = systems;
     var filterbar = document.getElementById("sys-filterbar");
     var searchInput = document.getElementById("sys-search");
     var activeField = null, activeTier = null;
@@ -842,28 +1018,18 @@
           '<span class="stamp '+stampCls+'">'+stampText+'</span></div>'+
           '<div class="md">'+s.summary+'</div>'+
           '<div class="meta"><span>'+escapeHtml(s.path)+'</span><span>updated '+escapeHtml(s.updated||"—")+'</span></div>';
-        card.addEventListener("click", function(){ openCard(s.path); });
+        card.setAttribute("data-path", s.path);
+        card.addEventListener("click", function(){ openDossier(s.path, card); });
         grid.appendChild(card);
-        if(openPath === s.path) grid.appendChild(renderDossier(s));
       });
     }
-    window._renderSystemsGrid = renderGrid;
+    // radar wedge click: show exactly that field, clearing any other filter
+    setSystemsField = function(tag){
+      activeField = tag; activeTier = null; searchInput.value = "";
+      renderChips(); renderGrid();
+    };
     renderChips();
     renderGrid();
-  }
-
-  var preOpenScrollY = 0;
-
-  function openCard(path){
-    if(openPath !== path) preOpenScrollY = window.scrollY;
-    openPath = (openPath === path) ? null : path;
-    if(window._renderSystemsGrid) window._renderSystemsGrid();
-    if(openPath){
-      setTimeout(function(){
-        var d = document.querySelector(".dossier");
-        if(d) d.scrollIntoView({behavior:"smooth", block:"start"});
-      }, 30);
-    }
   }
 
   function renderDossier(s){
@@ -918,10 +1084,10 @@
 
     el.innerHTML =
       '<div class="dhead">'+
-        '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+
+        '<div><h2 id="dossier-title">'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+
           (s.website ? ' &middot; <a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">visit website ↗</a>' : '')+
           '</div></div>'+
-        '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="returnbtn closebtn">RETURN</button><button class="closebtn">CLOSE ✕</button></div>'+
+        '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="closebtn" aria-label="Close case file">CLOSE ✕</button></div>'+
       '</div>'+
       (s.confidenceNote ? '<p class="annot" style="margin-top:10px;">'+escapeHtml(s.confidenceNote)+'</p>' : '')+
 
@@ -931,13 +1097,7 @@
       '<div class="section"><h3>Property matrix</h3><div class="overflow"><table class="matrix"><thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead><tbody>'+matrixRowsHtml+'</tbody></table></div></div>'+
       '<div class="section"><h3>Known limitations</h3><div class="md limits">'+s.limitations+'</div></div>';
 
-    el.querySelector(".closebtn:not(.returnbtn)").addEventListener("click", function(ev){
-      ev.stopPropagation(); openPath = null; window._renderSystemsGrid();
-    });
-    el.querySelector(".returnbtn").addEventListener("click", function(ev){
-      ev.stopPropagation(); openPath = null; window._renderSystemsGrid();
-      window.scrollTo({top: preOpenScrollY, behavior:"instant"});
-    });
+    el.querySelector(".closebtn").addEventListener("click", closeDossier);
     return el;
   }
 
@@ -961,8 +1121,7 @@
         '<div class="used-by">'+usedByHtml+'</div>';
       item.querySelectorAll(".tagbtn").forEach(function(btn){
         btn.addEventListener("click", function(){
-          var sp = btn.getAttribute("data-path");
-          goTo("systems"); setTimeout(function(){ openCard(sp); }, 50);
+          openDossier(btn.getAttribute("data-path"), btn);
         });
       });
       list.appendChild(item);
