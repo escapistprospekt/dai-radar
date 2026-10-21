@@ -4,6 +4,7 @@ field: ZKML / verifiable inference (STARK-based)
 foundation: foundations/zkml-stark.md
 last_updated: 2026-10-20
 confidence: grounded (what it was built on, historically); status itself is grounded as largely inactive
+website: "https://github.com/gizatechxyz/orion"
 ---
 
 ## What it does

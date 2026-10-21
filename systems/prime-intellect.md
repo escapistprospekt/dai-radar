@@ -4,6 +4,7 @@ field: Decentralized / distributed training
 foundation: foundations/diloco-distributed-training.md
 last_updated: 2026-10-20
 confidence: grounded (training-framework lineage); inferred (protocol/incentive-layer specifics)
+website: "https://www.primeintellect.ai"
 ---
 
 # Prime Intellect

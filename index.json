@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T14:59:56+00:00",
+  "generated_at": "2026-10-21T12:41:44+00:00",
   "systems": [
     {
       "path": "systems/akash-network.md",
@@ -7,7 +7,8 @@
         "name": "Akash Network",
         "field": "Decentralized GPU / compute marketplace",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (consensus citation); inferred (AI-specific framing); unverified (2026 migration endpoint)"
+        "confidence": "grounded (consensus citation); inferred (AI-specific framing); unverified (2026 migration endpoint)",
+        "website": "https://akash.network"
       },
       "sections": {
         "What it does": {
@@ -77,7 +78,8 @@
         "name": "Allora Network",
         "field": "Decentralized ML forecasting / inference incentive networks",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (architecture/status facts); no external academic lineage found"
+        "confidence": "grounded (architecture/status facts); no external academic lineage found",
+        "website": "https://www.allora.network"
       },
       "sections": {
         "What it does": {
@@ -147,7 +149,8 @@
         "name": "Apple Private Cloud Compute (PCC)",
         "field": "Confidential computing (TEE) for AI inference",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (architecture); no academic paper lineage \u2014 see Known limitations"
+        "confidence": "grounded (architecture); no academic paper lineage \u2014 see Known limitations",
+        "website": "https://security.apple.com/blog/private-cloud-compute/"
       },
       "sections": {
         "What it does": {
@@ -224,7 +227,8 @@
         "field": "Confidential computing (TEE) for AI inference",
         "foundation": "foundations/ccf-confidential-computing.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (ledger lineage); inferred/vendor-spec (TEE hardware lineage)"
+        "confidence": "grounded (ledger lineage); inferred/vendor-spec (TEE hardware lineage)",
+        "website": "https://learn.microsoft.com/azure/confidential-computing/confidential-ai"
       },
       "sections": {
         "What it does": {
@@ -302,7 +306,8 @@
         "field": "Decentralized incentive / consensus mechanisms for ML networks",
         "foundation": "foundations/decentralized-consensus-ml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://bittensor.com"
       },
       "sections": {
         "What it does": {
@@ -430,7 +435,8 @@
         "field": "ZKML / verifiable inference",
         "foundation": "foundations/zkml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (proving-system lineage); inferred (some matrix cells)"
+        "confidence": "grounded (proving-system lineage); inferred (some matrix cells)",
+        "website": "https://github.com/zkonduit/ezkl"
       },
       "sections": {
         "What it does": {
@@ -503,7 +509,8 @@
         "name": "Fetch.ai (uAgents)",
         "field": "Decentralized AI agent / marketplace protocols",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (architecture description, team-authored); inferred (some matrix cells)"
+        "confidence": "grounded (architecture description, team-authored); inferred (some matrix cells)",
+        "website": "https://github.com/fetchai/uAgents"
       },
       "sections": {
         "What it does": {
@@ -573,7 +580,8 @@
         "field": "Decentralized / distributed training",
         "foundation": "foundations/decentralized-training.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://www.gensyn.ai"
       },
       "sections": {
         "What it does": {
@@ -642,7 +650,8 @@
         "field": "ZKML / verifiable inference (STARK-based)",
         "foundation": "foundations/zkml-stark.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (what it was built on, historically); status itself is grounded as largely inactive"
+        "confidence": "grounded (what it was built on, historically); status itself is grounded as largely inactive",
+        "website": "https://github.com/gizatechxyz/orion"
       },
       "sections": {
         "What it does": {
@@ -707,7 +716,8 @@
         "field": "Federated learning / confidential aggregation",
         "foundation": "foundations/secure-aggregation.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://research.google/blog/federated-learning-collaborative-machine-learning-without-centralized-training-data/"
       },
       "sections": {
         "What it does": {
@@ -782,7 +792,8 @@
         "field": "Decentralized GPU / compute marketplace",
         "foundation": "foundations/distributed-compute-scheduling.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (orchestration-engine lineage); no academic grounding found (trust/verification layer)"
+        "confidence": "grounded (orchestration-engine lineage); no academic grounding found (trust/verification layer)",
+        "website": "https://io.net"
       },
       "sections": {
         "What it does": {
@@ -852,7 +863,8 @@
         "field": "ZKML / verifiable inference",
         "foundation": "foundations/zkml-sumcheck.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (core technique lineage); inferred (trust model, some performance framing)"
+        "confidence": "grounded (core technique lineage); inferred (trust model, some performance framing)",
+        "website": "https://www.lagrange.dev"
       },
       "sections": {
         "What it does": {
@@ -926,7 +938,8 @@
         "field": "ZKML / verifiable inference",
         "foundation": "foundations/zkml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (proving-system lineage, org status); inferred (Remainder's internal architecture)"
+        "confidence": "grounded (proving-system lineage, org status); inferred (Remainder's internal architecture)",
+        "website": "https://github.com/Modulus-Labs/halo2_ml"
       },
       "sections": {
         "What it does": {
@@ -994,7 +1007,8 @@
         "field": "Secure MPC for ML",
         "foundation": "foundations/mpc-ml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://nillion.com"
       },
       "sections": {
         "What it does": {
@@ -1068,7 +1082,8 @@
         "field": "Decentralized / distributed training",
         "foundation": "foundations/distributed-optimization.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://nousresearch.com/nous-psyche"
       },
       "sections": {
         "What it does": {
@@ -1132,7 +1147,8 @@
         "name": "NVIDIA Confidential Computing (H100/H200/Blackwell)",
         "field": "Confidential computing (TEE) for AI inference",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (standards lineage); grounded (performance, independent third-party source)"
+        "confidence": "grounded (standards lineage); grounded (performance, independent third-party source)",
+        "website": "https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/"
       },
       "sections": {
         "What it does": {
@@ -1206,7 +1222,8 @@
         "name": "Ocean Protocol",
         "field": "AI data marketplace / provenance",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (architecture); no academic lineage found for core privacy mechanism"
+        "confidence": "grounded (architecture); no academic lineage found for core privacy mechanism",
+        "website": "https://oceanprotocol.com"
       },
       "sections": {
         "What it does": {
@@ -1269,7 +1286,8 @@
         "name": "Olas (formerly Autonolas)",
         "field": "Decentralized AI agent / marketplace protocols",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (architecture); no formal academic lineage found (see below)"
+        "confidence": "grounded (architecture); no formal academic lineage found (see below)",
+        "website": "https://olas.network"
       },
       "sections": {
         "What it does": {
@@ -1343,7 +1361,8 @@
         "field": "Optimistic on-chain AI verification",
         "foundation": "foundations/optimistic-ml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://docs.ora.io"
       },
       "sections": {
         "What it does": {
@@ -1413,7 +1432,8 @@
         "field": "Decentralized / distributed training",
         "foundation": "foundations/model-parallel-decentralized-training.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (core technique); inferred (some matrix cells)"
+        "confidence": "grounded (core technique); inferred (some matrix cells)",
+        "website": "https://pluralis.ai"
       },
       "sections": {
         "What it does": {
@@ -1484,7 +1504,8 @@
         "field": "Decentralized / distributed training",
         "foundation": "foundations/diloco-distributed-training.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (training-framework lineage); inferred (protocol/incentive-layer specifics)"
+        "confidence": "grounded (training-framework lineage); inferred (protocol/incentive-layer specifics)",
+        "website": "https://www.primeintellect.ai"
       },
       "sections": {
         "What it does": {
@@ -1558,7 +1579,8 @@
         "name": "Render Network",
         "field": "Decentralized GPU / compute marketplace",
         "last_updated": "2026-10-20",
-        "confidence": "inferred (no academic lineage found; patent citation is billing-related, not verification-related)"
+        "confidence": "inferred (no academic lineage found; patent citation is billing-related, not verification-related)",
+        "website": "https://renderfoundation.com"
       },
       "sections": {
         "What it does": {
@@ -1624,7 +1646,8 @@
         "name": "Ritual",
         "field": "On-chain AI inference / verifiable compute",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (consensus/execution architecture); inferred (several matrix cells); no external academic lineage found for the proof-system layer"
+        "confidence": "grounded (consensus/execution architecture); inferred (several matrix cells); no external academic lineage found for the proof-system layer",
+        "website": "https://ritual.net"
       },
       "sections": {
         "What it does": {
@@ -1779,7 +1802,8 @@
         "field": "Decentralized AI agent / marketplace protocols",
         "foundation": "foundations/zkml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded (historical zkML lineage); inferred/weak (current architecture)"
+        "confidence": "grounded (historical zkML lineage); inferred/weak (current architecture)",
+        "website": "https://docs.spectrallabs.xyz"
       },
       "sections": {
         "What it does": {
@@ -1843,7 +1867,8 @@
         "field": "FHE for ML",
         "foundation": "foundations/fhe-ml.md",
         "last_updated": "2026-10-20",
-        "confidence": "grounded"
+        "confidence": "grounded",
+        "website": "https://github.com/zama-ai/concrete-ml"
       },
       "sections": {
         "What it does": {

@@ -3,6 +3,7 @@ name: Ritual
 field: On-chain AI inference / verifiable compute
 last_updated: 2026-10-20
 confidence: grounded (consensus/execution architecture); inferred (several matrix cells); no external academic lineage found for the proof-system layer
+website: "https://ritual.net"
 ---
 
 ## What it does

@@ -4,6 +4,7 @@ field: Decentralized AI agent / marketplace protocols
 foundation: foundations/zkml.md
 last_updated: 2026-10-20
 confidence: grounded (historical zkML lineage); inferred/weak (current architecture)
+website: "https://docs.spectrallabs.xyz"
 ---
 
 ## What it does

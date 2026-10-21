@@ -3,6 +3,7 @@ name: Ocean Protocol
 field: AI data marketplace / provenance
 last_updated: 2026-10-20
 confidence: grounded (architecture); no academic lineage found for core privacy mechanism
+website: "https://oceanprotocol.com"
 ---
 
 ## What it does

@@ -724,7 +724,7 @@
         trace: cfg.trace || [],
         alsoCited: cfg.alsoCited || null,
         foundation: foundation,
-        repoUrl: (cfg.trace && cfg.trace[0]) ? cfg.trace[0].url : "#"
+        website: s.frontmatter.website || null
       };
     });
     var foundations = index.foundations.map(function(f){
@@ -852,13 +852,16 @@
     renderGrid();
   }
 
+  var preOpenScrollY = 0;
+
   function openCard(path){
+    if(openPath !== path) preOpenScrollY = window.scrollY;
     openPath = (openPath === path) ? null : path;
     if(window._renderSystemsGrid) window._renderSystemsGrid();
     if(openPath){
       setTimeout(function(){
         var d = document.querySelector(".dossier");
-        if(d) d.scrollIntoView({behavior:"smooth", block:"center"});
+        if(d) d.scrollIntoView({behavior:"smooth", block:"start"});
       }, 30);
     }
   }
@@ -915,10 +918,10 @@
 
     el.innerHTML =
       '<div class="dhead">'+
-        '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+' &middot; '+
-          (s.repoUrl ? '<a href="'+s.repoUrl+'" target="_blank" rel="noopener">'+escapeHtml(s.path)+'</a>' : escapeHtml(s.path))+
+        '<div><h2>'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+
+          (s.website ? ' &middot; <a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">visit website ↗</a>' : '')+
           '</div></div>'+
-        '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="closebtn">CLOSE ✕</button></div>'+
+        '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="returnbtn closebtn">RETURN</button><button class="closebtn">CLOSE ✕</button></div>'+
       '</div>'+
       (s.confidenceNote ? '<p class="annot" style="margin-top:10px;">'+escapeHtml(s.confidenceNote)+'</p>' : '')+
 
@@ -928,8 +931,12 @@
       '<div class="section"><h3>Property matrix</h3><div class="overflow"><table class="matrix"><thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead><tbody>'+matrixRowsHtml+'</tbody></table></div></div>'+
       '<div class="section"><h3>Known limitations</h3><div class="md limits">'+s.limitations+'</div></div>';
 
-    el.querySelector(".closebtn").addEventListener("click", function(ev){
+    el.querySelector(".closebtn:not(.returnbtn)").addEventListener("click", function(ev){
       ev.stopPropagation(); openPath = null; window._renderSystemsGrid();
+    });
+    el.querySelector(".returnbtn").addEventListener("click", function(ev){
+      ev.stopPropagation(); openPath = null; window._renderSystemsGrid();
+      window.scrollTo({top: preOpenScrollY, behavior:"instant"});
     });
     return el;
   }

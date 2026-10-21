@@ -3,6 +3,7 @@ name: Render Network
 field: Decentralized GPU / compute marketplace
 last_updated: 2026-10-20
 confidence: inferred (no academic lineage found; patent citation is billing-related, not verification-related)
+website: "https://renderfoundation.com"
 ---
 
 ## What it does

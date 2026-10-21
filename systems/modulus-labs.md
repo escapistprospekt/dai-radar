@@ -4,6 +4,7 @@ field: ZKML / verifiable inference
 foundation: foundations/zkml.md
 last_updated: 2026-10-20
 confidence: grounded (proving-system lineage, org status); inferred (Remainder's internal architecture)
+website: "https://github.com/Modulus-Labs/halo2_ml"
 ---
 
 # Modulus Labs
