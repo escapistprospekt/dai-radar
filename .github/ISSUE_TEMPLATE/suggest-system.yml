@@ -1,0 +1,63 @@
+name: Suggest a system
+description: Suggest a decentralized-AI system for dAI Radar to track.
+title: "Suggest system: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        dAI Radar tracks systems that ship in production and traces each one back to the research its own docs or whitepaper cite. Every suggestion is read and checked by hand; the details below are what that check needs.
+
+  - type: input
+    id: name
+    attributes:
+      label: System name
+      placeholder: e.g. EZKL
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Website or repository
+      placeholder: https://
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Verifiable inference
+        - Private compute
+        - Decentralized training
+        - Compute markets
+        - Incentive networks
+        - Agent protocols
+        - Data & model ownership
+        - Not sure / something else
+    validations:
+      required: false
+
+  - type: textarea
+    id: shipping
+    attributes:
+      label: Evidence it ships
+      description: A mainnet, production deployment, public release, or real users. Links help most.
+    validations:
+      required: true
+
+  - type: textarea
+    id: research
+    attributes:
+      label: Research it's built on (if any)
+      description: Papers the system's own docs, whitepaper, or team cite, with a link to where they cite them. A system with no academic lineage can still be tracked; that's recorded as a finding, not a gap.
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+    validations:
+      required: false

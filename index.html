@@ -460,7 +460,7 @@
           <div class="cell"><div class="num" id="stat-grounded">–</div><div class="lbl">FULLY GROUNDED</div></div>
           <div class="cell"><div class="num" id="stat-updated">–</div><div class="lbl">LAST SWEEP</div></div>
         </div>
-        <p class="misbar-line">dAI Radar is an instrument by <a href="https://misbar.tech" target="_blank" rel="noopener">Misbar</a> (misbar.tech): prove what AI can do.</p>
+        <p class="misbar-line">dAI Radar is an instrument by <a href="https://misbar.tech" target="_blank" rel="noopener">Misbar</a> (misbar.tech).</p>
       </div>
       <div>
         <div class="radar" id="radar">
@@ -569,7 +569,7 @@
 <footer>
   <div class="wrap">
     <span>dai.misbar.tech: a probe, not a feed.</span>
-    <span>scope grows only when a system earns a row.</span>
+    <span>know a system we should track? <a href="https://github.com/escapistprospekt/dai-radar/issues/new?template=suggest-system.yml" target="_blank" rel="noopener">suggest it on GitHub ↗</a></span>
   </div>
 </footer>
 
@@ -1233,9 +1233,9 @@
   /* Timeline of watch/log/ entries, plus a "show changes since" picker.
      No accounts, no cookies, no server-side tracking of who visited —
      the picker works identically with zero stored state (pick a date,
-     see what's after it). localStorage only pre-fills a default value
-     as a convenience for returning visitors; if it's unavailable or
-     cleared, the picker just falls back to showing everything. */
+     see what's after it). The default is the most recent day; localStorage
+     only widens it for a returning visitor whose last visit was earlier,
+     and if it's unavailable or cleared the most-recent-day default stands. */
   function renderLogView(watchLog, checkpoint){
     var readout = document.getElementById("log-readout");
     if(checkpoint){
@@ -1267,9 +1267,14 @@
     picker.innerHTML = '<option value="__all__">the beginning</option>' +
       dates.map(function(d){ return '<option value="'+escapeHtml(d)+'">'+escapeHtml(d)+'</option>'; }).join("");
 
+    // Default to the most recent day (everything after the date before it), so
+    // the view is never empty — reaching further back only when this visitor's
+    // last visit predates that day, so a returning visitor misses nothing.
+    // dates is newest-first.
     var lastSeen = null;
     try{ lastSeen = localStorage.getItem("dai-log-last-seen"); }catch(e){}
-    picker.value = (lastSeen && dates.indexOf(lastSeen) !== -1) ? lastSeen : "__all__";
+    var dayBefore = dates.length > 1 ? dates[1] : "__all__";
+    picker.value = (lastSeen && dates.indexOf(lastSeen) > 1) ? lastSeen : dayBefore;
 
     function renderTimeline(){
       var since = picker.value;
