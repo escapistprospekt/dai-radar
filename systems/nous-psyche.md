@@ -4,6 +4,7 @@ field: Decentralized / distributed training
 foundation: foundations/distributed-optimization.md
 last_updated: 2026-10-20
 confidence: grounded
+website: "https://nousresearch.com/nous-psyche"
 ---
 
 # Nous Research — Psyche

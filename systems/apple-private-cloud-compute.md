@@ -3,6 +3,7 @@ name: Apple Private Cloud Compute (PCC)
 field: Confidential computing (TEE) for AI inference
 last_updated: 2026-10-20
 confidence: grounded (architecture); no academic paper lineage — see Known limitations
+website: "https://security.apple.com/blog/private-cloud-compute/"
 ---
 
 ## What it does

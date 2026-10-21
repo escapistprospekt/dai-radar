@@ -4,6 +4,7 @@ field: Decentralized GPU / compute marketplace
 foundation: foundations/distributed-compute-scheduling.md
 last_updated: 2026-10-20
 confidence: grounded (orchestration-engine lineage); no academic grounding found (trust/verification layer)
+website: "https://io.net"
 ---
 
 ## What it does

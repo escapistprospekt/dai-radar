@@ -3,6 +3,7 @@ name: Allora Network
 field: Decentralized ML forecasting / inference incentive networks
 last_updated: 2026-10-20
 confidence: grounded (architecture/status facts); no external academic lineage found
+website: "https://www.allora.network"
 ---
 
 ## What it does

@@ -4,6 +4,7 @@ field: Federated learning / confidential aggregation
 foundation: foundations/secure-aggregation.md
 last_updated: 2026-10-20
 confidence: grounded
+website: "https://research.google/blog/federated-learning-collaborative-machine-learning-without-centralized-training-data/"
 ---
 
 # Google Confidential Federated Learning
