@@ -1,6 +1,7 @@
 ---
 name: Google Confidential Federated Learning (TensorFlow Federated + TEE confidentiality)
 field: Federated learning / confidential aggregation
+category: private-compute
 foundation: foundations/secure-aggregation.md
 last_updated: 2026-10-20
 confidence: grounded

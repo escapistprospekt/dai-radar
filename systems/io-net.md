@@ -1,6 +1,7 @@
 ---
 name: io.net
 field: Decentralized GPU / compute marketplace
+category: compute-markets
 foundation: foundations/distributed-compute-scheduling.md
 last_updated: 2026-10-20
 confidence: grounded (orchestration-engine lineage); no academic grounding found (trust/verification layer)

@@ -1,6 +1,7 @@
 ---
 name: Sentient (OML)
 field: AI model ownership / monetization protocols
+category: ownership
 foundation: foundations/ai-native-cryptography.md
 last_updated: 2026-10-20
 confidence: grounded (core paper); inferred/news-sourced (several matrix cells)

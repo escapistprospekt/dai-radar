@@ -1,6 +1,7 @@
 ---
 name: Pluralis Research
 field: Decentralized / distributed training
+category: training
 foundation: foundations/model-parallel-decentralized-training.md
 last_updated: 2026-10-20
 confidence: grounded (core technique); inferred (some matrix cells)

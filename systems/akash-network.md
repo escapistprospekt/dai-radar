@@ -1,6 +1,7 @@
 ---
 name: Akash Network
 field: Decentralized GPU / compute marketplace
+category: compute-markets
 last_updated: 2026-10-20
 confidence: grounded (consensus citation); inferred (AI-specific framing); unverified (2026 migration endpoint)
 website: "https://akash.network"

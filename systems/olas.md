@@ -1,6 +1,7 @@
 ---
 name: Olas (formerly Autonolas)
 field: Decentralized AI agent / marketplace protocols
+category: agents
 last_updated: 2026-10-20
 confidence: grounded (architecture); no formal academic lineage found (see below)
 website: "https://olas.network"

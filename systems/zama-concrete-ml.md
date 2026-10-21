@@ -1,6 +1,7 @@
 ---
 name: Zama Concrete-ML
 field: FHE for ML
+category: private-compute
 foundation: foundations/fhe-ml.md
 last_updated: 2026-10-20
 confidence: grounded

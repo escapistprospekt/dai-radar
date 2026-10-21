@@ -1,6 +1,7 @@
 ---
 name: ORA Protocol
 field: Optimistic on-chain AI verification
+category: verifiable-inference
 foundation: foundations/optimistic-ml.md
 last_updated: 2026-10-20
 confidence: grounded

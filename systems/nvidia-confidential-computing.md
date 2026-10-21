@@ -1,6 +1,7 @@
 ---
 name: NVIDIA Confidential Computing (H100/H200/Blackwell)
 field: Confidential computing (TEE) for AI inference
+category: private-compute
 last_updated: 2026-10-20
 confidence: grounded (standards lineage); grounded (performance, independent third-party source)
 website: "https://developer.nvidia.com/blog/confidential-computing-on-h100-gpus-for-secure-and-trustworthy-ai/"

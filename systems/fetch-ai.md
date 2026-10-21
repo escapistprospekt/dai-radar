@@ -1,6 +1,7 @@
 ---
 name: Fetch.ai (uAgents)
 field: Decentralized AI agent / marketplace protocols
+category: agents
 last_updated: 2026-10-20
 confidence: grounded (architecture description, team-authored); inferred (some matrix cells)
 website: "https://github.com/fetchai/uAgents"

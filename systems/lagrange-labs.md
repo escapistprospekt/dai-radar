@@ -1,6 +1,7 @@
 ---
 name: Lagrange Labs (DeepProve)
 field: ZKML / verifiable inference
+category: verifiable-inference
 foundation: foundations/zkml-sumcheck.md
 last_updated: 2026-10-20
 confidence: grounded (core technique lineage); inferred (trust model, some performance framing)

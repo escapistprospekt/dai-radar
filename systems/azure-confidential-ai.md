@@ -1,6 +1,7 @@
 ---
 name: Azure Confidential AI
 field: Confidential computing (TEE) for AI inference
+category: private-compute
 foundation: foundations/ccf-confidential-computing.md
 last_updated: 2026-10-20
 confidence: grounded (ledger lineage); inferred/vendor-spec (TEE hardware lineage)

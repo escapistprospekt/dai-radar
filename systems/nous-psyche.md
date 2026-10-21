@@ -1,6 +1,7 @@
 ---
 name: Nous Research — Psyche
 field: Decentralized / distributed training
+category: training
 foundation: foundations/distributed-optimization.md
 last_updated: 2026-10-20
 confidence: grounded

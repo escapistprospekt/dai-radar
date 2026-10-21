@@ -28,13 +28,16 @@ to consume client-side.
 
 - **`systems/*.md`** — one file per real, shipping (or shipping-adjacent)
   system (e.g. EZKL, Bittensor, Akash). Each has YAML frontmatter
-  (`name`, `field`, `foundation`, `last_updated`, `confidence`,
-  `website`) and a fixed set of `##` sections (e.g. "What it does",
+  (`name`, `field`, `category`, `foundation`, `last_updated`,
+  `confidence`, `website`) and a fixed set of `##` sections (e.g. "What it does",
   "Architecture summary", "Built on (foundational lineage)", "Property
   matrix", "Known limitations"). The `foundation:` frontmatter key is
   the **authoritative** link to a `foundations/*.md` file — it is never
   inferred from the `field` name, because multiple systems can share a
-  field while citing different (or no) paper lineage.
+  field while citing different (or no) paper lineage. `category:` is a
+  coarser grouping (one of the ids in `CATEGORIES` in `index.html`) that
+  drives the radar's sectors and the Systems page groups; a system with a
+  missing or unknown category shows up under "Uncategorized".
 - **`foundations/*.md`** — one file per foundational paper/technique
   (e.g. PLONK, Halo2 lineage, secure aggregation). Same
   frontmatter+sections pattern, cited by one or more systems.

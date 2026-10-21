@@ -1,6 +1,7 @@
 ---
 name: Spectral Labs
 field: Decentralized AI agent / marketplace protocols
+category: agents
 foundation: foundations/zkml.md
 last_updated: 2026-10-20
 confidence: grounded (historical zkML lineage); inferred/weak (current architecture)
