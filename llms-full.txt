@@ -2,7 +2,7 @@
 
 > dAI Radar tracks shipping decentralized-AI / crypto-ML systems and traces each one back to the academic paper it is actually built on. Every claim is tagged "grounded" (directly sourced) or "inferred" (reasoned, not quoted); keep that distinction when answering from this data. A lineage is only asserted when a real citation chain exists.
 
-Generated 2026-10-27T13:11:49+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
+Generated 2026-10-27T14:55:22+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
 
 ========================================================================
 FILE: systems/akash-network.md
@@ -5070,6 +5070,371 @@ it as settled). The universality property of PLONK (one SRS per size
 bound, not per circuit) is part of why a general-purpose tool like
 EZKL — which has to support arbitrary ONNX graphs rather than one fixed
 circuit — is practical at all.
+
+========================================================================
+FILE: watch/log/2026-10-27.md
+========================================================================
+
+---
+date: 2026-10-27
+time: "17:00+03:00"
+kind: daily
+new_items_found: 4
+matrix_impacting: 0
+filed_related_only: 4
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-26T17:22+03:00). Nothing touched a tracked
+system, and no property matrix changed. Four items are relevant to
+tracked fields and are filed below as related only.
+
+- **IACR ePrint:** a new batch, 2026/2645 through 2026/2651, appeared
+  in the window (2026/2652 onward return no paper). Reading the titles,
+  then the abstracts of the possible matches, left nothing to file.
+  Set aside: Mikros (2026/2646), bitwidth-aware SNARKs over small-field
+  extensions, a general proof-system result benchmarked on hash
+  functions with no ML claim; and Isotaxis (2026/2645), order-fair
+  Byzantine state machine replication with no ML angle.
+- **arXiv cs.CR / cs.LG / cs.DC:** one new batch, Tuesday 27 Oct (55
+  cs.CR, 226 cs.LG, 26 cs.DC new submissions, plus cross-lists). The
+  four items below were kept. Set aside: an MPC protocol for
+  approximate nearest-neighbour search in RAG (HNSecW, 2610.34248),
+  which is private retrieval rather than ML training or inference;
+  Byzantine-tolerant verification for distributed vector retrieval
+  (TrustANN, 2610.34608); a TEE-rooted security runtime for LLM agents
+  on HPC clusters (Enclawed, 2610.33318), which supervises job launches
+  rather than protecting model or data confidentiality; and exact
+  unlearning for federated zeroth-order optimization (2610.35211),
+  which has no confidentiality mechanism.
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No new tag appeared (tag dates come from git
+  metadata, not the GitHub releases API). The only default-branch
+  activity is one merged uAgents PR (#958), which makes Bureau share a
+  fair telemetry-event dispatcher across the agents it hosts and bumps
+  the `uagents-core` floor to 0.4.12 (a tag that predates the window).
+  It changes event reporting to Agentverse, not the identity, Almanac
+  discovery, or chain properties in systems/fetch-ai.md's property
+  matrix, and it is not a release. It is below the bar.
+- **ritual-net/infernet-node is still unreadable,** for the eighth run
+  in a row, with the same credentials prompt as a non-existent repo.
+  systems/ritual.md is left unchanged. This still needs a manual check.
+
+### Related, not yet tied to a tracked system
+
+- **Pacifo: FHE-based lightweight ResNet for MLaaS** (arXiv
+  2610.33525): fine-tunes ResNet20 with a public/private layer split
+  and a ReLU approximation so fewer layers run under FHE, claiming
+  3.7-21.7x speedups over earlier FHE ResNet20 at 95-99% of plaintext
+  accuracy. Field: FHE for ML. The abstract names no Concrete ML link,
+  so it does not touch systems/zama-concrete-ml.md.
+- **Information-theoretic secure aggregation with heterogeneous client
+  quantization** (arXiv 2610.35833): a threshold secret-sharing scheme
+  that lets FL clients pick different quantization levels without
+  leaking partial aggregates, tolerating dropouts and up to T colluding
+  semi-honest clients. Field: Federated learning / confidential
+  aggregation. No tracked system uses it.
+- **TrFP: trajectory-based intrinsic LLM fingerprinting** (arXiv
+  2610.34675): builds ownership fingerprints from how representations
+  evolve across depth, without modifying the model, and reports
+  robustness to fine-tuning, pruning, quantization and merging. Field:
+  AI model ownership / monetization protocols. Sentient's OML embeds
+  fingerprints by fine-tuning instead, so this does not change
+  systems/sentient-oml.md.
+- **BE-CTDE: blockchain-enabled multi-agent RL with token economics**
+  (arXiv 2610.34121): a behavioural verifier flags deviating agents,
+  and slashing/reward balances weight each agent's contribution to the
+  global policy update; tested on multi-agent path finding. Field:
+  Decentralized incentive / consensus mechanisms for ML networks. It is
+  an IoT MARL training layer, not one of the tracked networks.
+
+## Next run
+
+2026-10-28, 17:00 +03:00 (14:00 UTC).
+
+========================================================================
+FILE: watch/log/2026-10-26.md
+========================================================================
+
+---
+date: 2026-10-26
+time: "17:00+03:00"
+kind: daily
+new_items_found: 3
+matrix_impacting: 0
+filed_related_only: 3
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-25T17:10+03:00). Nothing touched a tracked
+system, and no property matrix changed. Three items are relevant to
+tracked fields and are filed below as related only.
+
+- **IACR ePrint:** a new batch, 2026/2620 through 2026/2644, was
+  approved in the window (2026/2645 onward return no paper). Reading
+  the titles, then the abstracts of the possible matches, left nothing
+  to file. Set aside: exact error / comb bootstrapping for FHEW/TFHE
+  (2026/2630), an FHE primitive built on TFHE-rs with no ML claim and
+  no Concrete ML change; non-malleable IVC (2026/2631), a general
+  proof-system result with no ML claim; and neural-network parameter
+  extraction (2026/2628), a model-stealing attack outside every
+  tracked field.
+- **arXiv cs.CR / cs.LG / cs.DC:** one new batch, Monday 26 Oct (27
+  cs.CR, 106 cs.LG, 10 cs.DC new submissions, plus cross-lists). The
+  three items below were kept. Set aside: federated-learning papers
+  with no confidentiality mechanism (federated unlearning client
+  selection 2610.31786, poisoning in vehicular FL 2610.32765, safety
+  in federated VLA adaptation 2610.32888), DP-SGD and shuffled-DP
+  papers (2610.32175, 2610.32822), and a general Sybil-cost analysis
+  with no ML angle (2610.32685).
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No branch has a commit in the window, and no new
+  tag appeared (tag dates come from git metadata, not the GitHub
+  releases API).
+- **ritual-net/infernet-node is still unreadable,** for the seventh
+  run in a row, with the same credentials prompt as a non-existent
+  repo. systems/ritual.md is left unchanged. This still needs a manual
+  check.
+
+### Related, not yet tied to a tracked system
+
+- **SPA: structure-preserving approximation of gated activations under
+  FHE** (arXiv 2610.32065): approximates GELU/SiLU/SwiGLU-style
+  activations by keeping the exact x/2 term and fitting only the even
+  residual, with CKKS benchmarks claiming speedups over earlier
+  approximations. Field: FHE for ML. It is CKKS polynomial
+  approximation, not the TFHE programmable bootstrapping Concrete ML
+  uses, so it does not touch systems/zama-concrete-ml.md.
+- **PPFLex: MPC-based federated loss exploration** (arXiv 2610.32626):
+  shows that gradient-guidance matrices shared in non-IID FL leak
+  client label sets, and replaces the server with three MPC servers
+  that compute the guidance matrix and the federated average. Results
+  are on traffic-sign datasets only. Field: Federated learning /
+  confidential aggregation (and Secure MPC for ML). No tracked system
+  uses it.
+- **Democratizing LLM training with the edge** (arXiv 2610.32215): a
+  position paper on federated, split, and decentralized LLM training,
+  plus a parameter-server architecture tested on GPT-2 Medium and
+  Llama3-1B pretraining across university sites. Field: Decentralized
+  / distributed training. It is a central-coordinator design, not one
+  of the tracked systems' methods.
+
+## Next run
+
+2026-10-27, 17:00 +03:00 (14:00 UTC).
+
+========================================================================
+FILE: watch/log/2026-10-25.md
+========================================================================
+
+---
+date: 2026-10-25
+time: "17:00+03:00"
+kind: daily
+new_items_found: 1
+matrix_impacting: 0
+filed_related_only: 1
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-24T17:08+03:00). Nothing touched a tracked
+system, and no property matrix changed. One ePrint item is relevant to
+a tracked field and is filed below as related only.
+
+- **IACR ePrint:** a new batch, 2026/2574 through 2026/2619, appeared
+  in the window (2026/2620 onward return no paper). Reading the titles,
+  then the abstracts of the possible matches, left the one item below.
+  Set aside: TFHE/CKKS bootstrapping and error-analysis papers
+  (2026/2575, 2600, 2616, 2618), which are FHE primitives with no ML
+  claim. Descent-PBS (2026/2616) does improve TFHE programmable
+  bootstrapping, the operation Concrete ML uses for non-linearities,
+  but it is a TFHE-rs-based research engine, not a Concrete ML change.
+  Also set aside: an FHE threshold-signature signer (Balsamic,
+  2026/2604) and a general MPC preprocessing scheme (Eras MPC,
+  2026/2588), since neither is about ML.
+- **arXiv cs.CR / cs.LG / cs.DC:** no new batch in the window. All
+  three "new" listings still show Friday 23 Oct, which an earlier run
+  already screened. The next batch is due Sunday evening ET, after
+  this run.
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No branch has a commit in the window, and no new
+  tag appeared (tag dates come from git metadata, not the GitHub
+  releases API).
+- **ritual-net/infernet-node is still unreadable,** for the sixth run
+  in a row, with the same credentials prompt as a non-existent repo.
+  systems/ritual.md is left unchanged. This still needs a manual check.
+
+### Related, not yet tied to a tracked system
+
+- **ZKP sample-level auditing for federated learning** (IACR ePrint
+  2026/2611): clients commit to their local data with zero-knowledge
+  proofs, so the server can inspect samples for backdoors and force
+  gradients to come from the locked data. A staking mechanism then
+  makes caught attackers train on label-flipped samples. Results are
+  reported on CIFAR-10 only. Field: Federated learning / confidential
+  aggregation. No tracked system uses it.
+
+## Next run
+
+2026-10-26, 17:00 +03:00 (14:00 UTC).
+
+========================================================================
+FILE: watch/log/2026-10-24.md
+========================================================================
+
+---
+date: 2026-10-24
+time: "17:00+03:00"
+kind: daily
+new_items_found: 0
+matrix_impacting: 0
+filed_related_only: 0
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-23T17:10+03:00). Nothing met the relevance
+bar, and no property matrix changed.
+
+- **IACR ePrint:** no new submissions in the window. The highest
+  published number is still 2026/2573; 2026/2574 onward return 404.
+- **arXiv cs.CR / cs.LG / cs.DC:** no new batch in the window. All
+  three "new" listings still show Friday 23 Oct, which yesterday's run
+  already screened (arXiv does not announce on Friday or Saturday
+  evenings ET).
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No new tag appeared. The only default-branch
+  activity is one merged uAgents PR (#962): a retry so the experimental
+  chat agent's LLM wrapper never returns an empty final reply. It sits
+  in `uagents/experimental/chat_agent`, not the agent/Almanac mechanism
+  in systems/fetch-ai.md's property matrix, and it is not a release.
+  It is below the bar.
+- **ritual-net/infernet-node is still unreadable,** for the fifth run
+  in a row, with the same credentials prompt as a non-existent repo.
+  systems/ritual.md is left unchanged. This still needs a manual check.
+
+## Next run
+
+2026-10-25, 17:00 +03:00 (14:00 UTC).
+
+========================================================================
+FILE: watch/log/2026-10-23.md
+========================================================================
+
+---
+date: 2026-10-23
+time: "17:00+03:00"
+kind: daily
+new_items_found: 2
+matrix_impacting: 0
+filed_related_only: 2
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-22T17:12+03:00). Nothing touched a tracked
+system, and no property matrix changed. Two arXiv items are relevant to
+tracked fields and are filed below as related only.
+
+- **IACR ePrint:** no new submissions in the window. The highest
+  published number is still 2026/2573, which yesterday's run already
+  covered; 2026/2574 onward return 404.
+- **arXiv cs.CR / cs.LG / cs.DC:** the Friday 23 Oct batch is the only
+  one in the window. A keyword screen of its new and cross-listed
+  items, followed by reading the abstracts, left the two items below.
+  Set aside: a coset-code homomorphic encryption scheme (a primitive,
+  not ML), a permissioned commitment-root service (Cambium; not ML),
+  a one-shot federated clustering method whose privacy layer is a
+  shuffler rather than secure aggregation, and federated RAG /
+  personalization papers that make no aggregation-privacy claim.
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No default branch has a commit in the window and
+  no new tag appeared (same caveat as before: tag dates come from git
+  metadata, not the GitHub releases API). The only activity is two
+  commits on an unmerged uAgents branch
+  (`fix/chat-final-reply-empty-retry`), which is not a release or a
+  merged PR.
+- **ritual-net/infernet-node is still unreadable,** for the fourth run
+  in a row, with the same credentials prompt as a non-existent repo.
+  systems/ritual.md is left unchanged. This still needs a manual check.
+
+### Related, not yet tied to a tracked system
+
+- **Federated DP-PCA preconditioning** (arXiv 2610.31069): a federated
+  DP covariance/PCA method with linear communication that gets central
+  DP guarantees by running under secure aggregation. Field: Federated
+  learning / confidential aggregation.
+- **Spectral weight-level fingerprinting** (arXiv 2610.30626): derives
+  a training-free LLM fingerprint from singular-value spectra of FFN
+  gate weights, reported robust to fine-tuning, quantization, pruning
+  and distillation. It is a passive provenance check, not an embedded
+  fingerprint like Sentient's OML 1.0. Field: AI model ownership /
+  monetization protocols.
+
+## Next run
+
+2026-10-24, 17:00 +03:00 (14:00 UTC).
+
+========================================================================
+FILE: watch/log/2026-10-22.md
+========================================================================
+
+---
+date: 2026-10-22
+time: "17:00+03:00"
+kind: daily
+new_items_found: 1
+matrix_impacting: 0
+filed_related_only: 1
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 10 tracked repos
+since `last_run` (2026-10-21T17:05+03:00). Nothing touched a tracked
+system, and no property matrix changed. One arXiv item is relevant to a
+tracked field and is filed below as related only.
+
+- **IACR ePrint:** thirteen new submissions (2026/2560 to 2026/2573;
+  2563 and 2564 are the same paper listed twice). None is ML-specific
+  or names a tracked system. The closest were set aside as generic
+  primitive or database work: CKKS precision allocation (2026/2562),
+  homomorphic LUT circuit synthesis (SALUS, 2026/2561), a distributed
+  oblivious TEE database (DISCO\*, 2026/2572), and membership inference
+  against protected vector search (2026/2570).
+- **arXiv cs.CR / cs.LG / cs.DC:** the Thursday 22 Oct batch is the
+  only one in the window. A keyword screen of its new and cross-listed
+  items, followed by reading the abstracts, left the one item below.
+  Set aside: Free-XOR TFHE gate bootstrapping (a Boolean-gate FHE
+  primitive, not ML), a theory paper on group-DRO over gossip networks,
+  and federated-learning papers on personalization and observability
+  that make no confidentiality or aggregation-privacy claim.
+- **Tracked repos:** 9 of the 10 repos named in systems/*.md were read
+  over anonymous git. No branch has a commit in the window and no new
+  tag appeared (same caveat as before: tag dates come from git
+  metadata, not the GitHub releases API, which is still blocked here).
+- **ritual-net/infernet-node is still unreadable,** for the third run
+  in a row, with the same credentials prompt as a non-existent repo.
+  systems/ritual.md is left unchanged. This still needs a manual check.
+
+### Related, not yet tied to a tracked system
+
+- **GhostFaceMPC** (arXiv 2610.29987): runs a quantized GhostFaceNet
+  CNN feature extractor plus template matching end-to-end under MPC,
+  with MPC-friendly quantization and circuit optimizations. Field:
+  Secure MPC for ML.
+
+## Next run
+
+2026-10-23, 17:00 +03:00 (14:00 UTC).
 
 ========================================================================
 FILE: watch/log/2026-10-21.md
