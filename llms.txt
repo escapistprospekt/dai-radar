@@ -1,0 +1,82 @@
+# dAI Radar
+
+> dAI Radar tracks shipping decentralized-AI / crypto-ML systems and traces each one back to the academic paper it is actually built on. Every claim is tagged "grounded" (directly sourced) or "inferred" (reasoned, not quoted); keep that distinction when answering from this data. A lineage is only asserted when a real citation chain exists.
+
+The complete dataset as one file: https://dai.misbar.tech/llms-full.txt
+Structured JSON of the same data: https://dai.misbar.tech/index.json
+
+## Systems
+
+- [Akash Network](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/akash-network.md): Decentralized GPU / compute marketplace
+- [Allora Network](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/allora.md): Decentralized ML forecasting / inference incentive networks
+- [alpha-beta-CROWN](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/alpha-beta-crown.md): Formal verification of neural networks
+- [Apple Private Cloud Compute (PCC)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/apple-private-cloud-compute.md): Confidential computing (TEE) for AI inference
+- [Atoma Network](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/atoma-network.md): Confidential computing (TEE) for AI inference
+- [Azure Confidential AI](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/azure-confidential-ai.md): Confidential computing (TEE) for AI inference
+- [Bittensor](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/bittensor.md): Decentralized incentive / consensus mechanisms for ML networks
+- [C2PA (Content Credentials)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/c2pa.md): Content provenance for AI-generated media
+- [Chutes](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/chutes.md): Confidential computing (TEE) for AI inference
+- [EZKL](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/ezkl.md): ZKML / verifiable inference
+- [Fetch.ai (uAgents)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/fetch-ai.md): Decentralized AI agent / marketplace protocols
+- [Flower](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/flower.md): Federated learning / confidential aggregation
+- [Gensyn](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/gensyn.md): Decentralized / distributed training
+- [Giza / Orion](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/giza-orion.md): ZKML / verifiable inference (STARK-based)
+- [Google Confidential Federated Learning (TensorFlow Federated + TEE confidentiality)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/google-confidential-federated-learning.md): Federated learning / confidential aggregation
+- [io.net](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/io-net.md): Decentralized GPU / compute marketplace
+- [Lagrange Labs (DeepProve)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/lagrange-labs.md): ZKML / verifiable inference
+- [Marabou](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/marabou.md): Formal verification of neural networks
+- [Modulus Labs](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/modulus-labs.md): ZKML / verifiable inference
+- [Morpheus](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/morpheus.md): Decentralized inference marketplace
+- [NEAR AI Cloud](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/near-ai-cloud.md): Confidential computing (TEE) for AI inference
+- [Nillion](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/nillion.md): Secure MPC for ML
+- [Nous Research — Psyche](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/nous-psyche.md): Decentralized / distributed training
+- [NVIDIA Confidential Computing (H100/H200/Blackwell)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/nvidia-confidential-computing.md): Confidential computing (TEE) for AI inference
+- [Oasis (Sapphire / ROFL)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/oasis-sapphire-rofl.md): Confidential computing (TEE) for AI inference
+- [Ocean Protocol](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/ocean-protocol.md): AI data marketplace / provenance
+- [Olas (formerly Autonolas)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/olas.md): Decentralized AI agent / marketplace protocols
+- [Opacus](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/opacus.md): Differential privacy for ML training
+- [OpenLedger](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/openledger.md): AI data attribution and payments
+- [OpenMined (PySyft)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/openmined-pysyft.md): Remote data science / private data access
+- [ORA Protocol](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/ora-protocol.md): Optimistic on-chain AI verification
+- [Phala (dstack)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/phala-dstack.md): Confidential computing (TEE) for AI inference
+- [Pluralis Research](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/pluralis-research.md): Decentralized / distributed training
+- [Prime Intellect](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/prime-intellect.md): Decentralized / distributed training
+- [Render Network](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/render-network.md): Decentralized GPU / compute marketplace
+- [Ritual](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/ritual.md): On-chain AI inference / verifiable compute
+- [Secret Network](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/secret-network.md): Confidential computing (TEE) for AI inference
+- [Sentient (OML)](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/sentient-oml.md): AI model ownership / monetization protocols
+- [Spectral Labs](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/spectral-labs.md): Decentralized AI agent / marketplace protocols
+- [Story Protocol](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/story-protocol.md): On-chain IP and training-data licensing
+- [Tinfoil](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/tinfoil.md): Confidential computing (TEE) for AI inference
+- [Vana](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/vana.md): User-owned data for AI
+- [Venice.ai](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/venice-ai.md): Confidential computing (TEE) for AI inference
+- [Verified zkEVM](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/verified-zkevm.md): Formal verification of ZK proving stacks
+- [Zama Concrete-ML](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/systems/zama-concrete-ml.md): FHE for ML
+
+## Foundations
+
+- [foundations/ai-native-cryptography.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/ai-native-cryptography.md): AI model ownership / monetization protocols
+- [foundations/ccf-confidential-computing.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/ccf-confidential-computing.md): Confidential computing (TEE) for AI inference
+- [foundations/decentralized-consensus-ml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/decentralized-consensus-ml.md): Decentralized incentive / consensus mechanisms for ML networks
+- [foundations/decentralized-training.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/decentralized-training.md): Decentralized / distributed training
+- [foundations/differential-privacy.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/differential-privacy.md): Differential privacy for ML training
+- [foundations/diloco-distributed-training.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/diloco-distributed-training.md): Decentralized / distributed training
+- [foundations/distributed-compute-scheduling.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/distributed-compute-scheduling.md): Decentralized GPU / compute marketplace (orchestration layer)
+- [foundations/distributed-optimization.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/distributed-optimization.md): Decentralized / distributed training
+- [foundations/fhe-ml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/fhe-ml.md): FHE for ML
+- [foundations/model-parallel-decentralized-training.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/model-parallel-decentralized-training.md): Decentralized / distributed training
+- [foundations/mpc-ml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/mpc-ml.md): Secure MPC for ML
+- [foundations/neural-network-verification.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/neural-network-verification.md): Formal verification of neural networks
+- [foundations/optimistic-ml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/optimistic-ml.md): Optimistic on-chain AI verification
+- [foundations/secure-aggregation.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/secure-aggregation.md): Federated learning / confidential aggregation
+- [foundations/tee-remote-attestation.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/tee-remote-attestation.md): Confidential computing (TEE) for AI inference
+- [foundations/zk-proof-of-training.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zk-proof-of-training.md): ZK proof of training / verifiable training
+- [foundations/zkml-stark.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zkml-stark.md): ZKML / verifiable inference (STARK-based)
+- [foundations/zkml-sumcheck.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zkml-sumcheck.md): ZKML / verifiable inference (sum-check lineage)
+- [foundations/zkml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zkml.md): ZKML / verifiable inference
+
+## Watch log
+
+- [2026-10-21](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/watch/log/2026-10-21.md)
+- [2026-10-20](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/watch/log/2026-10-20-daily.md)
+- [2026-10-20](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/watch/log/2026-10-20.md)

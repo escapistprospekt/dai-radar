@@ -70,6 +70,17 @@ Treat as grounded-by-convergence rather than grounded-by-single-citation.
 | Trust model | No trusted setup; client holds secret key, server computes blind | TFHE scheme properties (symmetric/public-key FHE, no CRS) |
 | Maturity | Production-maintained OSS library, active releases | github.com/zama-ai/concrete-ml |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NOT COVERED | FHE hides data from the server; the file describes no check that the server ran the model correctly | Not addressed in this file's sources |
+| Trust rests on | MATH | TFHE (LWE-based) hardness; no trusted setup; the client holds the secret key | TFHE scheme properties, grounded |
+| Confidentiality | CRYPTOGRAPHIC | Inference on encrypted inputs; the server never sees plaintext or intermediate values | Concrete-ML README, grounded |
+| Lineage | OWN PAPER | Seed paper is the Concrete-ML team's DNN-over-TFHE work (arXiv 2302.10906), built on TFHE (eprint 2018/421) | Zama repos + Stoian et al., grounded by convergence |
+| Maturity | LIVE | Production-maintained open-source library with active releases | github.com/zama-ai/concrete-ml, grounded |
+| On-chain | NO CHAIN | A Python library; no blockchain component in the cited sources | Inferred from absence in the cited sources |
+
 ## Known limitations
 
 - Bootstrapping is the dominant cost; deeper/wider networks with more

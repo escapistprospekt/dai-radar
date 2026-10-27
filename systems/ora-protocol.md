@@ -60,6 +60,17 @@ grounding, not an inferred lineage.
 | Supported models (reported) | LLaMA/LLaMA2/LLaMA3, Stable Diffusion, DeepSeek, Mistral, Qwen, Grok (via integration) | Search aggregation — not cross-checked against ORA's current docs this pass |
 | Maturity | Live on multiple mainnets since 2024; ORA's own docs site (docs.ora.io) could not be reached directly during this research pass (DNS failure) — findings here rely on search aggregation and third-party summaries (iq.wiki, Blockworks, Bitget), not a direct docs read | Flagged explicitly — recheck against docs.ora.io directly in a future pass |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | DISPUTE GAME | Results accepted optimistically; a challenge triggers a bisection game resolved on-chain by a Fraud Proof VM | opML paper; ORA docs via search, grounded |
+| Trust rests on | ONE HONEST PARTY | AnyTrust: one honest, incentivized validator watching within the challenge window | ORA docs summary (iq.wiki), grounded |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | OWN PAPER | opML paper (arXiv 2401.17555), co-authored by ORA's co-founder and chief scientist | foundations/optimistic-ml.md, grounded |
+| Maturity | LIVE | Live on multiple mainnets since 2024; docs.ora.io unreachable this pass | Third-party summaries only (iq.wiki, Blockworks, Bitget), inferred |
+| On-chain | EXISTING CHAINS | Ethereum mainnet, plus Optimism, Base and Arbitrum per 2026 reporting | Launch coverage + 2026 search aggregation, inferred |
+
 ## Known limitations
 
 - **Verification pass for this entry relied on secondary sources.**

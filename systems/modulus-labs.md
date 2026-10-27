@@ -77,6 +77,17 @@ research output, not something they're built on:
 | Demonstrated scale | 18M-parameter MLP (2023 benchmark); later demos at GPT-2/recommendation-algorithm scale | Cost of Intelligence paper; secondary coverage for later demos, not independently verified |
 | Organizational status | Team absorbed into Tools for Humanity (World) in late 2024; not operating as an independent vendor | hoge.gg, 2026 retrospective coverage |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PROOF | Zero-knowledge proofs of inference: halo2_ml for neural nets, Remainder for decision forests | Modulus GitHub repo description, grounded; Remainder details secondary |
+| Trust rests on | MATH | Cryptographic soundness; commitment scheme and setup not documented in this file | Inferred from the proving system, see Property matrix |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | Same chain as EZKL: halo2_ml names Halo2; Halo2 cites PLONK | Modulus GitHub + Halo2 design book, grounded |
+| Maturity | INACTIVE | Team joined Tools for Humanity (World) in late 2024; repos not assumed maintained | hoge.gg 2026 retrospective coverage |
+| On-chain | EXISTING CHAINS | Demos ran on existing chains (RockyBot trading bot, on-chain chess); no chain of its own | Architecture summary demo descriptions, inferred |
+
 ## Known limitations
 
 - The company's defunct status means none of the repos above should be

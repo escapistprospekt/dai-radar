@@ -69,6 +69,17 @@ security properties, revisit this.
 | Base chain(s) | Ethereum mainnet (core contracts) + Polygon, BNB Smart Chain, Energy Web Chain, Optimism, Moonriver, Oasis Sapphire (Predictoor only) | docs.oceanprotocol.com/discover/networks, grounded |
 | Maturity | Actively maintained; ocean-node v1.0.3 (Mar 2026), ocean.js v6.0.0 (Feb 2026) | repo release history via search, inferred-from-aggregation not primary-source-verified this pass |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NONE FOUND | A buyer has no cryptographic proof the algorithm ran only against the claimed dataset | Ocean C2D architecture docs, grounded |
+| Trust rests on | OPERATORS | The data owner's Kubernetes infrastructure, or a provider they trust | Ocean C2D architecture docs, grounded |
+| Confidentiality | ISOLATION | Compute-to-Data runs in an ephemeral pod; raw data never leaves the owner. Not cryptographic (TEE only for the separate Predictoor product) | Ocean C2D architecture docs, grounded |
+| Lineage | NONE FOUND | No paper cited for the C2D privacy mechanism | Direct check of C2D docs + whitepaper search, grounded (as a negative finding) |
+| Maturity | LIVE | Actively maintained; ocean-node v1.0.3 (Mar 2026), ocean.js v6.0.0 (Feb 2026) | Release history via search, inferred-from-aggregation |
+| On-chain | EXISTING CHAINS | Ethereum mainnet core contracts, plus Polygon, BNB Smart Chain, Energy Web, Optimism, Moonriver | docs.oceanprotocol.com/discover/networks, grounded |
+
 ## Known limitations
 
 - The core privacy claim ("your data never leaves your infrastructure")

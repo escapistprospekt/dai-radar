@@ -22,7 +22,9 @@ to consume client-side.
   No dependencies beyond the Python standard library. There is no test
   suite, linter, or other build step in this repo.
 - Serve locally to check `index.html` rendering: any static file server
-  (e.g. `python3 -m http.server`) pointed at the repo root.
+  (e.g. `python3 -m http.server`) pointed at the repo root. PostHog
+  analytics (snippet in `index.html`'s `<head>`, same project as
+  misbar.tech) stays off on localhost / 127.0.0.1 and `file:`.
 
 ## Content architecture
 
@@ -38,6 +40,17 @@ to consume client-side.
   coarser grouping (one of the ids in `CATEGORIES` in `index.html`) that
   drives the radar's sectors and the Systems page groups; a system with a
   missing or unknown category shows up under "Uncategorized".
+- **"Comparison axes"** — a `##` section right after "Property matrix",
+  holding a `| Axis | Class | Detail | Source |` table with exactly six
+  rows (Correctness, Trust rests on, Confidentiality, Lineage, Maturity,
+  On-chain). It's what the Compare view lines up across fields, since
+  property matrices are field-specific. `Class` must come from that
+  axis's vocabulary in `COMPARE_AXES` in `index.html` (or NONE FOUND /
+  OPEN QUESTION / NOT COVERED). Each row only restates a claim the file
+  already makes, with that claim's source and tier ("inferred" in the
+  Source cell marks it inferred); NOT COVERED means the file's sources
+  are silent, not a negative finding. A file without the section still
+  renders and shows "no profile" in Compare.
 - **`foundations/*.md`** — one file per foundational paper/technique
   (e.g. PLONK, Halo2 lineage, secure aggregation). Same
   frontmatter+sections pattern, cited by one or more systems.
@@ -62,7 +75,10 @@ to consume client-side.
   in `systems/`, `foundations/`, and `watch/log/`, and writes the
   combined result to `index.json`. `index.html` fetches `index.json` at
   runtime and renders everything client-side (vanilla JS, no framework,
-  no bundler).
+  no bundler). The same run also writes `llms.txt` (index, linking raw
+  GitHub copies, since Pages' Jekyll doesn't serve the `.md` sources) and
+  `llms-full.txt` (every source file inlined), which the "Ask Claude" /
+  "Ask ChatGPT" links on the landing page point assistants at.
 
 ## Editing conventions
 

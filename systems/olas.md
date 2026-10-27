@@ -75,6 +75,17 @@ the repo's rule to skip one when there's nothing real to cite.
 | Base chain(s) | Deployed on multiple smart-contract chains (not single-chain) | docs.olas.network — grounded, specific chain list not verified this pass |
 | Maturity | Active, cites >9.9M agent-to-agent (A2A) transactions as of a 2026 blog post | olas.network blog ("Olas: The 2021 Origin Story...") — grounded but self-reported, not independently audited |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | CONSENSUS | Several instances of an agent service agree on shared state via consensus gadgets | Olas whitepaper summary, full text not verified; classification inferred |
+| Trust rests on | NOT COVERED | The fault threshold of the consensus gadgets isn't stated | Not addressed in this file's sources |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | NONE FOUND | No formal paper: the ACN DHT cites no DHT paper; whitepaper citations are economic essays | ACN docs + whitepaper excerpts, grounded (partial evidence) |
+| Maturity | LIVE | Active; more than 9.9M agent-to-agent transactions, self-reported | olas.network blog, self-reported |
+| On-chain | EXISTING CHAINS | Multiple smart-contract chains; agents and components registered as NFTs | docs.olas.network, grounded; chain list not verified |
+
 ## Known limitations
 
 - No independently verified academic grounding for the ACN's DHT design or

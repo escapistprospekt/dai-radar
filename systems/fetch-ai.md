@@ -81,6 +81,17 @@ superseded by Verde.
 | LLM orchestration layer | ASI:One — translates natural-language goals into multi-agent workflows | arXiv:2510.18699 abstract |
 | Alliance structure | ASI Alliance (Fetch.ai + SingularityNET; Ocean Protocol withdrew Oct 2025) | 0xgreythorn Medium overview — secondary source, not independently verified |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NOT COVERED | Agents authenticate by keypair-derived address; nothing described checks what an agent computes | Not addressed in this file's sources |
+| Trust rests on | NOT COVERED | — | Not addressed in this file's sources |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | OWN PAPER | Team-authored architecture paper (arXiv 2510.18699); the uAgents README cites no papers | arXiv 2510.18699 + uAgents README, grounded |
+| Maturity | NOT COVERED | — | Not addressed in this file's sources |
+| On-chain | OWN CHAIN | Cosmos-SDK chain with CometBFT and IBC; agents register in the Almanac contract | Web search aggregation, not independently verified, inferred |
+
 ## Known limitations
 
 - No independent academic citation grounds the current architecture beyond

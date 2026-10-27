@@ -76,6 +76,17 @@ communication overhead of classic MPC protocols.
 | Maturity | Mainnet live; L2 (prior Cosmos-based network) being sunset in 2026 | TokenPost, Bitget coverage of L2 shutdown |
 | Reported uptime | 100% over trailing 90 days (as reported, not independently verified) | status.nillion.com |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NOT COVERED | Node operators stake NIL to run nodes and verify computations; the verification mechanism isn't described | Not addressed in this file's sources |
+| Trust rests on | MATH | Information-theoretic (unconditional) security for the core linear-secret-sharing layer | Nillion technical articles |
+| Confidentiality | CRYPTOGRAPHIC | Data is secret-shared across nodes and computed on via MPC; plaintext is never reconstructed on one node | Nillion docs, cross-confirmed |
+| Lineage | OWN PAPER | Sum-of-products in LSSS paper, four of six authors at Nillion; withdrawn from ePrint | Nillion Medium post + MPC Alliance coverage, grounded |
+| Maturity | LIVE | Blacklight mainnet live 2026-10-05; the prior Cosmos-based L2 is being sunset | TokenPost, Bitget coverage |
+| On-chain | OWN CHAIN | Blacklight, a new L1 reported as an Ethereum L1; migrated from Cosmos | TradingView/CoinMarketCal news |
+
 ## Known limitations
 
 - The specific foundational paper above was **withdrawn from IACR ePrint**

@@ -76,6 +76,17 @@ practice.
 | Maturity | Mainnet live, first emission halving Dec 2025 (7200 → 3600 TAO/day) | search aggregation, not independently verified against chain data |
 | Collusion assumption | Honest nodes assumed to hold >50% of stake | bittensor.com/whitepaper |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PEER SCORING | Validators rank miners' outputs; Yuma Consensus turns stake-weighted rankings into payouts | hoge.gg explainer (community source, not primary) |
+| Trust rests on | STAKE MAJORITY | Honest nodes assumed to hold more than 50% of stake | bittensor.com/whitepaper |
+| Confidentiality | NOT COVERED | Not part of the base protocol; one subnet (SN4 Targon) reportedly uses TEEs | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | Shapley (1952), cited in Bittensor's own paper as the basis for peer ranking | bittensor.com/academia |
+| Maturity | LIVE | Mainnet; first emission halving Dec 2025 | Search aggregation, not independently verified |
+| On-chain | OWN CHAIN | Subtensor (Polkadot Substrate) | docs.bittensor.com |
+
 ## Notable subnets
 
 Subnets share Bittensor's core Yuma Consensus/Shapley grounding above —

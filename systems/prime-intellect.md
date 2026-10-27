@@ -84,6 +84,17 @@ the repo's one-file-per-lineage rule.
 | Trust/incentive layer | "PI protocol" — described as providing on-chain trust primitives and collective model ownership for contributors | General sourcing (third-party coverage), **inferred** — primary-source technical detail not found in this pass |
 | Maturity | Production research lab with a live GPU marketplace; INTELLECT-1 is a completed, published run, not a running mainnet protocol in the Gensyn/Bittensor sense | Inferred from available sourcing |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | OPEN QUESTION | No adversarial verification in the training framework; how the PI protocol verifies contributors wasn't found | Known limitations, open follow-up, inferred |
+| Trust rests on | OPERATORS | INTELLECT-1 ran on known, coordinating participants rather than open, untrusted compute | Known limitations; classification inferred |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | DiLoCo (Google DeepMind, arXiv 2311.08105), reimplemented as OpenDiLoCo | primeintellect.ai/blog/opendiloco, grounded |
+| Maturity | RESEARCH | Completed, published training runs plus a live GPU marketplace; not a running mainnet protocol | Inferred from available sourcing |
+| On-chain | NOT COVERED | The PI protocol is described as offering on-chain primitives, but no chain is identified | Not addressed in this file's sources |
+
 ## Known limitations
 
 - The DiLoCo/PRIME technical lineage is solidly grounded; the crypto/

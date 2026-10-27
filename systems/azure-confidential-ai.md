@@ -93,6 +93,17 @@ Two separate lineages, with different grounding strength:
 | Transparency/auditability | Append-only ledger (CCF-based) recording container hashes + deployment policy — **only in the AI Confidential Inferencing preview architecture**, not confirmed present in the simpler `microsoft/confidential-ai` reference design | techcommunity.microsoft.com Confidential Inferencing deep-dive, grounded for that specific architecture |
 | Maturity | AI Confidential Inferencing explicitly described as **preview**, not GA, as of this research pass | techcommunity.microsoft.com, Azure AI Foundry blog, grounded |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | ATTESTATION | Azure Attestation of hardware/firmware state; Confidential Inferencing adds a ledger of container hashes | learn.microsoft.com + techcommunity deep-dive, grounded |
+| Trust rests on | HARDWARE VENDOR | AMD SEV-SNP or Intel TDX CPU TEE, plus NVIDIA H100 confidential mode for GPUs | learn.microsoft.com confidential-vm-overview, grounded |
+| Confidentiality | HARDWARE ENCLAVE | Neither Microsoft nor other tenants can see weights or inputs while the workload runs | learn.microsoft.com confidential-ai, grounded |
+| Lineage | OWN PAPER | Transparency ledger built on CCF (Microsoft Research); the TEE hardware is vendor spec with no paper | learn.microsoft.com (Azure confidential ledger), grounded |
+| Maturity | PREVIEW | AI Confidential Inferencing is preview, not GA | techcommunity.microsoft.com, Azure AI Foundry blog, grounded |
+| On-chain | NO CHAIN | No public blockchain; auditability comes from the CCF-based confidential ledger | Inferred from absence in the cited sources |
+
 ## Known limitations
 
 - Two (at least) differently-architected "confidential AI" reference

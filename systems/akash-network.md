@@ -73,6 +73,17 @@ that would be the point to reconsider.)
 | Compute verification | **None found** — no cryptographic or other verification that a provider ran the workload as specified | hoge.gg analysis, single-source — flagged as a known limitation, not cross-confirmed elsewhere in this pass |
 | Base-chain migration | In progress per AEP-79: Cosmos SDK → shared-security L1 (Solana reported as leading candidate), targeted Q4 2026 | akash.network/roadmap/aep-79, hoge.gg — endpoint unverified |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NONE FOUND | "Akash rents you a GPU; it does not prove what that GPU did." | hoge.gg analysis, single-source |
+| Trust rests on | OPERATORS | Whichever provider wins the lease; a substituted or quantized model would go undetected | hoge.gg analysis, single-source |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | GENERIC ONLY | Whitepaper cites Tendermint BFT consensus: a real citation, but not AI-specific | Akash whitepaper citation [9], grounded |
+| Maturity | LIVE | GPU marketplace since Aug 2023, AkashML since Nov 2025; base-chain migration in progress | Akash docs + hoge.gg, cross-referenced |
+| On-chain | OWN CHAIN | Cosmos SDK + Tendermint chain, migrating to a shared-security L1 (Solana reported, unconfirmed) | Akash whitepaper; AEP-79 endpoint unverified |
+
 ## Known limitations
 
 - **No compute verification.** Per the source above: "Akash rents you a GPU;

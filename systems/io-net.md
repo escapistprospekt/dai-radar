@@ -76,6 +76,17 @@ no-academic-grounding-found rather than inferring one.
 | Trust model (compute delivery) | Verification-by-benchmark + continuous monitoring, not cryptographic proof of correct execution | io.net docs, grounded — note this is weaker than the ZK/proof-based verification used by systems like EZKL or Gensyn |
 | Maturity | Live production marketplace, actively marketed/benchmarked | io.net site, grounded |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | SPOT CHECK | Proof-of-Work + Proof of Time-Lock check the GPU is real and dedicated, plus a daily benchmark; not proof of correct execution | io.net support docs, grounded |
+| Trust rests on | OPERATORS | GPU providers, policed by benchmarks and continuous monitoring rather than proofs | io.net docs, grounded |
+| Confidentiality | HARDWARE ENCLAVE | Supports NVIDIA H200 confidential computing (Protected PCIe mode, SPDM attestation) | io.net confidential-compute docs, grounded |
+| Lineage | EXTERNAL PAPER | IO-SDK forks Ray (OSDI 2018). Grounds orchestration only, not the trust layer | io.net architecture docs, grounded |
+| Maturity | LIVE | Live production marketplace | io.net site, grounded |
+| On-chain | NOT COVERED | — | Not addressed in this file's sources |
+
 ## Known limitations
 
 - The resource-verification layer (PoW/PoTL/benchmarking) checks that a

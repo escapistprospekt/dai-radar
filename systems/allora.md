@@ -82,6 +82,17 @@ design resemble in spirit but do not cite directly.
 | Token / cross-chain | ALLO token; mainnet + multichain (Ethereum, Base, BNB Chain) launch 2025-11-11 | Allora Foundation announcement, grounded |
 | Academic grounding | None found externally; architecture is self-published, not derived from cited prior work | Direct PDF inspection + docs site check, grounded (as a negative finding) |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PEER SCORING | Reputers stake-weight and score Workers' inferences for accuracy; Inference Synthesis combines them | Allora whitepaper, grounded |
+| Trust rests on | STAKE MAJORITY | Stake-weighted Reputers on a DPoS chain; collusion resistance not independently analyzed | Allora whitepaper; classification inferred |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | OWN PAPER | Self-published whitepaper with no external citations for the core mechanism | Direct PDF inspection, grounded (as a negative finding) |
+| Maturity | LIVE | Mainnet and ALLO token launched 2025-11-11 | Allora Foundation announcement, grounded |
+| On-chain | OWN CHAIN | Cosmos SDK + CometBFT L1; ALLO also on Ethereum, Base and BNB Chain | Allora whitepaper/docs, grounded |
+
 ## Known limitations
 
 - No independent third-party audit of the Inference Synthesis or Reputer

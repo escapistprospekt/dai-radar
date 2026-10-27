@@ -76,6 +76,17 @@ not papers" directly is the right pattern, not a shared paper citation.
 | Hardware availability | H100 (GA April 2024), extended in later generations (H200/Blackwell) | NVIDIA developer blog + industry reporting, grounded |
 | Performance overhead | Independent study (arXiv 2505.16501): confidential mode shows 20–30% higher latency, 45–70% lower throughput, ~50% lower GPU utilization vs. non-confidential mode, attributed mainly to encrypt/decrypt overhead when loading models | [arXiv:2505.16501](https://arxiv.org/abs/2505.16501), grounded (independent third-party measurement, not NVIDIA's own figure) |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | ATTESTATION | SPDM-signed attestation report an external verifier checks before trusting the GPU's state | NVIDIA developer blog, grounded |
+| Trust rests on | HARDWARE VENDOR | NVIDIA's on-die root of trust plus the host's CPU TEE (SEV-SNP or TDX); no GPU-only trust root | NVIDIA developer blog, grounded |
+| Confidentiality | HARDWARE ENCLAVE | Weights and inputs encrypted in GPU memory; AES-GCM-256 on CPU-GPU transfers | NVIDIA developer blog, grounded |
+| Lineage | STANDARDS | SPDM, the Confidential Computing Consortium's definition, SEV-SNP/TDX; no academic paper | NVIDIA developer blog, grounded |
+| Maturity | LIVE | H100 GA April 2024, extended in H200/Blackwell; 20-30% higher latency in confidential mode per an independent study | NVIDIA developer blog + arXiv:2505.16501, grounded |
+| On-chain | NO CHAIN | A hardware feature; no blockchain component | Inferred from absence in the cited sources |
+
 ## Known limitations
 
 - Confidential mode's performance cost is substantial per the independent

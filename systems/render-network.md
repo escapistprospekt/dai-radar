@@ -81,6 +81,17 @@ No new foundations/ file created — there is nothing to ground it to.
 | Base chain | Solana (migrated from Ethereum/Polygon in prior iterations) | General sourcing — recheck if precise chain history matters |
 | Maturity | Rendering side long-established (since 2017); AI subnet (Dispersed) is new as of Dec 2025 | Render Foundation's own announcement |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | SPOT CHECK | Proof-of-Render: watermarked preview, creator review and node spot-checks before escrow releases | Third-party explainers (Web3@KAIST), inferred, not confirmed against primary docs |
+| Trust rests on | OPERATORS | Node operators, checked by the job creator and other nodes before payment | Third-party explainers, inferred |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | NONE FOUND | The only external reference is a billing patent, unrelated to verification | Whitepaper v4.0 check, grounded (as a negative finding) |
+| Maturity | LIVE | Rendering since 2017; the AI compute subnet (Dispersed) launched Dec 2025 | Render Foundation announcement |
+| On-chain | EXISTING CHAINS | Solana, after earlier Ethereum/Polygon iterations | General sourcing, inferred |
+
 ## Known limitations
 
 - **The "AI" framing should be treated with caution.** Most of what's

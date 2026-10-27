@@ -89,6 +89,17 @@ something PCC's own design cites as foundational.
 | Request anonymization | RSA Blind Signatures (RFC 9474) + Oblivious HTTP relay (RFC 9458) — prevents request-to-identity linkage | Same source, grounded |
 | Maturity | Production; live since 2024 launch with Apple Intelligence; actively expanding per "Expanding Private Cloud Compute" post | security.apple.com/blog/expanding-pcc, grounded |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | ATTESTATION | Device verifies the node's hardware attestation before sending; every production build is logged to an append-only transparency log | security.apple.com/blog/private-cloud-compute, grounded |
+| Trust rests on | HARDWARE VENDOR | Apple silicon root of trust and Apple's manufacturing/data-center process; two vendors for some components | security.apple.com PCC posts, grounded |
+| Confidentiality | HARDWARE ENCLAVE | Personal data "isn't accessible to anyone other than the user, not even to Apple"; stateless, no retention | security.apple.com/blog/private-cloud-compute, grounded |
+| Lineage | STANDARDS | Apple's own engineering (Platform Security Guide) plus two IETF RFCs for request anonymization; no paper | Apple PCC security blog posts, grounded |
+| Maturity | LIVE | Production since the 2024 Apple Intelligence launch | security.apple.com/blog/expanding-pcc, grounded |
+| On-chain | NO CHAIN | No blockchain component appears in Apple's materials | Inferred from absence in the cited sources |
+
 ## Known limitations
 
 - **Fundamentally different trust model from the other tracked systems in

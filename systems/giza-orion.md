@@ -79,6 +79,17 @@ systems as one lineage.
 | On-chain verification | Yes, originally — via SHARP on Ethereum | Starknet SHARP docs |
 | **Maturity** | **Largely inactive as of Oct 2026**: Orion archived 2025-03-03; ARMA/Pulse DeFi agents wound down Feb–Mar 2026 (wind-down announced 2026-02-26, migration deadline 2026-03-26); GitHub orgs show no pushes since 2026-03-23; LuminAIR unreleased, no commits in 8+ months per review | [ownyourmind.ai](https://ownyourmind.ai/projects/giza/), corroborated independently via WebSearch (GitHub push dates, on-chain balance drop from ~$4.85M to ~$14K by 2026-06-24) |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PROOF | Original Orion: STARK proof of Cairo execution, aggregated by SHARP | Orion docs/announcement, grounded |
+| Trust rests on | MATH | Transparent setup (STARK, no trusted ceremony) | Standard STARK property, inferred from Cairo's design |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | Orion compiles to Cairo; Cairo's link to the original STARK paper (eprint 2018/046) couldn't be confirmed in-text | Orion docs, grounded; Cairo to STARK hop inferred |
+| Maturity | INACTIVE | Orion archived 2025-03-03; successor DeFi agents wound down Feb-Mar 2026; LuminAIR unreleased | ownyourmind.ai review, corroborated via GitHub push dates and on-chain balances, grounded |
+| On-chain | EXISTING CHAINS | Originally verified on Ethereum via SHARP, Starknet's shared prover | Starknet SHARP docs, grounded |
+
 ## Known limitations
 
 - **This is the clearest "status" flag in the repo so far**: unlike

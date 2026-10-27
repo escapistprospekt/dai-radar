@@ -162,6 +162,73 @@ def main():
     out_path.write_text(json.dumps(index, indent=2) + "\n")
     print(f"wrote {out_path} ({len(systems)} systems, {len(foundations)} foundations)")
 
+    write_llms_txt(systems, foundations, watch_log, index["generated_at"])
+
+
+SITE_URL = "https://dai.misbar.tech"
+# GitHub Pages runs Jekyll here, which turns the front-mattered .md sources
+# into .html pages, so per-file links point at the raw copies on GitHub.
+RAW_URL = "https://raw.githubusercontent.com/verifiableahmad/dai-radar/main"
+
+LLMS_SUMMARY = (
+    "dAI Radar tracks shipping decentralized-AI / crypto-ML systems and traces "
+    "each one back to the academic paper it is actually built on. Every claim is "
+    "tagged \"grounded\" (directly sourced) or \"inferred\" (reasoned, not quoted); "
+    "keep that distinction when answering from this data. A lineage is only "
+    "asserted when a real citation chain exists."
+)
+
+
+def write_llms_txt(systems, foundations, watch_log, generated_at):
+    """Write llms.txt (an index) and llms-full.txt (every source file inlined)
+    so people can point their own Claude / ChatGPT at the whole corpus."""
+
+    def link(entry):
+        fm = entry["frontmatter"]
+        title = fm.get("name") or fm.get("title") or fm.get("date") or entry["path"]
+        detail = fm.get("field") or fm.get("category") or ""
+        return f"- [{title}]({RAW_URL}/{entry['path']})" + (f": {detail}" if detail else "")
+
+    lines = [
+        "# dAI Radar",
+        "",
+        f"> {LLMS_SUMMARY}",
+        "",
+        f"The complete dataset as one file: {SITE_URL}/llms-full.txt",
+        f"Structured JSON of the same data: {SITE_URL}/index.json",
+        "",
+        "## Systems",
+        "",
+        *[link(s) for s in systems],
+        "",
+        "## Foundations",
+        "",
+        *[link(f) for f in foundations],
+        "",
+        "## Watch log",
+        "",
+        *[link(w) for w in watch_log],
+        "",
+    ]
+    (ROOT / "llms.txt").write_text("\n".join(lines))
+
+    full = [
+        "# dAI Radar: full dataset",
+        "",
+        f"> {LLMS_SUMMARY}",
+        "",
+        f"Generated {generated_at} from {SITE_URL}. Below are the verbatim "
+        "markdown source files: systems/ (one per tracked system; its "
+        "`foundation:` key names the foundations/ file it builds on), "
+        "foundations/ (one per seed paper), and watch/log/ (daily watch runs, "
+        "newest first). Each file starts with a FILE: line.",
+    ]
+    for entry in [*systems, *foundations, *watch_log]:
+        text = (ROOT / entry["path"]).read_text().strip()
+        full += ["", "=" * 72, f"FILE: {entry['path']}", "=" * 72, "", text]
+    (ROOT / "llms-full.txt").write_text("\n".join(full) + "\n")
+    print("wrote llms.txt and llms-full.txt")
+
 
 if __name__ == "__main__":
     sys.exit(main())

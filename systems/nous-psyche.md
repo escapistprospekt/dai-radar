@@ -66,6 +66,17 @@ rather than reusing Gensyn's.
 | Verification mechanism | **Not solved** — Nous states a theoretical model exists but "a practical implementation is still an open problem" | nousresearch.com/nous-psyche, grounded |
 | Maturity | No formal mainnet as of this check; Nous explicitly avoids using the term and describes current operation as a post-testnet phase, not a graduation | Search aggregation across Nous's own Sept. 2025 post and docs; node/participant counts not independently verifiable |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NONE FOUND | Nous: a practical verification implementation "is still an open problem" | nousresearch.com/nous-psyche, grounded |
+| Trust rests on | OPERATORS | Compute contributors; Solana coordinates the run, but nothing yet verifies their updates | Classification inferred from the Verification mechanism row |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | OWN PAPER | DeMo (arXiv 2411.19870), by Nous Research staff | nousresearch.com/nous-psyche, grounded |
+| Maturity | PREVIEW | No formal mainnet; a post-testnet phase; 40B-parameter testnet run in May 2025 | Search aggregation across Nous's own post and docs |
+| On-chain | EXISTING CHAINS | Solana smart-contract coordinator (metadata, state, randomness, sync) | nousresearch.com/nous-psyche, grounded |
+
 ## Known limitations
 
 - **Verification is explicitly unsolved.** Nous's own materials state

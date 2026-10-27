@@ -67,6 +67,17 @@ it's dropped rather than asserted.
 | On-chain verification | Yes — generates Solidity verifier contracts, EVM-compatible | EZKL project description, grounded |
 | Maturity | Active, widely used reference implementation in the ZKML space; not formally audited to my knowledge as of this check | Inferred — not independently verified this pass |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PROOF | Halo2 zero-knowledge proof of the inference; verifiers run in the EVM, a browser, or on-device | EZKL README, grounded |
+| Trust rests on | MATH + SETUP | Cryptographic soundness plus a KZG structured reference string (SRS/ptau) from a setup ceremony | docs.ezkl.xyz/getting-started/setup, grounded |
+| Confidentiality | CRYPTOGRAPHIC | Zero-knowledge: inference proven correct without revealing model weights and/or inputs | EZKL project description, grounded |
+| Lineage | EXTERNAL PAPER | Two hops: EZKL names Halo2; Halo2's design book cites PLONK | EZKL README + Halo2 design book, grounded |
+| Maturity | LIVE | Active, widely used reference implementation; audit status not checked | Inferred, not independently verified this pass |
+| On-chain | EXISTING CHAINS | No chain of its own; generates Solidity verifier contracts for EVM chains | EZKL project description, grounded |
+
 ## Known limitations
 
 - SRS/setup size scales with circuit complexity and can become a real

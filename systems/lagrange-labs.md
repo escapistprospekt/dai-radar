@@ -89,6 +89,17 @@ entries rather than merged.
 | Trust model (trusted setup or transparent) | Not confirmed from a direct source in this pass — sum-check-based systems are *typically* transparent (no CRS), but DeepProve's specific underlying polynomial commitment scheme wasn't identified here | **Inferred, unverified** — recheck before relying on this |
 | Maturity | Open-sourced June 2026; github.com/Lagrange-Labs/deep-prove; live dashboard at deep-prove.lagrange.dev | Lagrange press release / blog, grounded |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PROOF | Sum-check + lookup-argument proofs of end-to-end LLM inference; verification in 1-3.7 s | DeepProve paper abstract, grounded |
+| Trust rests on | MATH | Cryptographic soundness; whether a trusted setup is needed is unconfirmed (sum-check systems are typically transparent) | Inferred, unverified, see Property matrix |
+| Confidentiality | NOT COVERED | The file describes proving correctness, not what DeepProve keeps hidden | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | DeepProve names the sum-check protocol (Lund, Fortnow, Karloff, Nisan 1992); a direct bibliography citation is unconfirmed | DeepProve paper abstract; 1992 link is the standard lineage, inferred |
+| Maturity | LIVE | Open-sourced June 2026; 12M+ proofs and 3M+ inferences verified, per Lagrange | Lagrange press release, grounded |
+| On-chain | NOT COVERED | — | Not addressed in this file's sources |
+
 ## Known limitations
 
 - Throughput (174 tokens/min for GPT-2, a small model by current

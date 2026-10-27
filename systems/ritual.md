@@ -78,6 +78,17 @@ here rather than forced:
 | Network scale | 8,000+ connected Infernet nodes (as reported) | Ritual explainer material — community-adjacent source, inferred/unverified count |
 | Named crypto primitives | CKKS, ECIES, EIP-712 named in docs | docs.ritualfoundation.org — named but not deeply citation-traced this pass |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | PER APP | Staked executor computes once and produces a ZK proof and/or TEE attestation; validators verify it instead of re-executing | Symphony research, Ritual docs |
+| Trust rests on | PER APP | Depends on which scheme each application picks: ZK, TEE, both, or potentially neither | docs.ritualfoundation.org, grounded |
+| Confidentiality | NOT COVERED | TEE execution is supported and CKKS is named in the docs, but no confidentiality claim is traced | Not addressed in this file's sources |
+| Lineage | OWN PAPER | Symphony is Ritual's own self-published research (ritual.net blog); no external paper | ritual.net blog (Bahrani, ~Apr 2026), grounded |
+| Maturity | OPEN QUESTION | 8,000+ Infernet nodes reported; Ritual Chain mainnet status not verified | Ritual explainer material, inferred/unverified |
+| On-chain | OWN CHAIN | Ritual Chain (custom L1), plus Infernet linking Ethereum contracts to off-chain nodes | docs.ritualfoundation.org, github.com/ritual-net/infernet-node |
+
 ## Known limitations
 
 - "Proof-system agnostic" means the actual security guarantee for any

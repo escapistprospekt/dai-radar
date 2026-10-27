@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>dai.misbar.tech — the probe</title>
-<meta name="description" content="A probe aimed at decentralized AI: tracked production systems, their sourced foundational-paper lineage, and evaluation matrices." />
+<title>dai.misbar.tech — decentralized AI radar</title>
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<meta name="description" content="Tracked production systems, their sourced foundational-paper lineage, and evaluation matrices." />
 <style>
   :root{
     /* Misbar design-system tokens (src/design-system/tokens.css) — same
@@ -260,6 +261,10 @@
   .statement em{font-style:normal; color:var(--grounded);}
   .statement-meta{margin-top:16px; font-size:11px; letter-spacing:.06em; color:var(--ink-faint); max-width:none;}
   .linkbtn{background:none; border:none; padding:0; font:inherit; letter-spacing:inherit; color:var(--grounded); cursor:pointer; border-bottom:1px solid currentColor;}
+  .ask-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:18px; font-size:11px; letter-spacing:.06em; color:var(--ink-faint);}
+  .ask-row .lbl{margin-right:4px;}
+  .ask-row a.chip{text-decoration:none; color:var(--ink);}
+  .ask-row .src{margin-left:4px;}
 
   .filterbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:22px 0 24px; padding-bottom:18px; border-bottom:1px solid var(--line);}
   .chip{
@@ -341,6 +346,7 @@
   .dossier .dhead .repo{font-size:11px; color:var(--ink-faint);}
   .closebtn{background:none; border:1px solid var(--line); color:var(--ink-dim); font-family:var(--mono); font-size:11px; padding:5px 9px; cursor:pointer; border-radius:var(--radius);}
   .closebtn:hover{border-color:var(--critical); color:var(--critical);}
+  .closebtn.go:hover{border-color:var(--grounded); color:var(--grounded);}
 
   .dossier .section{margin-top:22px;}
   .dossier .section > h3{display:flex; align-items:center; gap:8px; color:var(--ink); margin-bottom:10px;}
@@ -418,10 +424,116 @@
   footer{border-top:1px solid var(--line); padding:20px 0; margin-top:40px;}
   footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:10.5px; color:var(--ink-faint);}
 
+  /* Compare: systems as columns, questions as rows. Each row is its own grid
+     so a row's cells share a height; on phones every row stacks and each cell
+     names its system instead. */
+  .cmp-picker{margin:22px 0 26px; border:1px solid var(--line); background:var(--surface);}
+  .cmp-picker > summary{
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap; cursor:pointer; list-style:none;
+    padding:12px 14px; font-size:10.5px; letter-spacing:.1em; color:var(--ink-faint);
+  }
+  .cmp-picker > summary::-webkit-details-marker{display:none;}
+  .cmp-picker > summary::before{content:"+"; color:var(--grounded); font-weight:700;}
+  .cmp-picker[open] > summary::before{content:"−";}
+  .cmp-picker > summary b{color:var(--ink); font-weight:700;}
+  .cmp-picker > summary .linkbtn{margin-left:auto;}
+  .cmp-pick-body{padding:4px 14px 14px; display:flex; flex-direction:column; gap:10px;}
+  .cmp-pick-row{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
+  .cmp-pick-row .lbl{font-size:9.5px; letter-spacing:.14em; color:var(--ink-faint); width:96px; flex-shrink:0;}
+  @media (max-width:560px){ .cmp-pick-row .lbl{width:100%;} }
+  .chip.off{opacity:.4; cursor:not-allowed;}
+  .chip.unprofiled{border-style:dashed;}
+
+  .presets{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:14px; margin-top:14px;}
+  .preset{
+    font:inherit; color:inherit; text-align:left; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line); padding:16px 18px; transition:border-color .15s;
+  }
+  .preset:hover{border-color:var(--grounded);}
+  .preset h3{font-size:13.5px; color:var(--ink);}
+  .preset p{font-size:12px; margin:8px 0 10px;}
+  .preset .names{font-size:10px; letter-spacing:.08em; color:var(--grounded);}
+
+  .cmp{margin-top:6px;}
+  .cmp-row{display:grid; grid-template-columns:170px repeat(var(--n), minmax(0,1fr)); border-bottom:1px solid var(--line-soft);}
+  .cmp-label, .cmp-cell{padding:14px 14px 14px 0; min-width:0; overflow-wrap:anywhere;}
+  .cmp-cell{padding-left:14px; border-left:1px solid var(--line-soft);}
+  .cmp-label b{display:block; color:var(--ink); font-size:12.5px;}
+  .cmp-label .q{display:block; font-size:11px; color:var(--ink-faint); margin-top:4px; line-height:1.45;}
+  .cmp-label .spread{display:inline-block; margin-top:8px; font-size:9px; letter-spacing:.12em; color:var(--ink-dim); border:1px solid var(--line); padding:1px 6px; border-radius:2px;}
+  .cmp-label .spread.same{color:var(--grounded); border-color:var(--grounded);}
+  .cmp-head{position:sticky; top:var(--hdr-h, 55px); z-index:5; background:var(--bg); border-bottom:1px solid var(--line);}
+  .cmp-head .cmp-cell{display:flex; flex-direction:column; gap:6px; padding-top:12px; padding-bottom:12px;}
+  .cmp-head h3{font-size:15px; color:var(--ink);}
+  .cmp-head .sub{font-size:10px; color:var(--ink-faint); letter-spacing:.06em;}
+  .cmp-head .acts{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .cmp-head .acts .closebtn{padding:3px 7px; font-size:10px;}
+  .cmp-group{font-size:10.5px; letter-spacing:.2em; color:var(--grounded); padding:26px 0 8px; border-bottom:1px solid var(--line);}
+  .cmp-group::before{content:"// "; color:var(--ink-faint);}
+  .cmp-cell .who{display:none; font-size:10px; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px;}
+  .cls{
+    display:inline-block; font-size:10px; letter-spacing:.1em; font-weight:700; color:var(--ink);
+    border:1px solid var(--ink-faint); padding:2px 7px; border-radius:2px; cursor:help;
+  }
+  .cls.c-none{color:var(--ink-faint); border-color:var(--line); font-weight:400;}
+  .cls.c-absent{color:var(--critical); border-color:var(--critical); background:var(--critical-dim);}
+  .cls.c-open{color:var(--critical); border-style:dashed; border-color:var(--critical);}
+  .cmp-cell p{font-size:12px; margin:8px 0 0; max-width:none;}
+  .cmp-cell .src{font-size:10.5px; color:var(--ink-faint); margin-top:6px;}
+  .cmp-cell .src .tier-tag{margin-left:0; margin-right:6px;}
+  .tier-tag.open{color:var(--critical); border:1px solid var(--critical);}
+  .cmp-cell .seed{font-size:11px; margin-top:8px; color:var(--ink-dim);}
+  .cmp-cell .seed .stamp{margin-left:6px; font-size:8.5px; padding:1px 5px;}
+  .cmp-cell .md li, .cmp-cell .md p{font-size:11.5px;}
+  .cmp-cell dl{margin:0; display:flex; flex-direction:column; gap:8px;}
+  .cmp-cell dt{font-size:11px; color:var(--ink); font-weight:600;}
+  .cmp-cell dd{margin:2px 0 0; font-size:11.5px; color:var(--ink-dim);}
+  .evbar{display:flex; height:6px; margin-top:8px; background:var(--inferred-dim); border:1px solid var(--line);}
+  .evbar i{display:block; background:var(--grounded);}
+  .cmp-note{font-size:11.5px; color:var(--ink-faint); margin-top:14px;}
+  @media (max-width:760px){
+    .cmp-row{grid-template-columns:1fr;}
+    .cmp-label{padding:16px 0 4px;}
+    .cmp-cell{border-left:none; padding:10px 0 10px 12px; border-left:2px solid var(--line);}
+    .cmp-cell + .cmp-cell{margin-top:4px;}
+    .cmp-cell .who{display:block;}
+    .cmp-head{position:static;}
+    .cmp-head .cmp-label{display:none;}
+  }
+
+  .axis-guide{margin-top:34px; border-top:1px solid var(--line); padding-top:6px;}
+  .axis-guide > summary{cursor:pointer; font-size:11px; letter-spacing:.12em; color:var(--ink-dim); padding:12px 0;}
+  .axis-guide dl{margin:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px 28px;}
+  .axis-guide dt{font-size:12.5px; color:var(--ink); font-weight:700;}
+  .axis-guide dd{margin:4px 0 0; font-size:11.5px; color:var(--ink-dim);}
+  .axis-guide dd ul{margin:8px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:5px;}
+  .axis-guide dd li .cls{cursor:default; margin-right:6px; font-size:9px;}
+
   .section-gap{margin-top:40px;}
   .loading, .fetch-error{color:var(--ink-faint); font-size:12.5px; padding:20px 0;}
   .fetch-error{color:var(--critical);}
 </style>
+<script>
+  /* PostHog, same project and settings as misbar.tech. Off on local dev hosts. */
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  if(location.protocol !== "file:" && !/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)){
+    posthog.init("phc_3T0HIOKTMdO3uFmNC2DFu4P4dtQmO06wuEixEyx9231", {
+      api_host: "https://us.i.posthog.com",
+      ui_host: "https://us.posthog.com",
+      person_profiles: "always",
+      capture_pageview: false, // sent below: the site routes by hash, which PostHog's own pageview tracking ignores
+      capture_pageleave: true,
+      autocapture: true,
+      capture_exceptions: true,
+      session_recording: {
+        maskAllInputs: true,
+        recordCrossOriginIframes: false,
+      },
+    });
+    posthog.capture("$pageview");
+    window.addEventListener("hashchange", function(){ posthog.capture("$pageview"); });
+  }
+</script>
 </head>
 <body>
 
@@ -435,6 +547,7 @@
     <nav class="tabs">
       <button data-nav="scope" class="active">SCOPE</button>
       <button data-nav="systems">SYSTEMS</button>
+      <button data-nav="compare">COMPARE</button>
       <button data-nav="foundations">FOUNDATIONS</button>
       <button data-nav="log">SIGNAL LOG</button>
       <button data-nav="about">CALIBRATION</button>
@@ -452,7 +565,7 @@
     <div class="scope-hero">
       <div>
         <div class="eyebrow">DECENTRALIZED AI — LIVE RECKONING</div>
-        <h1>A probe aimed at decentralized&nbsp;AI.</h1>
+        <h1>Decentralized&nbsp;AI, traced to its sources.</h1>
         <p class="lede">Production systems in verifiable inference, private compute, decentralized training, compute markets, agents, and incentive networks, each traced back to the paper it's actually built on, with every claim marked by how directly it's sourced. Not a news feed. A chain of custody.</p>
         <div class="ticker">
           <div class="cell"><div class="num" id="stat-systems">–</div><div class="lbl">SYSTEMS TRACKED</div></div>
@@ -478,6 +591,13 @@
 
     <p class="statement">New research is checked against what actually ships, every day. <em>A note gets written only when something real moves.</em></p>
     <p class="statement-meta"><span id="sweep-when">daily sweep</span> · IACR ePrint · arXiv cs.CR / cs.LG / cs.DC · tracked systems' repos · <button class="linkbtn" data-nav="log">signal log →</button></p>
+    <!-- Prefilled prompt points the assistant at llms-full.txt (written by scripts/build_index.py). -->
+    <div class="ask-row">
+      <span class="lbl">QUERY THE DATA WITH YOUR OWN AI</span>
+      <a class="chip" href="https://claude.ai/new?q=Read%20https%3A%2F%2Fdai.misbar.tech%2Fllms-full.txt%20%28the%20full%20dAI%20Radar%20dataset%3A%20decentralized-AI%20systems%20and%20the%20papers%20they%27re%20built%20on%29.%20Answer%20my%20questions%20from%20that%20file%2C%20keep%20its%20grounded%20vs.%20inferred%20labels%2C%20and%20say%20when%20it%20doesn%27t%20cover%20something.%20My%20question%3A%20" target="_blank" rel="noopener">Ask Claude ↗</a>
+      <a class="chip" href="https://chatgpt.com/?hints=search&amp;q=Read%20https%3A%2F%2Fdai.misbar.tech%2Fllms-full.txt%20%28the%20full%20dAI%20Radar%20dataset%3A%20decentralized-AI%20systems%20and%20the%20papers%20they%27re%20built%20on%29.%20Answer%20my%20questions%20from%20that%20file%2C%20keep%20its%20grounded%20vs.%20inferred%20labels%2C%20and%20say%20when%20it%20doesn%27t%20cover%20something.%20My%20question%3A%20" target="_blank" rel="noopener">Ask ChatGPT ↗</a>
+      <span class="src">or paste <a class="linkbtn" href="/llms-full.txt" target="_blank" rel="noopener">llms-full.txt</a> into any assistant</span>
+    </div>
   </section>
 
   <section class="view" id="view-systems">
@@ -490,6 +610,15 @@
     </div>
 
     <div id="sys-grid"><div class="loading">loading index.json…</div></div>
+  </section>
+
+  <section class="view" id="view-compare">
+    <div class="eyebrow">CROSS-FIELD</div>
+    <h1>Compare systems</h1>
+    <p class="lede">Each system's property matrix uses its own field's terms, so a ZK prover and a GPU marketplace share almost no rows. The comparison sets them against the same six questions instead. Every answer comes from the system's own file, with the grounded or inferred tag it has there.</p>
+
+    <details class="cmp-picker" id="cmp-picker"></details>
+    <div id="cmp-body"><div class="loading">loading index.json…</div></div>
   </section>
 
   <section class="view" id="view-foundations">
@@ -555,10 +684,11 @@
 
     <h2 style="margin-top:30px;">Structure</h2>
     <ul style="padding-left:18px; display:flex; flex-direction:column; gap:7px;">
-      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/systems</strong>: one file per tracked production system: what it does, what it's built on, known limitations, and a property matrix checked against incoming research.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/systems</strong>: one file per tracked production system: what it does, what it's built on, known limitations, a property matrix checked against incoming research, and six comparison axes that line systems up across fields on the Compare page.</li>
       <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/foundations</strong>: one foundational paper per field.</li>
       <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">/watch</strong>: checkpoint + dated log, one entry per daily run (14:00 UTC).</li>
       <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)">index.json</strong>: generated mirror of the above, regenerated by <code style="font-family:var(--mono); background:var(--surface-2); padding:1px 5px; border-radius:2px;">scripts/build_index.py</code>. This page reads from it directly: edit a markdown file, regenerate, push, and the live page reflects it.</li>
+      <li style="font-size:12.5px; color:var(--ink-dim);"><strong style="color:var(--ink)"><a href="/llms.txt">llms.txt</a> / <a href="/llms-full.txt">llms-full.txt</a></strong>: the same data for AI assistants, also written by the build script. llms.txt is an index; llms-full.txt is every source file inlined, ready to hand to Claude, ChatGPT, or any other assistant.</li>
     </ul>
 
     <p style="margin-top:26px;">Part of <a href="https://misbar.tech" target="_blank" rel="noopener">misbar.tech</a>.</p>
@@ -568,8 +698,8 @@
 
 <footer>
   <div class="wrap">
-    <span>dai.misbar.tech: a probe, not a feed.</span>
-    <span>know a system we should track? <a href="https://github.com/escapistprospekt/dai-radar/issues/new?template=suggest-system.yml" target="_blank" rel="noopener">suggest it on GitHub ↗</a></span>
+    <span>dai.misbar.tech: a radar, not a feed.</span>
+    <span>know a system we should track? <a href="https://github.com/verifiableahmad/dai-radar/issues/new?template=suggest-system.yml" target="_blank" rel="noopener">suggest it on GitHub ↗</a></span>
   </div>
 </footer>
 
@@ -649,7 +779,82 @@
     { id: "compute-markets", label: "Compute markets", short: "COMPUTE", blurb: "Marketplaces that rent out GPUs and other compute." },
     { id: "incentive-networks", label: "Incentive networks", short: "INCENTIVES", blurb: "Networks that reward ML contributions through on-chain consensus and incentives." },
     { id: "agents", label: "Agent protocols", short: "AGENTS", blurb: "Frameworks and networks for autonomous AI agents that discover and transact with each other." },
+    { id: "formal-verification", label: "Formal verification", short: "FORMAL", blurb: "Proving properties of models and of the proof systems and circuits that verifiable AI depends on." },
     { id: "ownership", label: "Data & model ownership", short: "OWNERSHIP", blurb: "Provenance, marketplaces, and monetization for datasets and models." }
+  ];
+
+  /* The six questions the Compare view puts to every system, in row order.
+     `id` matches the Axis column of a system file's "Comparison axes" table,
+     and `classes` is the fixed vocabulary for its Class column, so answers
+     line up across fields; each class's meaning shows on hover and in the
+     axis guide. Classes are not ranked: which trust anchor is acceptable
+     depends on what's being built. */
+  var COMPARE_AXES = [
+    { id: "Correctness", q: "How do you know the work was done as claimed?", classes: {
+      "PROOF": "A cryptographic proof of the computation that anyone can check.",
+      "FORMAL PROOF": "A mathematical certificate that a stated property of a model or system holds.",
+      "SIGNATURE": "Signed claims bound to the content; shows who asserted what, not that it's true.",
+      "DISPUTE GAME": "Results are accepted optimistically; a challenger can force a fraud proof.",
+      "ATTESTATION": "Hardware signs a report of which code is running.",
+      "PEER SCORING": "Participants rate each other's outputs. Judges usefulness, not exact execution.",
+      "CONSENSUS": "Several independent instances must agree on the result.",
+      "SPOT CHECK": "Benchmarks, spot checks or manual review of delivered work.",
+      "PER APP": "Depends on the application, mode or provider chosen."
+    }},
+    { id: "Trust rests on", q: "Whose failure would break the guarantee?", classes: {
+      "MATH": "Mathematical soundness: cryptographic hardness or sound proof rules (and a correct implementation).",
+      "MATH + SETUP": "Cryptographic assumptions plus an honest trusted-setup ceremony.",
+      "HARDWARE VENDOR": "The TEE silicon and the company that makes it.",
+      "ONE HONEST PARTY": "At least one honest participant who checks and challenges.",
+      "STAKE MAJORITY": "A majority of stake behaving honestly.",
+      "OPERATORS": "Whoever runs the hardware or service, behaving as promised.",
+      "CERTIFICATE ISSUERS": "The authorities that issue or list the signing certificates.",
+      "PER APP": "Depends on the application, mode or provider chosen."
+    }},
+    { id: "Confidentiality", q: "What is hidden from whoever runs the compute, and how?", classes: {
+      "CRYPTOGRAPHIC": "Encryption, secret sharing or zero-knowledge (FHE, MPC, ZK).",
+      "CRYPTOGRAPHIC + ENCLAVE": "Cryptographic protection combined with hardware enclaves.",
+      "HARDWARE ENCLAVE": "A trusted execution environment (TEE) keeps data protected while in use.",
+      "DIFFERENTIAL PRIVACY": "Calibrated noise limits what an output reveals about any one record.",
+      "ISOLATION": "Sandboxing or process isolation, with no cryptographic guarantee.",
+      "PER APP": "Depends on the application, mode or provider chosen."
+    }},
+    { id: "Lineage", q: "What is it built on, per its own sources?", classes: {
+      "EXTERNAL PAPER": "Cites independent prior research it builds on.",
+      "OWN PAPER": "Rests on a paper by the same team or organization.",
+      "STANDARDS": "Industry standards and vendor specifications, no paper.",
+      "GENERIC ONLY": "Only general-purpose infrastructure citations, nothing AI-specific."
+    }},
+    { id: "Maturity", q: "Can you use it today?", classes: {
+      "LIVE": "In production or on mainnet.",
+      "PREVIEW": "Preview, testnet or a pre-mainnet phase.",
+      "RESEARCH": "Research runs, not a running network or product.",
+      "PRE-LAUNCH": "Announced, not live yet.",
+      "INACTIVE": "Archived, wound down or absorbed."
+    }},
+    { id: "On-chain", q: "Where does it touch a blockchain?", classes: {
+      "OWN CHAIN": "Runs its own chain.",
+      "EXISTING CHAINS": "Uses contracts on chains run by others.",
+      "NO CHAIN": "No blockchain component."
+    }}
+  ];
+  // classes any axis can take: an absence, an unresolved flag, or silence
+  var SHARED_CLASSES = {
+    "NONE FOUND": "Sources were checked and none was found.",
+    "OPEN QUESTION": "Flagged as unresolved in the file.",
+    "NOT COVERED": "The file's sources don't address this question."
+  };
+
+  /* Starting points for an empty Compare view: each sets systems from
+     different fields against one question they answer differently. */
+  var COMPARE_PRESETS = [
+    { title: "Three ways to trust an inference", blurb: "A zero-knowledge proof, an optimistic fraud-proof game and hardware attestation, each answering \"did this model really produce this output?\"", slugs: ["ezkl","ora-protocol","apple-private-cloud-compute"] },
+    { title: "Private by math, hardware or sandbox", blurb: "FHE, secure MPC, a GPU enclave and container isolation: four meanings of \"your data stays private.\"", slugs: ["zama-concrete-ml","nillion","nvidia-confidential-computing","ocean-protocol"] },
+    { title: "Who checks decentralized training?", blurb: "A deployed dispute game next to three training networks where verification is missing or unresolved.", slugs: ["gensyn","nous-psyche","pluralis-research","prime-intellect"] },
+    { title: "Renting a GPU: what gets verified?", blurb: "Three compute marketplaces (no check, benchmarks, spot checks) against a training protocol that bisects disputes.", slugs: ["akash-network","io-net","render-network","gensyn"] },
+    { title: "Three kinds of \"proof\" about AI", blurb: "A ZK proof that an inference ran, a formal proof that a model property holds, and a signature saying who made a piece of content.", slugs: ["ezkl","alpha-beta-crown","c2pa"] },
+    { title: "Confidential inference providers", blurb: "Three answer \"attestation, trust the hardware\" and Venice depends on the mode picked: the differences show up in maturity, modes and on-chain footprint.", slugs: ["phala-dstack","tinfoil","near-ai-cloud","venice-ai"] },
+    { title: "Paying for useful ML", blurb: "Two peer-scoring incentive networks: the same answer on correctness, different lineage.", slugs: ["bittensor","allora"] }
   ];
 
   /* ===================== tiny markdown renderer ===================== */
@@ -726,6 +931,24 @@
     });
   }
 
+  /* the "Comparison axes" table keyed by axis, or null for a file that has
+     none yet. NOT COVERED isn't a claim, so it carries no tier. */
+  function compareAxes(entry){
+    var s = entry.sections && entry.sections["Comparison axes"];
+    if(!s || !s.table) return null;
+    var out = {};
+    s.table.forEach(function(row){
+      var cls = (row.Class || "").trim().toUpperCase(), source = row.Source || "";
+      out[row.Axis] = {
+        cls: cls,
+        detail: row.Detail === "—" ? "" : (row.Detail || ""),
+        source: source,
+        tier: cls === "NOT COVERED" ? null : cls === "OPEN QUESTION" ? "open" : /inferred/i.test(source) ? "inferred" : "grounded"
+      };
+    });
+    return out;
+  }
+
   /* the authoritative confidence verdict is the file's own frontmatter
      field, not a re-derivation from row text (which under-detects hedges
      like "community source, not primary" that don't say "inferred") */
@@ -737,34 +960,48 @@
      The URL hash is the only source of truth for where you are:
      #/<view>, or #/<view>/<system-slug> for a dossier opened on top of
      <view>. So Back closes a dossier and returns to wherever it was
-     opened from, refresh keeps you in place, and any dossier is linkable. */
-  var VIEWS = ["scope","systems","foundations","log","about"];
+     opened from, refresh keeps you in place, and any dossier is linkable.
+     Compare carries its selection first: #/compare/<slug,slug,…>[/<slug>],
+     so a comparison is linkable too and survives a dossier opened from it. */
+  var VIEWS = ["scope","systems","compare","foundations","log","about"];
   var currentView = null, openPath = null, systemsBySlug = null;
   // the element that opened the dossier (focus returns to it on close), and
   // whether opening it pushed a history entry that closing should pop
   var drawerTrigger = null, drawerPushed = false;
+  // slugs picked on the Compare view, in column order
+  var compareSel = [], COMPARE_MAX = 4;
 
   function slugOf(path){ return path.replace(/^systems\//, "").replace(/\.md$/, ""); }
 
   function parseHash(){
     var parts = location.hash.replace(/^#\/?/, "").split("/");
-    return { view: VIEWS.indexOf(parts[0]) !== -1 ? parts[0] : "scope", slug: parts[1] || null };
+    var view = VIEWS.indexOf(parts[0]) !== -1 ? parts[0] : "scope";
+    if(view === "compare") return { view: view, sel: (parts[1] || "").split(",").filter(Boolean), slug: parts[2] || null };
+    return { view: view, slug: parts[1] || null };
+  }
+
+  // a view's hash without any dossier; "-" holds the selection's place when
+  // a dossier opens on an empty Compare view
+  function viewHash(name, forDossier){
+    if(name !== "compare") return "#/"+name;
+    return "#/compare" + (compareSel.length ? "/"+compareSel.join(",") : forDossier ? "/-" : "");
   }
 
   function goTo(name){
-    if(location.hash === "#/"+name) window.scrollTo({top:0, behavior:"instant"});
-    else location.hash = "#/"+name;
+    var h = viewHash(name);
+    if(location.hash === h) window.scrollTo({top:0, behavior:"instant"});
+    else location.hash = h;
   }
 
   function openDossier(path, trigger){
     drawerTrigger = trigger || null;
     drawerPushed = true;
-    location.hash = "#/"+currentView+"/"+slugOf(path);
+    location.hash = viewHash(currentView, true)+"/"+slugOf(path);
   }
 
   function closeDossier(){
     if(drawerPushed) history.back();
-    else location.replace("#/"+currentView);
+    else location.replace(viewHash(currentView));
   }
 
   function route(){
@@ -779,8 +1016,9 @@
     }
     if(!r.slug) drawerPushed = false;
     if(!systemsBySlug) return; // dossier resolves once index.json has loaded
+    if(r.view === "compare") setCompare(r.sel);
     var s = r.slug ? systemsBySlug[r.slug] : null;
-    if(r.slug && !s){ location.replace("#/"+r.view); return; }
+    if(r.slug && !s){ location.replace(viewHash(r.view)); return; }
     setDrawer(s);
   }
 
@@ -878,6 +1116,7 @@
         architecture: sectionMD(s, "Architecture summary"),
         limitations: sectionMD(s, "Known limitations"),
         matrix: rows,
+        axes: compareAxes(s),
         tier: confidenceTier(s.frontmatter),
         confidenceNote: s.frontmatter.confidence || "",
         trace: cfg.trace || [],
@@ -924,6 +1163,7 @@
     renderStats(systems, foundations, index);
     renderRadar(systems, categories);
     renderSystemsView(systems, categories);
+    renderCompareView(systems, categories);
     renderFoundationsView(foundations, systems);
     renderLogView(index.watch_log || [], index.checkpoint || null);
 
@@ -1134,6 +1374,223 @@
     renderGrid();
   }
 
+  /* ===================== COMPARE =====================
+     Columns are systems, rows are questions. The six axes come first since
+     they're the only rows every field answers; each system's own matrix
+     follows, with rows aligned only where two files share a property name. */
+  var setCompare = function(){};
+
+  function shortName(s){ return s.name.replace(/\s*\(.*\)\s*$/, ""); }
+  function attr(s){ return escapeHtml(s).replace(/"/g, "&quot;"); }
+  // "Base chain(s)", "**Maturity**" and "Trust model (compute delivery)" line up with their plain forms
+  function propKey(p){ return p.replace(/\*/g, "").replace(/\s*\(.*?\)/g, "").trim().toLowerCase(); }
+
+  function clsChip(cls, ax){
+    var def = (ax && ax.classes[cls]) || SHARED_CLASSES[cls] || "";
+    var mod = cls === "NOT COVERED" || cls === "NO PROFILE" ? " c-none" : cls === "NONE FOUND" ? " c-absent" : cls === "OPEN QUESTION" ? " c-open" : "";
+    return '<span class="cls'+mod+'"'+(def ? ' title="'+attr(def)+'"' : '')+'>'+escapeHtml(cls)+'</span>';
+  }
+  function tierSrc(tier, source){
+    return '<div class="src"><span class="tier-tag '+tier+'">'+(tier === "open" ? "OPEN" : tier.toUpperCase())+'</span>'+inline(source)+'</div>';
+  }
+
+  function renderCompareView(systems, categories){
+    var picker = document.getElementById("cmp-picker");
+    var body = document.getElementById("cmp-body");
+    var bySlug = {};
+    systems.forEach(function(s){ bySlug[slugOf(s.path)] = s; });
+    var shown = null; // the selection currently rendered, as a key
+
+    function hashFor(sel){ return "#/compare" + (sel.length ? "/"+sel.join(",") : ""); }
+    // picks replace the history entry: Back leaves Compare rather than undoing picks one at a time
+    function pick(sel){ location.replace(hashFor(sel)); }
+
+    // the sticky column heads sit just under the sticky console header
+    function headerOffset(){ document.documentElement.style.setProperty("--hdr-h", document.querySelector("header.console").offsetHeight + "px"); }
+    headerOffset();
+    window.addEventListener("resize", headerOffset);
+
+    picker.innerHTML = '<summary></summary><div class="cmp-pick-body"></div>';
+    var summary = picker.querySelector("summary"), pickBody = picker.querySelector(".cmp-pick-body");
+    var chips = [];
+    categories.forEach(function(cat){
+      var members = systems.filter(function(s){ return s.category === cat.id; });
+      if(!members.length) return;
+      var row = document.createElement("div");
+      row.className = "cmp-pick-row";
+      row.innerHTML = '<span class="lbl">'+escapeHtml(cat.short)+'</span>';
+      members.forEach(function(s){
+        var slug = slugOf(s.path);
+        var c = document.createElement("button");
+        c.className = "chip" + (s.axes ? "" : " unprofiled");
+        c.textContent = shortName(s);
+        if(!s.axes) c.title = "No comparison profile yet: only its own matrix can be compared";
+        c.addEventListener("click", function(){
+          if(compareSel.indexOf(slug) !== -1) pick(compareSel.filter(function(x){ return x !== slug; }));
+          else if(compareSel.length < COMPARE_MAX) pick(compareSel.concat([slug]));
+        });
+        c._slug = slug;
+        chips.push(c);
+        row.appendChild(c);
+      });
+      pickBody.appendChild(row);
+    });
+
+    function renderPicker(){
+      var full = compareSel.length >= COMPARE_MAX;
+      chips.forEach(function(c){
+        var on = compareSel.indexOf(c._slug) !== -1;
+        c.classList.toggle("active", on);
+        c.classList.toggle("off", full && !on);
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      summary.innerHTML = '<span><b>'+compareSel.length+'</b> OF '+COMPARE_MAX+' SYSTEMS PICKED</span>' +
+        (full ? '<span>remove one to add another</span>' : '') +
+        (compareSel.length ? '<button class="linkbtn" type="button">clear</button>' : '');
+      var clear = summary.querySelector(".linkbtn");
+      if(clear) clear.addEventListener("click", function(ev){ ev.preventDefault(); pick([]); });
+    }
+
+    function seedHtml(s, sel){
+      if(!s.foundation) return '<div class="seed">no foundations/ file</div>';
+      var fm = s.foundation.frontmatter || {};
+      var shared = sel.some(function(o){ return o !== s && o.foundation && o.foundation.path === s.foundation.path; });
+      return '<div class="seed">seed: <a href="'+attr(fm.link || fm.arxiv || "#")+'" target="_blank" rel="noopener">'+escapeHtml(fm.paper || s.foundation.path)+'</a>'+
+        (shared ? '<span class="stamp grounded">SHARED SEED</span>' : '')+'</div>';
+    }
+
+    function renderTable(sel){
+      var wrap = document.createElement("div");
+      wrap.className = "cmp";
+      wrap.style.setProperty("--n", sel.length);
+      function row(label, q, cells, extra){
+        return '<div class="cmp-row"><div class="cmp-label"><b>'+escapeHtml(label)+'</b><span class="q">'+escapeHtml(q)+'</span>'+(extra || '')+'</div>'+
+          cells.map(function(c, i){ return '<div class="cmp-cell"><span class="who">'+escapeHtml(shortName(sel[i]))+'</span>'+c+'</div>'; }).join("")+'</div>';
+      }
+
+      var html = '<div class="cmp-row cmp-head"><div class="cmp-label"></div>' + sel.map(function(s){
+        var slug = slugOf(s.path), cat = CATEGORIES.filter(function(c){ return c.id === s.category; })[0];
+        return '<div class="cmp-cell"><h3>'+escapeHtml(shortName(s))+'</h3>'+
+          '<div class="sub">'+escapeHtml((cat ? cat.label : "Uncategorized")+' · '+s.field)+'</div>'+
+          '<div class="acts"><button class="closebtn go" type="button" data-open="'+attr(slug)+'">CASE FILE</button>'+
+          '<button class="closebtn" type="button" data-remove="'+attr(slug)+'" aria-label="Remove '+attr(shortName(s))+' from the comparison">✕</button></div></div>';
+      }).join("") + '</div>';
+
+      html += '<div class="cmp-group">SAME QUESTIONS, EVERY FIELD</div>';
+      COMPARE_AXES.forEach(function(ax){
+        var answers = sel.map(function(s){ return s.axes ? (s.axes[ax.id] || { cls: "NOT COVERED", detail: "", source: "", tier: null }) : null; });
+        // only real answers count toward agreement: two files that are both silent don't agree
+        var comparable = answers.filter(function(a){ return a && a.cls !== "NOT COVERED" && a.cls !== "OPEN QUESTION"; });
+        var distinct = comparable.map(function(a){ return a.cls; }).filter(function(c, i, arr){ return arr.indexOf(c) === i; });
+        var spread = comparable.length < 2 ? "" : distinct.length === 1 ? '<span class="spread same">SAME ANSWER</span>' : '<span class="spread">'+distinct.length+' DIFFERENT ANSWERS</span>';
+        html += row(ax.id, ax.q, answers.map(function(a, i){
+          if(!a) return clsChip("NO PROFILE") + '<p>This file has no Comparison axes section yet.</p>';
+          return clsChip(a.cls, ax) +
+            (a.detail ? '<p>'+inline(a.detail)+'</p>' : '') +
+            (ax.id === "Lineage" ? seedHtml(sel[i], sel) : '') +
+            (a.tier ? tierSrc(a.tier, a.source) : '');
+        }), spread);
+      });
+
+      html += '<div class="cmp-group">HOW WELL SOURCED</div>';
+      html += row("Matrix sourcing", "Property-matrix rows tagged grounded, out of all rows.", sel.map(function(s){
+        var g = s.matrix.filter(function(r){ return r.tier === "grounded"; }).length, n = s.matrix.length;
+        var pct = n ? Math.round(100 * g / n) : 0;
+        return '<span class="stamp '+(s.tier === "grounded" ? 'grounded">GROUNDED' : 'mixed">MIXED SIGNAL')+'</span>'+
+          '<p>'+g+' of '+n+' rows grounded</p><div class="evbar" role="img" aria-label="'+pct+'% of rows grounded"><i style="width:'+pct+'%"></i></div>'+
+          (s.confidenceNote ? '<div class="src">'+escapeHtml(s.confidenceNote)+'</div>' : '')+
+          '<div class="src">updated '+escapeHtml(s.updated || "—")+'</div>';
+      }));
+
+      // each file's matrix, keyed by normalized property name (first row wins within a file)
+      var keyed = sel.map(function(s){ var m = {}; s.matrix.forEach(function(r){ var k = propKey(r.property); if(!(k in m)) m[k] = r; }); return m; });
+      var shared = [];
+      keyed.forEach(function(m){ Object.keys(m).forEach(function(k){
+        if(shared.indexOf(k) === -1 && keyed.filter(function(o){ return k in o; }).length > 1) shared.push(k);
+      }); });
+      html += '<div class="cmp-group">IN EACH FIELD\'S OWN TERMS</div>';
+      shared.forEach(function(k){
+        var first = keyed.filter(function(m){ return k in m; })[0][k];
+        html += row(first.property.replace(/\*/g, "").replace(/\s*\(.*?\)/g, ""), "A matrix row more than one of these files has.", keyed.map(function(m){
+          var r = m[k];
+          return r ? '<p style="margin-top:0;">'+inline(r.value)+'</p>'+tierSrc(r.tier, r.source) : clsChip("NOT COVERED");
+        }));
+      });
+      html += row(shared.length ? "Other matrix rows" : "Property matrix", "Field-specific, so not compared row by row.", sel.map(function(s, i){
+        var rest = s.matrix.filter(function(r){ var k = propKey(r.property); return shared.indexOf(k) === -1 || keyed[i][k] !== r; });
+        return rest.length ? '<dl>'+rest.map(function(r){
+          return '<div><dt>'+inline(r.property)+'</dt><dd>'+inline(r.value)+' <span class="tier-tag '+r.tier+'">'+r.tier.toUpperCase()+'</span></dd></div>';
+        }).join("")+'</dl>' : '<span class="cls c-none">NONE LEFT</span>';
+      }));
+      html += row("Known limitations", "As each file states them.", sel.map(function(s){ return '<div class="md limits">'+s.limitations+'</div>'; }));
+
+      wrap.innerHTML = html;
+      wrap.addEventListener("click", function(ev){
+        var b = ev.target.closest("button[data-open], button[data-remove]");
+        if(!b) return;
+        if(b.hasAttribute("data-open")) openDossier(bySlug[b.getAttribute("data-open")].path, b);
+        else pick(compareSel.filter(function(x){ return x !== b.getAttribute("data-remove"); }));
+      });
+      return wrap;
+    }
+
+    function renderPresets(){
+      var el = document.createElement("div");
+      el.innerHTML = '<h2>Start from a question</h2><div class="presets"></div>';
+      var grid = el.querySelector(".presets");
+      COMPARE_PRESETS.forEach(function(p){
+        var slugs = p.slugs.filter(function(x){ return bySlug[x]; });
+        if(slugs.length < 2) return;
+        var b = document.createElement("button");
+        b.className = "preset";
+        b.innerHTML = '<h3>'+escapeHtml(p.title)+'</h3><p>'+escapeHtml(p.blurb)+'</p>'+
+          '<div class="names">'+slugs.map(function(x){ return escapeHtml(shortName(bySlug[x]).toUpperCase()); }).join(" · ")+'</div>';
+        b.addEventListener("click", function(){ location.hash = hashFor(slugs); });
+        grid.appendChild(b);
+      });
+      return el;
+    }
+
+    function axisGuide(open){
+      var d = document.createElement("details");
+      d.className = "axis-guide";
+      d.open = !!open;
+      function entry(name, q, classes, ax){
+        return '<div><dt>'+escapeHtml(name)+'</dt><dd>'+escapeHtml(q)+'<ul>'+Object.keys(classes).map(function(c){
+          return '<li>'+clsChip(c, ax)+escapeHtml(classes[c])+'</li>';
+        }).join("")+'</ul></dd></div>';
+      }
+      d.innerHTML = '<summary>HOW THE SIX QUESTIONS ARE ANSWERED</summary>'+
+        '<p>Every answer is a class from a fixed list, so answers line up across fields. The detail and source under each class are taken from the system\'s own file, with the grounded or inferred tag that claim has there. Classes aren\'t scored or ranked: whether a hardware vendor or a trusted-setup ceremony is the more acceptable thing to trust depends on what you\'re building.</p>'+
+        '<dl>'+COMPARE_AXES.map(function(ax){ return entry(ax.id, ax.q, ax.classes, ax); }).join("")+
+        entry("Any question", "Answers that aren't a mechanism.", SHARED_CLASSES, null)+'</dl>';
+      return d;
+    }
+
+    setCompare = function(sel){
+      var clean = [];
+      sel.forEach(function(x){ if(bySlug[x] && clean.indexOf(x) === -1 && clean.length < COMPARE_MAX) clean.push(x); });
+      compareSel = clean;
+      var key = clean.join(",");
+      if(key === shown) return;
+      // the picker starts open until there's something to compare, and reopens when cleared
+      if(shown === null) picker.open = clean.length < 2;
+      else if(!clean.length) picker.open = true;
+      shown = key;
+      renderPicker();
+      body.innerHTML = "";
+      if(!clean.length){
+        body.appendChild(renderPresets());
+        body.appendChild(axisGuide(true));
+        return;
+      }
+      var sel = clean.map(function(x){ return bySlug[x]; });
+      if(sel.length === 1) body.insertAdjacentHTML("beforeend", '<p class="cmp-note">Pick at least one more system above to compare against.</p>');
+      body.appendChild(renderTable(sel));
+      body.appendChild(axisGuide(false));
+    };
+  }
+
   function renderDossier(s){
     var stampCls = s.tier === "grounded" ? "grounded" : "mixed";
     var stampText = s.tier === "grounded" ? "GROUNDED" : "MIXED SIGNAL";
@@ -1189,7 +1646,9 @@
         '<div><h2 id="dossier-title">'+escapeHtml(s.name)+'</h2><div class="repo">'+escapeHtml(s.field)+
           (s.website ? ' &middot; <a href="'+escapeHtml(s.website)+'" target="_blank" rel="noopener">visit website ↗</a>' : '')+
           '</div></div>'+
-        '<div style="display:flex; gap:10px; align-items:center;"><span class="stamp '+stampCls+'">'+stampText+'</span><button class="closebtn" aria-label="Close case file">CLOSE ✕</button></div>'+
+        '<div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;"><span class="stamp '+stampCls+'">'+stampText+'</span>'+
+          '<button class="closebtn go cmp-add" type="button">'+(compareSel.indexOf(slugOf(s.path)) !== -1 ? 'IN COMPARE →' : '+ COMPARE')+'</button>'+
+          '<button class="closebtn" aria-label="Close case file">CLOSE ✕</button></div>'+
       '</div>'+
       (s.confidenceNote ? '<p class="annot" style="margin-top:10px;">'+escapeHtml(s.confidenceNote)+'</p>' : '')+
 
@@ -1199,7 +1658,13 @@
       '<div class="section"><h3>Property matrix</h3><div class="overflow"><table class="matrix"><thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead><tbody>'+matrixRowsHtml+'</tbody></table></div></div>'+
       '<div class="section"><h3>Known limitations</h3><div class="md limits">'+s.limitations+'</div></div>';
 
-    el.querySelector(".closebtn").addEventListener("click", closeDossier);
+    el.querySelector(".closebtn:not(.cmp-add)").addEventListener("click", closeDossier);
+    // adds this system as the last column (dropping the oldest when full) and switches to Compare
+    el.querySelector(".cmp-add").addEventListener("click", function(){
+      var slug = slugOf(s.path);
+      var sel = compareSel.indexOf(slug) !== -1 ? compareSel : compareSel.concat([slug]).slice(-COMPARE_MAX);
+      location.hash = "#/compare/" + sel.join(",");
+    });
     return el;
   }
 

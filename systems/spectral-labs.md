@@ -73,6 +73,17 @@ available in this pass couldn't settle that either way.
 | Notable products | Spectral Syntax (agent creation), Grid AI (inference spot market), trading-agent launchpad on Hyperliquid | Third-party coverage (gen.xyz, mementoresearch), general |
 | Maturity | Active token/product, but primary technical docs not independently verifiable in this pass | Inferred from access limitations, not from a maturity assessment |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | OPEN QUESTION | Originally zkML with EZKL's team; whether any verification backs the current product is unresolved | Spectral's own tweet (historical), grounded; current state inferred |
+| Trust rests on | OPEN QUESTION | Current architecture only known from secondary coverage | Secondary/explainer coverage, inferred |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | Historical, via collaboration: Spectral to EZKL's team to Halo2 to PLONK | Spectral's own tweet, grounded |
+| Maturity | OPEN QUESTION | Active token and products, but primary technical docs couldn't be verified | Inferred from access limitations |
+| On-chain | EXISTING CHAINS | SPEC token; trading agents on Hyperliquid; an "Inferchain" is planned | Messari/CoinGecko-type sourcing, inferred |
+
 ## Known limitations
 
 - **Documentation access**: the public docs URL redirects to an

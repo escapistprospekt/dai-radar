@@ -77,6 +77,17 @@ field.
 | Maturity | Research-phase, active: Pluralis-13B run (Sept 2026, 62.4B tokens); prior Pluralis-8B (May 2026, 531.8B tokens) | pluralis.ai/docs, grounded |
 | Node0 run (separate practical milestone) | Reported 7.5B-parameter run over ~3 weeks, 300+ participants, 1,642 GPUs | Cross-referenced across Pluralis's own GitHub (PluralisResearch/node0) and third-party coverage — **inferred/not independently re-verified this pass** |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NONE FOUND | Informal points-and-leaderboard; no cryptographic or economic verification layer | pluralis.ai/docs, grounded (as an absence) |
+| Trust rests on | OPERATORS | Contributors, tracked only by points and a leaderboard | Classification inferred from the verification row |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | OWN PAPER | Subspace Networks (arXiv 2506.01260, NeurIPS 2025), by Pluralis authors | arXiv 2506.01260, grounded |
+| Maturity | RESEARCH | Research-phase runs: Pluralis-8B (May 2026), Pluralis-13B (Sept 2026) | pluralis.ai/docs, grounded |
+| On-chain | NO CHAIN | No blockchain and no token | pluralis.ai/docs, grounded |
+
 ## Known limitations
 
 - No cryptographic, economic, or formal verification layer for contributor

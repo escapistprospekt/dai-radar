@@ -71,6 +71,17 @@ own research blog post, not inferred.
 | Legacy design (superseded) | Truebit-style 4-role game (Submitter/Solver/Verifier/Whistleblower) | docs.gensyn.ai/litepaper (confirmed outdated) |
 | Maturity | Verde described as "in production" by Gensyn as of this research post | Verde research post title |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | DISPUTE GAME | Verde: RepOps makes execution bitwise-reproducible; disputes are bisected down to one operation for a referee | Verde research post |
+| Trust rests on | ONE HONEST PARTY | Optimistic: a provider's result stands unless someone disputes it and triggers the referee | Verde research post; one-honest-party reading inferred |
+| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Lineage | EXTERNAL PAPER | Proof-of-Learning (IEEE S&P 2021), plus Refereed Delegation, Agatha and Toploc cited by Verde | Gensyn research blog, grounded |
+| Maturity | LIVE | Verde described as "in production" by Gensyn | Verde research post title |
+| On-chain | NOT COVERED | — | Not addressed in this file's sources |
+
 ## Known limitations
 
 - The litepaper's incentive-game numbers (staking, slashing, jackpot rewards)

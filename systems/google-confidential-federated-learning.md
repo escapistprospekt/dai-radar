@@ -81,6 +81,17 @@ announcement, not inference:
 | Production usage | Gboard (per secondary reporting; primary source page was unreachable this pass — flagged as less directly confirmed) | MarkTechPost, Oct 2026 — inferred/secondary, recheck against Google's own primary source when accessible |
 | Trust model | Does not require trusting the server operator's word — relies on TEE hardware security + externally auditable transparency log | arxiv 2404.10764 |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | ATTESTATION | TEE-hosted KMS releases keys only to pre-approved, reproducibly built binaries; policies published to Rekor | arxiv 2404.10764, grounded |
+| Trust rests on | HARDWARE VENDOR | TEE hardware security plus an externally auditable transparency log, not the operator's word | arxiv 2404.10764, grounded |
+| Confidentiality | CRYPTOGRAPHIC + ENCLAVE | Raw data stays on device; Secure Aggregation shows the server only the aggregate; TEEs hide individual updates from the operator | Bonawitz et al. 2017 + arxiv 2404.10764, grounded |
+| Lineage | OWN PAPER | FedAvg (AISTATS 2017) and Secure Aggregation (CCS 2017), by Google authors who also wrote the 2024 TEE paper | Google's FL announcement post, grounded |
+| Maturity | LIVE | In production for Gboard, per secondary reporting | MarkTechPost, Oct 2026, inferred/secondary |
+| On-chain | NO CHAIN | No blockchain component appears in Google's materials | Inferred from absence in the cited sources |
+
 ## Known limitations
 
 - TEE-based confidentiality inherits TEE hardware's own threat model —

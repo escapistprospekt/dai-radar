@@ -74,6 +74,17 @@ LSSS-Curl/MPC-ML, Shapley/decentralized-consensus) — see
 | Released models | Dobby / Dobby Plus (Llama fine-tunes, uncensored-tuned), published on HuggingFace | secondary coverage |
 | Maturity | GRID mainnet **not live** as of the most recent coverage found (planned Q2 2026, no committed date confirmed as of Aug 2026); core utility (staking, fee distribution) is gated on this launch | news aggregation, inferred |
 
+## Comparison axes
+
+| Axis | Class | Detail | Source |
+|---|---|---|---|
+| Correctness | NOT COVERED | OML targets ownership: fingerprints detect unauthorized use of a model, not whether an output was computed correctly | Not addressed in this file's sources |
+| Trust rests on | OPEN QUESTION | Production mechanism reportedly combines fingerprinting, TEE execution and on-chain revenue splits; unconfirmed | Secondary-source aggregation, inferred |
+| Confidentiality | NOT COVERED | Models are open-weight by design ("Open") | Not addressed in this file's sources |
+| Lineage | OWN PAPER | OML paper (ePrint 2024/1573); 5 of 12 authors at Sentient Foundation | eprint 2024/1573, grounded |
+| Maturity | PRE-LAUNCH | GRID mainnet not live; no committed date as of Aug 2026; models released on HuggingFace | News aggregation, inferred |
+| On-chain | EXISTING CHAINS | L1-agnostic and EVM-compatible; no dedicated chain found | Search aggregation, inferred |
+
 ## Known limitations
 
 - The core cryptographic/ML contribution (model fingerprinting via
