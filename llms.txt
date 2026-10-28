@@ -70,6 +70,7 @@ Structured JSON of the same data: https://dai.misbar.tech/index.json
 - [foundations/optimistic-ml.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/optimistic-ml.md): Optimistic on-chain AI verification
 - [foundations/secure-aggregation.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/secure-aggregation.md): Federated learning / confidential aggregation
 - [foundations/tee-remote-attestation.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/tee-remote-attestation.md): Confidential computing (TEE) for AI inference
+- [foundations/verifiable-unlearning.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/verifiable-unlearning.md): Verifiable machine unlearning
 - [foundations/zk-proof-of-training.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zk-proof-of-training.md): ZK proof of training / verifiable training
 - [foundations/zkml-stark.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zkml-stark.md): ZKML / verifiable inference (STARK-based)
 - [foundations/zkml-sumcheck.md](https://raw.githubusercontent.com/verifiableahmad/dai-radar/main/foundations/zkml-sumcheck.md): ZKML / verifiable inference (sum-check lineage)

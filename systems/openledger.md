@@ -19,8 +19,11 @@ trace to contributors and payouts route through smart contracts.
 
 ## Architecture summary
 
-- OPEN mainnet launched (per The Block); reported $8M raised from
-  Polychain Capital and Borderless Capital.
+- OPEN mainnet launched (The Block article dated 2025-11-18); $8M seed
+  led by Polychain Capital and Borderless Capital (July 2024 report).
+  The article does not state the chain architecture.
+- "Payable AI": datanets collect datasets; payments route through smart
+  contracts per on-chain attribution trails.
 - 2026 roadmap describes a nine-layer platform (company-paid announcement,
   limited independent validation).
 - Joint licensed-training standard with Story Protocol (2026-01-29); see

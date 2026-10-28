@@ -21,10 +21,12 @@ mainnet in December 2024 (alpha, with a demo chat app "Utopia").
 - AI processing runs in TEEs so inputs and outputs are isolated from the
   operators (press release).
 - OpenAI-compatible API endpoints.
-- Atoma's team paper (arXiv 2410.13752, Oct 2024) argues
-  confidential computing is a practical alternative to zkML, which has
-  prohibitive overhead, while acknowledging TEE limitations. The paper
-  itself was not read in this pass.
+- Atoma's team paper, "Privacy-Preserving Decentralized AI with
+  Confidential Computing" (Lee, Antonio, Khan; arXiv 2410.13752, Oct 2024),
+  argues TEEs protect model parameters and user data on untrusted
+  machines at lower cost than zkML ("prohibitive computational
+  overhead"), says TEEs "face a few limitations", and outlines how they
+  fit Atoma's framework. Only the abstract was read.
 
 ## Built on (foundational lineage)
 

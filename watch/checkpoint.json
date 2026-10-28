@@ -6,6 +6,11 @@
   "sources": [
     "IACR ePrint (new listings)",
     "arXiv cs.CR, cs.LG, cs.DC (new listings)",
-    "tracked systems' own repos (releases / notable merged PRs)"
+    "tracked systems' own repos (releases / notable merged PRs)",
+    "TEE attack disclosures (e.g. TEE.Fail, WireTap, Battering RAM follow-ups) affecting SGX/TDX/SEV-SNP/NVIDIA CC",
+    "verified-zkevm.org and Verified-zkEVM GitHub org (new grants, Lean proofs, SP1 / RISC Zero verification status)",
+    "VNN-COMP results and alpha-beta-CROWN / Marabou releases",
+    "C2PA spec releases and Trust List changes",
+    "Story Protocol repo/deprecation notices; OpenLedger, Vana, Atoma, Secret Network, Phala/dstack, Tinfoil, Chutes, NEAR AI, Oasis ROFL, Flower, Opacus releases"
   ]
 }

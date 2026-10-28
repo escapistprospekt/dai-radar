@@ -27,6 +27,15 @@ depend on the same class of circuits and proof systems.
   RISC Zero RISC-V circuit effort; a reported ~$20M scope covering
   leanMultisig circuits, leanSig hashes and the leanVM specification.
   The dollar figure is single-source.
+- **SP1 (Succinct + Nethermind):** Lean checks that SP1 Hypercube's core
+  RV64 AIR constraints, plus lookup-implied constraints, implement
+  RISC-V semantics against the Sail spec, covering 62 opcodes. An
+  Ethereum Foundation post (2026-05-20) says the work has known
+  limitations and that additional gaps were recently found and disclosed
+  to Succinct. Next: ALU circuits, then Keccak256 / Secp256k1 precompiles.
+- **RISC Zero (Nethermind):** a Feb 2025 proof of concept on the Zirgen
+  MLIR layer; only the instruction decoder, an IsZero gadget and a OneHot2
+  gadget were fully done. Jolt: nothing found.
 
 ## Built on (foundational lineage)
 

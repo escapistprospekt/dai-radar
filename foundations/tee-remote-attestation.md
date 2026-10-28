@@ -30,6 +30,25 @@ computing, AMD SEV-SNP) differ in granularity (VM instead of enclave) but
 keep the same trust shape: the hardware vendor's attestation signature is
 the root of trust.
 
+## Known attacks and costs (secondary sources)
+
+- **Physical memory-bus attacks, autumn 2025:** WireTap (2025-10-01, DDR4
+  interposer, reported against an SGX ECDSA key), Battering RAM (SGX and
+  SEV-SNP, DDR4), and TEE.Fail (2025-10-28, DDR5; interposer under
+  $1,000). TEE.Fail reportedly extracts keys from Intel TDX and AMD
+  SEV-SNP with Ciphertext Hiding, including attestation keys on fully
+  updated machines, and those keys reportedly compromise NVIDIA GPU
+  Confidential Computing. Root cause given: deterministic AES-XTS. A
+  secondary report notes the attacker needed a compromised kernel.
+  Primary papers and vendor responses were not checked; nothing dated
+  2026 was found. Hosted TEE systems on third-party hardware are most
+  exposed, since the host operator is the physical attacker.
+- **GPU overhead:** measured data covers Hopper/H100 only: under 7% for
+  typical short LLM queries in the original study, ~19% TTFT in a later
+  version, and a 2026 preprint (arXiv 2607.19353, unverified) reports
+  ~22-28% average TTFT in a TDX CVM. Overhead is mostly CPU-GPU transfer.
+  Blackwell TEE-I/O claims came from a weak secondary source.
+
 ## Link to tracked systems
 
 See `/systems/phala-dstack.md`, `/systems/tinfoil.md`,

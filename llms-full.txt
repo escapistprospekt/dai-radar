@@ -2,7 +2,7 @@
 
 > dAI Radar tracks shipping decentralized-AI / crypto-ML systems and traces each one back to the academic paper it is actually built on. Every claim is tagged "grounded" (directly sourced) or "inferred" (reasoned, not quoted); keep that distinction when answering from this data. A lineage is only asserted when a real citation chain exists.
 
-Generated 2026-10-27T14:55:22+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
+Generated 2026-10-28T13:29:24+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
 
 ========================================================================
 FILE: systems/akash-network.md
@@ -439,10 +439,12 @@ mainnet in December 2024 (alpha, with a demo chat app "Utopia").
 - AI processing runs in TEEs so inputs and outputs are isolated from the
   operators (press release).
 - OpenAI-compatible API endpoints.
-- Atoma's team paper (arXiv 2410.13752, Oct 2024) argues
-  confidential computing is a practical alternative to zkML, which has
-  prohibitive overhead, while acknowledging TEE limitations. The paper
-  itself was not read in this pass.
+- Atoma's team paper, "Privacy-Preserving Decentralized AI with
+  Confidential Computing" (Lee, Antonio, Khan; arXiv 2410.13752, Oct 2024),
+  argues TEEs protect model parameters and user data on untrusted
+  machines at lower cost than zkML ("prohibitive computational
+  overhead"), says TEEs "face a few limitations", and outlines how they
+  fit Atoma's framework. Only the abstract was read.
 
 ## Built on (foundational lineage)
 
@@ -2670,8 +2672,11 @@ trace to contributors and payouts route through smart contracts.
 
 ## Architecture summary
 
-- OPEN mainnet launched (per The Block); reported $8M raised from
-  Polychain Capital and Borderless Capital.
+- OPEN mainnet launched (The Block article dated 2025-11-18); $8M seed
+  led by Polychain Capital and Borderless Capital (July 2024 report).
+  The article does not state the chain architecture.
+- "Payable AI": datanets collect datasets; payments route through smart
+  contracts per on-chain attribution trails.
 - 2026 roadmap describes a nine-layer platform (company-paid announcement,
   limited independent validation).
 - Joint licensed-training standard with Story Protocol (2026-01-29); see
@@ -3677,7 +3682,7 @@ field: On-chain IP and training-data licensing
 category: ownership
 foundation:
 last_updated: 2026-10-27
-confidence: inferred (press-release level only)
+confidence: grounded (core repo README); inferred (what replaces the deprecated contracts)
 website: "https://www.story.foundation"
 ---
 
@@ -3695,7 +3700,19 @@ permissions and economic rights in machine-readable form.
   used, enforce license terms at runtime, and distribute royalties
   automatically (see `/systems/openledger.md`).
 - Story's role is the canonical IP registry. This is a press release, not
-  independent validation; the protocol's own docs were not read.
+  independent validation.
+- **Deprecation (protocol-core-v1 README):** the repo says the contracts
+  were deprecated as of 2026-09-19 with no further features, bug fixes
+  or security patches, and that the IP Portal and related services shut
+  down on 2026-10-15; it advises against new integrations. What replaces
+  them was not found. This is the strongest signal in the file and
+  postdates the January joint-standard announcement.
+- Mechanics (same repo): IP Assets are ERC-721 NFTs registered in an IP
+  Asset Registry, each with an IP Account; modules for Licensing, Royalty,
+  Dispute, Grouping and Metadata; the Programmable IP License (PIL) is an
+  off-chain legal contract with terms mapped on-chain. Deployed natively
+  on Story (Aeneid testnet 1315, Homer mainnet 1514). BUSL-1.1 licensed;
+  audit reports are in the repo's `audits/` directory (not read).
 
 ## Built on (foundational lineage)
 
@@ -3715,8 +3732,8 @@ None found. Foundation intentionally empty.
 | Trust rests on | NOT COVERED | Registering IP on-chain doesn't establish the registrant owns it | Not addressed in this file's sources |
 | Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
 | Lineage | NONE FOUND | — | File's lineage note, inferred |
-| Maturity | NOT COVERED | — | Not addressed in this file's sources |
-| On-chain | NOT COVERED | An on-chain IP registry; which chain isn't stated | Not addressed in this file's sources |
+| Maturity | DEPRECATED | Core contracts deprecated 2026-09-19; IP Portal shut down 2026-10-15; no new integrations advised | protocol-core-v1 README, grounded |
+| On-chain | OWN CHAIN | Contracts deployed natively on the Story chain (mainnet chain id 1514) | protocol-core-v1 README, grounded |
 
 ## Known limitations
 
@@ -3805,7 +3822,7 @@ field: User-owned data for AI
 category: ownership
 foundation:
 last_updated: 2026-10-27
-confidence: inferred (2024 whitepaper listing only; 2026 status unverified)
+confidence: grounded (Dec 2024 whitepaper); 2026 status unverified
 website: "https://vana.org"
 ---
 
@@ -3818,9 +3835,22 @@ collectives that negotiate with AI companies and developers.
 
 ## Architecture summary
 
-- A "Proof-of-Contribution" system validates data submissions against
-  network quality standards (December 2024 whitepaper listing).
-- Nothing from 2026 was found; current status is unknown.
+- **DataDAOs / Data Liquidity Pools (DLPs):** a DLP is a smart contract
+  that instantiates a DataDAO around one data domain. Contributors get
+  DLP-specific tokens (governance proportional to contribution).
+- **Proof of Contribution:** each DLP defines its own scoring function
+  (e.g. accuracy/completeness for financial data, freshness for health
+  data), so scoring is not uniform across DLPs.
+- **Validation and privacy:** validation runs on the Satya Network, a set
+  of TEE nodes that attest to data quality without exposing the data;
+  some DLPs also use zk proofs (zk email, zkTLS). Raw data stays
+  encrypted on personal servers or in secure enclaves; only ownership
+  proofs, permissions and attestations are on-chain.
+- **VANA token:** validator staking, fees, DLP staking (the top 16
+  DataDAOs by stake per 3-week epoch share emissions), and the currency AI
+  companies use to buy/burn DLP tokens for data access.
+- The whitepaper (Dec 2024) is pre-mainnet and forward-looking; nothing
+  from 2026 was found, so current status is unknown.
 
 ## Built on (foundational lineage)
 
@@ -3837,17 +3867,19 @@ for the older data-marketplace approach.
 
 | Axis | Class | Detail | Source |
 |---|---|---|---|
-| Correctness | OPEN QUESTION | "Proof-of-Contribution" validates data submissions; details unread | Vana whitepaper listing, inferred |
-| Trust rests on | NOT COVERED | — | Not addressed in this file's sources |
-| Confidentiality | NOT COVERED | — | Not addressed in this file's sources |
+| Correctness | ATTESTATION | Per-DLP Proof of Contribution scored by TEE validator nodes (Satya Network); some DLPs add zk proofs | Vana whitepaper, grounded |
+| Trust rests on | HARDWARE VENDOR | TEE trust model unspecified in the whitepaper; consensus also unspecified | Vana whitepaper, grounded (absence) |
+| Confidentiality | HARDWARE ENCLAVE | Raw data stays encrypted off-chain on personal servers or in enclaves | Vana whitepaper, grounded |
 | Lineage | NONE FOUND | — | File's lineage note, inferred |
 | Maturity | OPEN QUESTION | Nothing from 2026 found; current status unknown | 2024 whitepaper listing, inferred |
 | On-chain | NOT COVERED | — | Not addressed in this file's sources |
 
 ## Known limitations
 
-- Whitepaper not read, only a search listing. Treat all content as stale
-  until checked against the whitepaper and current docs.
+- Consensus and the TEE trust model are not specified in the whitepaper.
+- Per-DLP scoring means quality bars differ across DataDAOs.
+- Some staged-access and burn mechanics are given as examples, not
+  confirmed implementations; Dec 2024 content may be stale.
 
 ========================================================================
 FILE: systems/venice-ai.md
@@ -3945,6 +3977,15 @@ depend on the same class of circuits and proof systems.
   RISC Zero RISC-V circuit effort; a reported ~$20M scope covering
   leanMultisig circuits, leanSig hashes and the leanVM specification.
   The dollar figure is single-source.
+- **SP1 (Succinct + Nethermind):** Lean checks that SP1 Hypercube's core
+  RV64 AIR constraints, plus lookup-implied constraints, implement
+  RISC-V semantics against the Sail spec, covering 62 opcodes. An
+  Ethereum Foundation post (2026-05-20) says the work has known
+  limitations and that additional gaps were recently found and disclosed
+  to Succinct. Next: ALU circuits, then Keccak256 / Secp256k1 precompiles.
+- **RISC Zero (Nethermind):** a Feb 2025 proof of concept on the Zirgen
+  MLIR layer; only the instruction decoder, an IsZero gadget and a OneHot2
+  gadget were fully done. Jolt: nothing found.
 
 ## Built on (foundational lineage)
 
@@ -4834,6 +4875,25 @@ computing, AMD SEV-SNP) differ in granularity (VM instead of enclave) but
 keep the same trust shape: the hardware vendor's attestation signature is
 the root of trust.
 
+## Known attacks and costs (secondary sources)
+
+- **Physical memory-bus attacks, autumn 2025:** WireTap (2025-10-01, DDR4
+  interposer, reported against an SGX ECDSA key), Battering RAM (SGX and
+  SEV-SNP, DDR4), and TEE.Fail (2025-10-28, DDR5; interposer under
+  $1,000). TEE.Fail reportedly extracts keys from Intel TDX and AMD
+  SEV-SNP with Ciphertext Hiding, including attestation keys on fully
+  updated machines, and those keys reportedly compromise NVIDIA GPU
+  Confidential Computing. Root cause given: deterministic AES-XTS. A
+  secondary report notes the attacker needed a compromised kernel.
+  Primary papers and vendor responses were not checked; nothing dated
+  2026 was found. Hosted TEE systems on third-party hardware are most
+  exposed, since the host operator is the physical attacker.
+- **GPU overhead:** measured data covers Hopper/H100 only: under 7% for
+  typical short LLM queries in the original study, ~19% TTFT in a later
+  version, and a 2026 preprint (arXiv 2607.19353, unverified) reports
+  ~22-28% average TTFT in a TDX CVM. Overhead is mostly CPU-GPU transfer.
+  Blackwell TEE-I/O claims came from a weak secondary source.
+
 ## Link to tracked systems
 
 See `/systems/phala-dstack.md`, `/systems/tinfoil.md`,
@@ -4843,6 +4903,48 @@ See `/systems/phala-dstack.md`, `/systems/tinfoil.md`,
 caveat across all of them: attestation is evidence of what is running,
 not a guarantee it is secure, and side-channel attacks on TEEs are an open
 research area.
+
+========================================================================
+FILE: foundations/verifiable-unlearning.md
+========================================================================
+
+---
+field: Verifiable machine unlearning
+paper: "Verifiable and Provably Secure Machine Unlearning"
+authors: Thorsten Eisenhofer, Doreen Riepel, Varun Chandrasekaran, Esha Ghosh, Olga Ohrimenko, Nicolas Papernot
+year: 2025
+venue: IEEE SaTML 2025
+link: https://arxiv.org/abs/2210.09126
+---
+
+# Verifiable and Provably Secure Machine Unlearning
+
+## Why this is here
+
+**Research, not a shipping system.** No tracked system cites it. It extends
+the ZK-for-ML cluster (`/foundations/zk-proof-of-training.md`,
+`/foundations/zkml.md`) to proving that data was *removed* from a model.
+Author names and venue are from search results plus background knowledge
+and should be checked; only listings and abstracts were seen.
+
+## Core contribution
+
+A cryptographic definition of verifiable unlearning, plus a protocol using
+SNARKs and hash chains: proofs cover correct execution of the unlearning
+step and that the deleted point is absent from the new training set.
+Tested on linear regression, logistic regression and neural networks.
+
+## Related 2026 work (listings only)
+
+- **ZK-APEX** (MLSys 2026): personalized unlearning on edge devices; a ViT
+  proof in ~2 hours, claimed >10^7x faster than retraining-based
+  verification.
+- **VeriForgot** (March 2026 preprint, not peer reviewed): combines
+  membership-inference tests, blockchain unlearning certificates and a ZK
+  proof of parameter shift; its authors argue no cryptographically
+  verifiable mechanism yet proves unlearning occurred.
+- A separate paper titled "Verification of Machine Unlearning is Fragile"
+  exists; its findings were not read.
 
 ========================================================================
 FILE: foundations/zk-proof-of-training.md
