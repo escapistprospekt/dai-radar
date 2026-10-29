@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T14:09:36+00:00",
+  "generated_at": "2026-10-29T14:23:59+00:00",
   "systems": [
     {
       "path": "systems/akash-network.md",
@@ -5509,6 +5509,34 @@
   ],
   "watch_log": [
     {
+      "path": "watch/log/2026-10-29.md",
+      "frontmatter": {
+        "date": "2026-10-29",
+        "time": "17:00+03:00",
+        "kind": "daily",
+        "new_items_found": "2",
+        "matrix_impacting": "0",
+        "filed_related_only": "2"
+      },
+      "sections": {
+        "What happened": {
+          "markdown": "Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 17 tracked repos\nsince `last_run` (2026-10-28T17:15+03:00). Nothing touched a tracked\nsystem, and no property matrix changed. Two items are relevant to\ntracked fields and are filed below as related only.\n\n- **IACR ePrint:** a new batch, 2026/2655 through 2026/2671, appeared\n  in the window (2026/2672 onward return no paper). Reading the titles,\n  then the abstracts of the possible matches, kept the two items below.\n  Set aside: rerandomizable garbling from LWE (2026/2664) and PIR via\n  probabilistic inference (2026/2669), general primitives with no ML\n  claim. The rest are side-channel, post-quantum signature, isogeny,\n  hashing and quantum-cryptanalysis results.\n- **arXiv cs.CR / cs.LG / cs.DC:** no new batch. At run time the\n  listing pages still show Wednesday 28 Oct, which the 2026-10-28 run\n  already covered, and the newest cs.CR submission in the API is from\n  27 Oct. Nothing to read.\n- **Tracked repos:** the 14 repos named in systems/*.md, plus\n  Dstack-TEE/dstack, adap/flower and tinfoilsh/tinfoil-cli from the\n  checkpoint's source list, were read over anonymous git. 16 of the 17\n  could be read. No new release tag appeared in the window (tag dates\n  come from git metadata, not the GitHub releases API), apart from\n  Flower's automated `release-20261029+N` build tags. Default-branch\n  merges in PySyft (owner inbox now read through P2P receive), dstack\n  (on `next`: the guest rootfs now ships the kernel build tree) and\n  Flower (legacy message tables removed, runtime file-storage API\n  scaffolding, a dev-dependency bump) leave the isolation, key-release,\n  audit, secure-aggregation and DP rows in their property matrices\n  unchanged. All are below the bar.\n- **TEE attack disclosures:** a web search found nothing dated in the\n  window. The \"DDRop\" lead from yesterday still has no primary source.\n- **ritual-net/infernet-node is still unreadable,** for the tenth run\n  in a row, with the same credentials prompt as a non-existent repo.\n  systems/ritual.md is left unchanged. This still needs a manual check.\n\n### Related, not yet tied to a tracked system\n\n- **OblivDGL: oblivious deep graph learning** (IACR ePrint 2026/2655):\n  secure GNN training and inference built on function secret sharing,\n  with an oblivious message-passing design that reveals only the node\n  and edge counts. The authors claim up to 1024x less communication and\n  14.3x faster secure training than earlier secure-GNN frameworks.\n  Field: Secure MPC for ML. No tracked system uses it.\n- **AlgOssa: decentralized secure aggregation with rotating committees**\n  (IACR ePrint 2026/2659): builds on the OPA / Willow committee-aided\n  single-server model (CRYPTO '25), then picks the server and committees\n  by Algorand-style sortition to get an eventual-delivery guarantee.\n  The authors name buffered asynchronous FL as one use. Field: Federated\n  learning / confidential aggregation. No tracked system uses it.",
+          "list": [
+            "**IACR ePrint:** a new batch, 2026/2655 through 2026/2671, appeared in the window (2026/2672 onward return no paper). Reading the titles, then the abstracts of the possible matches, kept the two items below. Set aside: rerandomizable garbling from LWE (2026/2664) and PIR via probabilistic inference (2026/2669), general primitives with no ML claim. The rest are side-channel, post-quantum signature, isogeny, hashing and quantum-cryptanalysis results.",
+            "**arXiv cs.CR / cs.LG / cs.DC:** no new batch. At run time the listing pages still show Wednesday 28 Oct, which the 2026-10-28 run already covered, and the newest cs.CR submission in the API is from 27 Oct. Nothing to read.",
+            "**Tracked repos:** the 14 repos named in systems/*.md, plus Dstack-TEE/dstack, adap/flower and tinfoilsh/tinfoil-cli from the checkpoint's source list, were read over anonymous git. 16 of the 17 could be read. No new release tag appeared in the window (tag dates come from git metadata, not the GitHub releases API), apart from Flower's automated `release-20261029+N` build tags. Default-branch merges in PySyft (owner inbox now read through P2P receive), dstack (on `next`: the guest rootfs now ships the kernel build tree) and Flower (legacy message tables removed, runtime file-storage API scaffolding, a dev-dependency bump) leave the isolation, key-release, audit, secure-aggregation and DP rows in their property matrices unchanged. All are below the bar.",
+            "**TEE attack disclosures:** a web search found nothing dated in the window. The \"DDRop\" lead from yesterday still has no primary source.",
+            "**ritual-net/infernet-node is still unreadable,** for the tenth run in a row, with the same credentials prompt as a non-existent repo. systems/ritual.md is left unchanged. This still needs a manual check. ### Related, not yet tied to a tracked system",
+            "**OblivDGL: oblivious deep graph learning** (IACR ePrint 2026/2655): secure GNN training and inference built on function secret sharing, with an oblivious message-passing design that reveals only the node and edge counts. The authors claim up to 1024x less communication and 14.3x faster secure training than earlier secure-GNN frameworks. Field: Secure MPC for ML. No tracked system uses it.",
+            "**AlgOssa: decentralized secure aggregation with rotating committees** (IACR ePrint 2026/2659): builds on the OPA / Willow committee-aided single-server model (CRYPTO '25), then picks the server and committees by Algorand-style sortition to get an eventual-delivery guarantee. The authors name buffered asynchronous FL as one use. Field: Federated learning / confidential aggregation. No tracked system uses it."
+          ]
+        },
+        "Next run": {
+          "markdown": "2026-10-30, 17:00 +03:00 (14:00 UTC)."
+        }
+      }
+    },
+    {
       "path": "watch/log/2026-10-28.md",
       "frontmatter": {
         "date": "2026-10-28",
@@ -5775,9 +5803,9 @@
   ],
   "checkpoint": {
     "schedule": "daily 17:00 +03:00 (14:00 UTC), weekdays and weekends alike",
-    "last_run": "2026-10-28T17:15:00+03:00",
+    "last_run": "2026-10-29T17:30:00+03:00",
     "last_run_kind": "daily",
-    "next_run": "2026-10-29T17:00:00+03:00",
+    "next_run": "2026-10-30T17:00:00+03:00",
     "sources": [
       "IACR ePrint (new listings)",
       "arXiv cs.CR, cs.LG, cs.DC (new listings)",
