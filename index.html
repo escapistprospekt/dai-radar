@@ -149,8 +149,7 @@
     font-size:11px; letter-spacing:.2em; color:var(--grounded);
     display:flex; align-items:center; gap:8px; margin-bottom:10px;
   }
-  .eyebrow::before{content:"//"; color:var(--ink-faint);}
-  h1,h2,h3{font-family:var(--mono); font-weight:700; margin:0; text-wrap:balance;}
+    h1,h2,h3{font-family:var(--mono); font-weight:700; margin:0; text-wrap:balance;}
   h1{font-size:clamp(28px,4vw,42px); letter-spacing:-.01em;}
   h2{font-size:20px; letter-spacing:.01em;}
   h3{font-size:14px; letter-spacing:.04em;}
@@ -469,8 +468,7 @@
   .cmp-head .acts{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
   .cmp-head .acts .closebtn{padding:3px 7px; font-size:10px;}
   .cmp-group{font-size:10.5px; letter-spacing:.2em; color:var(--grounded); padding:26px 0 8px; border-bottom:1px solid var(--line);}
-  .cmp-group::before{content:"// "; color:var(--ink-faint);}
-  .cmp-cell .who{display:none; font-size:10px; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px;}
+    .cmp-cell .who{display:none; font-size:10px; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px;}
   .cls{
     display:inline-block; font-size:10px; letter-spacing:.1em; font-weight:700; color:var(--ink);
     border:1px solid var(--ink-faint); padding:2px 7px; border-radius:2px; cursor:help;
@@ -549,12 +547,12 @@
       <button data-nav="systems">SYSTEMS</button>
       <button data-nav="compare">COMPARE</button>
       <button data-nav="foundations">FOUNDATIONS</button>
-      <button data-nav="log">SIGNAL LOG</button>
-      <button data-nav="about">CALIBRATION</button>
+      <button data-nav="log">CHANGE LOG</button>
+      <button data-nav="about">ABOUT</button>
     </nav>
     <div class="console-right">
       <div class="clock" id="clock"><b>UTC</b> --:--:--</div>
-      <button class="dial" id="themeToggle" title="toggle brightness" aria-label="toggle theme"></button>
+      <button class="dial" id="themeToggle" title="toggle theme" aria-label="toggle theme"></button>
     </div>
   </div>
 </header>
@@ -564,25 +562,25 @@
   <section class="view active" id="view-scope">
     <div class="scope-hero">
       <div>
-        <div class="eyebrow">DECENTRALIZED AI — LIVE RECKONING</div>
+        <div class="eyebrow">DECENTRALIZED AI · UPDATED DAILY</div>
         <h1>Decentralized&nbsp;AI, traced to its sources.</h1>
         <p class="lede">Production systems in verifiable inference, private compute, decentralized training, compute markets, agents, and incentive networks, each traced back to the paper it's actually built on, with every claim marked by how directly it's sourced. Not a news feed. A chain of custody.</p>
         <div class="ticker">
           <div class="cell"><div class="num" id="stat-systems">–</div><div class="lbl">SYSTEMS TRACKED</div></div>
           <div class="cell"><div class="num" id="stat-foundations">–</div><div class="lbl">SEED PAPERS</div></div>
           <div class="cell"><div class="num" id="stat-grounded">–</div><div class="lbl">FULLY GROUNDED</div></div>
-          <div class="cell"><div class="num" id="stat-updated">–</div><div class="lbl">LAST SWEEP</div></div>
+          <div class="cell"><div class="num" id="stat-updated">–</div><div class="lbl">LAST CHECK</div></div>
         </div>
-        <p class="misbar-line">dAI Radar is an instrument by <a href="https://misbar.tech" target="_blank" rel="noopener">Misbar</a> (misbar.tech).</p>
+        <p class="misbar-line">dAI Radar is a project by <a href="https://misbar.tech" target="_blank" rel="noopener">Misbar</a> (misbar.tech).</p>
       </div>
       <div>
         <div class="radar" id="radar">
           <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
           <div class="sweep"></div>
-          <div class="radar-center" id="radar-center">LAST SWEEP</div>
+          <div class="radar-center" id="radar-center">LAST CHECK</div>
         </div>
         <div class="scope-legend">
-          <span><i class="dot g"></i> grounded contact</span>
+          <span><i class="dot g"></i> grounded</span>
           <span><i class="dot m"></i> mixed / provisional</span>
         </div>
         <p class="radar-readout" id="radar-readout"></p>
@@ -590,7 +588,7 @@
     </div>
 
     <p class="statement">New research is checked against what actually ships, every day. <em>A note gets written only when something real moves.</em></p>
-    <p class="statement-meta"><span id="sweep-when">daily sweep</span> · IACR ePrint · arXiv cs.CR / cs.LG / cs.DC · tracked systems' repos · <button class="linkbtn" data-nav="log">signal log →</button></p>
+    <p class="statement-meta"><span id="sweep-when">daily check</span> · IACR ePrint · arXiv cs.CR / cs.LG / cs.DC · tracked systems' repos · <button class="linkbtn" data-nav="log">change log →</button></p>
     <!-- Prefilled prompt points the assistant at llms-full.txt (written by scripts/build_index.py). -->
     <div class="ask-row">
       <span class="lbl">QUERY THE DATA WITH YOUR OWN AI</span>
@@ -601,7 +599,7 @@
   </section>
 
   <section class="view" id="view-systems">
-    <div class="eyebrow">CASE FILES</div>
+    <div class="eyebrow">SYSTEM PROFILES</div>
     <h1>Tracked systems</h1>
     <p class="lede">Open a file to see its architecture, its sourced property matrix, and the citation chain down to the seed paper it's built on.</p>
 
@@ -629,8 +627,8 @@
   </section>
 
   <section class="view" id="view-log">
-    <div class="eyebrow">WATCH LOOP</div>
-    <h1>Signal log</h1>
+    <div class="eyebrow">DAILY CHECK</div>
+    <h1>Change log</h1>
     <p class="lede">A daily check against a fixed, narrow set of sources (IACR ePrint, relevant arXiv categories, and tracked systems' own repos) — not the entire literature.</p>
 
     <div class="logpanel">
@@ -658,19 +656,19 @@
   </section>
 
   <section class="view" id="view-about">
-    <div class="eyebrow">INSTRUMENT NOTES</div>
-    <h1>Calibration</h1>
-    <p class="lede">How to read every stamp on this instrument before you trust what it's showing you.</p>
+    <div class="eyebrow">ABOUT THIS SITE</div>
+    <h1>About</h1>
+    <p class="lede">How to read the labels on this site, and what they do and don't tell you.</p>
 
     <div class="notice">
       <b>AI‑generated content notice:</b> the research, analysis, and "does this affect system X" judgments here are produced primarily by an AI (Claude), with a human maintainer directing scope and spot‑checking output. This is <b>not</b> peer‑reviewed material and carries no claim of novel authorship over the analysis. Treat every claim as a starting point for your own verification; see each entry's confidence tier.
     </div>
 
-    <h2 style="margin-top:28px;">Signal‑integrity tiers</h2>
+    <h2 style="margin-top:28px;">Confidence tiers</h2>
     <div class="tiers">
       <div class="t">
         <span class="stamp grounded">GROUNDED</span>
-        <p>Directly sourced: a project's own README, docs, or paper states the claim explicitly. The strongest return this instrument gives.</p>
+        <p>Directly sourced: a project's own README, docs, or paper states the claim explicitly. The strongest level of evidence on this site.</p>
       </div>
       <div class="t">
         <span class="stamp mixed">INFERRED</span>
@@ -1194,11 +1192,11 @@
     var last = cp.last_run ? utcParts(cp.last_run) : null;
     var lastDate = last ? last.date : (logDates[logDates.length-1] || "—");
     document.getElementById("stat-updated").textContent = lastDate;
-    document.getElementById("radar-center").innerHTML = "LAST SWEEP<b>" + escapeHtml(lastDate) + "</b>";
+    document.getElementById("radar-center").innerHTML = "LAST CHECK<b>" + escapeHtml(lastDate) + "</b>";
 
     var next = cp.next_run ? utcParts(cp.next_run) : null;
     document.getElementById("sweep-when").textContent =
-      "daily sweep" + (next ? " at " + next.time + " UTC" : "") + " · last ran " + lastDate +
+      "daily check" + (next ? " at " + next.time + " UTC" : "") + " · last ran " + lastDate +
       (next ? " · next " + next.date : "");
   }
 
@@ -1279,7 +1277,7 @@
       var rad = (catAngle(ci) + (group.indexOf(s) - (k - 1) / 2) * step) * Math.PI / 180;
       var x = 50 + r * Math.cos(rad);
       var y = 50 + r * Math.sin(rad);
-      var tierText = s.tier === "grounded" ? "grounded" : "mixed signal";
+      var tierText = s.tier === "grounded" ? "grounded" : "mixed";
       var b = document.createElement("button");
       b.className = "blip" + (s.tier !== "grounded" ? " tier-mixed" : "") + (x > 50 ? " flip" : "");
       b.style.left = x + "%"; b.style.top = y + "%";
@@ -1313,7 +1311,7 @@
     });
     var tierChips = ["grounded","mixed"].map(function(tier){
       var c = document.createElement("button");
-      c.className = "chip"; c.textContent = tier === "grounded" ? "GROUNDED ONLY" : "MIXED SIGNAL";
+      c.className = "chip"; c.textContent = tier === "grounded" ? "GROUNDED ONLY" : "MIXED";
       c.addEventListener("click", function(){ activeTier = activeTier === tier ? null : tier; renderChips(); renderGrid(); });
       c._tier = tier;
       return c;
@@ -1351,7 +1349,7 @@
           var card = document.createElement("button");
           card.className = "card" + (openPath === s.path ? " open" : "");
           var stampCls = s.tier === "grounded" ? "grounded" : "mixed";
-          var stampText = s.tier === "grounded" ? "GROUNDED" : "MIXED SIGNAL";
+          var stampText = s.tier === "grounded" ? "GROUNDED" : "MIXED";
           card.innerHTML =
             '<div class="rowtop"><div><h3>'+escapeHtml(s.name)+'</h3><div class="field">'+escapeHtml(s.fieldTag)+'</div></div>'+
             '<span class="stamp '+stampCls+'">'+stampText+'</span></div>'+
@@ -1496,7 +1494,7 @@
       html += row("Matrix sourcing", "Property-matrix rows tagged grounded, out of all rows.", sel.map(function(s){
         var g = s.matrix.filter(function(r){ return r.tier === "grounded"; }).length, n = s.matrix.length;
         var pct = n ? Math.round(100 * g / n) : 0;
-        return '<span class="stamp '+(s.tier === "grounded" ? 'grounded">GROUNDED' : 'mixed">MIXED SIGNAL')+'</span>'+
+        return '<span class="stamp '+(s.tier === "grounded" ? 'grounded">GROUNDED' : 'mixed">MIXED')+'</span>'+
           '<p>'+g+' of '+n+' rows grounded</p><div class="evbar" role="img" aria-label="'+pct+'% of rows grounded"><i style="width:'+pct+'%"></i></div>'+
           (s.confidenceNote ? '<div class="src">'+escapeHtml(s.confidenceNote)+'</div>' : '')+
           '<div class="src">updated '+escapeHtml(s.updated || "—")+'</div>';
@@ -1593,7 +1591,7 @@
 
   function renderDossier(s){
     var stampCls = s.tier === "grounded" ? "grounded" : "mixed";
-    var stampText = s.tier === "grounded" ? "GROUNDED" : "MIXED SIGNAL";
+    var stampText = s.tier === "grounded" ? "GROUNDED" : "MIXED";
     var el = document.createElement("div");
     el.className = "dossier";
 
@@ -1720,7 +1718,7 @@
     if(!watchLog.length){
       timeline.innerHTML =
         '<div class="empty-log"><div class="glyph">&#9676;</div><div>'+
-        '<strong>No sweep has run yet.</strong>'+
+        '<strong>No check has run yet.</strong>'+
         '<p style="margin:6px 0 0;">This view fills with one dated entry per run. Nothing here is backfilled or simulated.</p>'+
         '</div></div>';
       return;
