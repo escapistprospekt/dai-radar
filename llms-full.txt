@@ -2,7 +2,7 @@
 
 > dAI Radar tracks shipping decentralized-AI / crypto-ML systems and traces each one back to the academic paper it is actually built on. Every claim is tagged "grounded" (directly sourced) or "inferred" (reasoned, not quoted); keep that distinction when answering from this data. A lineage is only asserted when a real citation chain exists.
 
-Generated 2026-10-31T14:08:29+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
+Generated 2026-11-01T14:09:11+00:00 from https://dai.misbar.tech. Below are the verbatim markdown source files: systems/ (one per tracked system; its `foundation:` key names the foundations/ file it builds on), foundations/ (one per seed paper), and watch/log/ (daily watch runs, newest first). Each file starts with a FILE: line.
 
 ========================================================================
 FILE: systems/akash-network.md
@@ -5172,6 +5172,77 @@ it as settled). The universality property of PLONK (one SRS per size
 bound, not per circuit) is part of why a general-purpose tool like
 EZKL — which has to support arbitrary ONNX graphs rather than one fixed
 circuit — is practical at all.
+
+========================================================================
+FILE: watch/log/2026-11-01.md
+========================================================================
+
+---
+date: 2026-11-01
+time: "17:00+03:00"
+kind: daily
+new_items_found: 1
+matrix_impacting: 0
+filed_related_only: 1
+---
+
+## What happened
+
+Checked IACR ePrint, arXiv (cs.CR/cs.LG/cs.DC), and 17 tracked repos
+since `last_run` (2026-10-31T17:08+03:00). No property matrix changed.
+One ePrint paper is field-relevant but not tied to a tracked system. It
+is filed below as related only.
+
+- **IACR ePrint:** a new batch appeared: 2026/2672 to 2026/2685, all
+  approved 2026-10-31. 2026/2686 onward still return no paper. One item
+  was kept (below). Set aside: high-precision CKKS noise cleaning for
+  asynchronous threshold CKKS (2026/2675) and an improved Ligero IOP
+  (2026/2681), which are general FHE and ZK results with no ML claim;
+  Sybil-proof adaptive clinching for AMMs (2026/2674) and an SoK on
+  multiple-concurrent-proposer blockchains (2026/2684), which are DeFi
+  and consensus results with no ML claim. The rest are side channels,
+  isogenies, Boolean functions, code-based lattice reduction, PAKE
+  cryptanalysis and protocol-analysis tooling, all out of scope.
+- **arXiv cs.CR / cs.LG / cs.DC:** no new batch. All three listings
+  still show Friday 30 Oct, which the 2026-10-30 run covered. arXiv
+  does not announce on Friday or Saturday evenings, and Sunday's batch
+  goes out after this run, so the next batch is Monday 2 Nov.
+- **Tracked repos:** the 14 repos named in systems/*.md, plus
+  Dstack-TEE/dstack, adap/flower and tinfoilsh/tinfoil-cli from the
+  checkpoint's source list, were read over anonymous git. 16 of the 17
+  could be read. No new release tag appeared in the window. Only two
+  repos changed, and both changes are below the bar:
+  - dstack: PR #1504 (four opt-in guest-kernel performance features,
+    plus transparent huge pages) and PR #1509 (EROFS, ublk and FUSE
+    options for streamed container layers) merged to `next`. Both only
+    add guest kernel config options. Neither touches the Isolation, Key
+    release or Audit rows, and no release has been cut that includes
+    them.
+  - Flower: the Model task type removal (#8449) landed on `main`, plus
+    translation updates. Nothing touches secure aggregation or DP.
+- **TEE attack disclosures:** a web search found nothing dated in the
+  window. Results are still TEE.Fail (October 2025) coverage and the
+  older TDXDown / CounterSEVeillance work.
+- **ritual-net/infernet-node is still unreadable,** for the thirteenth
+  run in a row, with the same credentials prompt as a non-existent
+  repo. systems/ritual.md is left unchanged. This still needs a manual
+  check.
+
+### Related, not yet tied to a tracked system
+
+- **Nenya: zkSNARKs over Z/2^k Z** (IACR ePrint 2026/2672): a SNARK with
+  native fixed-width integer arithmetic, built on reverse
+  multiplication-friendly embeddings and a code-based polynomial
+  commitment. The authors cite pixel-level image transformations in
+  media-provenance workflows as a use case, and claim a 12x speedup over
+  a field-based SNARK there. It is not tied to C2PA, and the Integrity,
+  Trust and Opt-in rows in systems/c2pa.md are unaffected. Any
+  relevance to quantized ZKML is inferred, since the paper makes no ML
+  claim. Field: Content provenance for AI-generated media.
+
+## Next run
+
+2026-11-02, 17:00 +03:00 (14:00 UTC).
 
 ========================================================================
 FILE: watch/log/2026-10-31.md
